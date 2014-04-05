@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -6,12 +6,216 @@
     tools:context="com.example.comp.SellOption"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:text="Item Description"
-        android:textSize="25dp" />
+    <!-- <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="534dp" > -->
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="306dp"
+            android:layout_height="440dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/categorytitle"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:text="Item Description"
+                android:textSize="25dp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" >
+            </View>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/chooseCategory"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/radioBook"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Book" />
+
+                <RadioButton
+                    android:id="@+id/radioBedding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bedding" />
+
+                <RadioButton
+                    android:id="@+id/radioSport"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sport Goods" />
+
+                <RadioButton
+                    android:id="@+id/radioFashion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fashion" />
+
+                <RadioButton
+                    android:id="@+id/radioCooking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cooking Utensils" />
+
+                <RadioButton
+                    android:id="@+id/radioElectronics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Electronics" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textTitle" />
+
+            <EditText
+                android:id="@+id/itemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+            
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+            
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textPrice" />
+
+            <EditText
+                android:id="@+id/doublePrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="in HKD"
+                android:inputType="numberDecimal" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textQuality" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/radioVeryGood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Very Good" />
+
+                    <RadioButton
+                        android:id="@+id/radioGood"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Good" />
+
+                    <RadioButton
+                        android:id="@+id/radioFair"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fair" />
+
+                    <RadioButton
+                        android:id="@+id/radioPoor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Poor" />
+
+                    <RadioButton
+                        android:id="@+id/radioVeryPoor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Very Poor" />
+                </RadioGroup>
+            </LinearLayout>
+            
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+            
+             <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textSummary"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+             <EditText
+                 android:id="@+id/description"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:ems="10"
+                 android:inputType="textMultiLine" />
+        
+             <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+             
+             <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textDescription"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+             <EditText
+                 android:id="@+id/description"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:ems="10"
+                 android:inputType="textMultiLine" />
+
+             <View
+                 android:layout_width="1dp"
+                 android:layout_height="30dp" />
+
+             <Button
+                 android:id="@+id/sellOptionSubmit"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="right"
+                 android:onClick="sellOptionSubmit"
+                 android:text="Submit" />
+             
+        </LinearLayout>
+    
+
+</ScrollView>

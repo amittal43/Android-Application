@@ -2,19 +2,17 @@ package com.example.comp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.widget.ImageButton;
 
 public class Product {
 	
-	public static List<Product> Collection = new ArrayList<Product>();
 
 	public enum Categories{BOOK, BEDDING, SPORT, FASHION, COOKING, ELECTRONICS}
 	
 	/**
 	 * The state of the product
 	 */
-	private int quality;
+	private int condition;
 	
 	/**
 	 * A short description of the project
@@ -37,9 +35,9 @@ public class Product {
 	 * @param summary
 	 * @param description
 	 */
-	public Product(int quality, String summary, String description) {
+	public Product(int condition, String summary, String description) {
 		//super();
-		this.quality = quality;
+		this.condition = condition;
 		this.summary = summary;
 		this.description = description;
 		
@@ -76,8 +74,8 @@ public class Product {
 	/**
 	 * @return the quality
 	 */
-	public int getQuality() {
-		return quality;
+	public int getCondition() {
+		return condition;
 	}
 	
 }

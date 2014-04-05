@@ -34,8 +34,6 @@ public class MainActivity extends Activity {
 	/** Called when the user clicks the Buy button */
 	public void openSearchResult (View view){
 		Intent intent = new Intent(this, SearchResultsActivity.class);
-		Button buyButton = (Button) findViewById(R.id.buyClick);
-		
 		startActivity(intent);
 	}
 	

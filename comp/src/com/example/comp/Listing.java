@@ -1,13 +1,17 @@
 package com.example.comp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Listing {
 
+	public static List<Listing> Collection = new ArrayList<Listing>();
+	
 	/**
 	 * The price of the product
 	 */
-	private int price;
+	private double price;
 	
 	/**
 	 * The date when the listing was submitted
@@ -24,7 +28,7 @@ public class Listing {
 	 * @param price
 	 * @param product
 	 */
-	public Listing(int price, Product product) {
+	public Listing(double price, Product product) {
 		this.price = price;
 		this.date = new Date();
 		this.product = product;
@@ -33,14 +37,14 @@ public class Listing {
 	/**
 	 * @return the price
 	 */
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
