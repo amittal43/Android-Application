@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.os.Build;
 
 public class MainActivity extends Activity {
@@ -21,17 +22,31 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		final Button button = (Button) findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener() {
+		/*final Button buyButton = (Button) findViewById(R.id.buyClick);
+        buyButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Perform action on click
+                openSearchResult(v);
             }
-        });
-        
-        Intent intent = new Intent(this, SearchResultsActivity.class);
-        startActivity(intent);
+        });*/
+
 	}
 
+	/** Called when the user clicks the Buy button */
+	public void openSearchResult (View view){
+		Intent intent = new Intent(this, SearchResultsActivity.class);
+		Button buyButton = (Button) findViewById(R.id.buyClick);
+		
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Sell button */
+	public void sellOption (View view){
+		Intent intent = new Intent(this, SellOption.class);
+		Button sellButton = (Button) findViewById(R.id.sellClick);
+		startActivity(intent);
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

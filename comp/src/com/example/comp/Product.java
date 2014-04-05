@@ -1,10 +1,15 @@
 package com.example.comp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.widget.ImageButton;
 
 public class Product {
+	
+	public static List<Product> Collection = new ArrayList<Product>();
 
-	public enum Categories{BOOKS, BEDDING, SPORTS}
+	public enum Categories{BOOK, BEDDING, SPORT, FASHION, COOKING, ELECTRONICS}
 	
 	/**
 	 * The state of the product
@@ -21,7 +26,7 @@ public class Product {
 	 */
 	private String description;
 	
-	private ImageButton image;
+	//private ImageButton image;
 
 	
 	// TODO: image of product
@@ -33,7 +38,7 @@ public class Product {
 	 * @param description
 	 */
 	public Product(int quality, String summary, String description) {
-		super();
+		//super();
 		this.quality = quality;
 		this.summary = summary;
 		this.description = description;
