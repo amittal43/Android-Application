@@ -26,6 +26,10 @@
             android:name="com.example.comp.SearchResultsActivity"
             android:label="@string/title_activity_search_page" >
         </activity>
+        <activity
+            android:name="com.example.comp.SellOption"
+            android:label="@string/title_activity_sell_option" >
+        </activity>
     </application>
 
 </manifest>
