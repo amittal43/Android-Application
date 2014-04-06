@@ -16,7 +16,7 @@ public class Listing {
 	
 //	public static ArrayList<Listing> collection = new ArrayList<Listing>();
 	
-	
+	 
 	/*public ArrayList<Listing> createListing(){
 		BeddingListing.add(new Listing(10, new Product("Good", "blanket" , " ", R.drawable.blanket)));
 		return BeddingListing;
