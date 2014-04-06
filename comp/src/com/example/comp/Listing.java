@@ -2,11 +2,12 @@ package com.example.comp;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class Listing {
 
-	public static List<Listing> Collection = new ArrayList<Listing>();
+	public static ArrayList<Listing> collection = new ArrayList<Listing>();
+
 	
 	/**
 	 * The price of the product
@@ -67,6 +68,10 @@ public class Listing {
 	 */
 	public Product getProduct() {
 		return product;
+	}
+	
+	public ArrayList<Listing> getCollection(){
+		return collection;
 	}
 	
 }

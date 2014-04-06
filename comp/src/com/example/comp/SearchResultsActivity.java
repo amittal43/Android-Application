@@ -1,34 +1,79 @@
 package com.example.comp;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class SearchResultsActivity extends Activity {
 	
+	private static final int SELECT_PHOTO = 100;
+	
 	ArrayList<Listing> listings;
 
+	Listing prod;
+	
+	ArrayList<Listing> fashion = prod.getCollection();
+	
+	
+	
+	
+	
+	ImageView imageview;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
 		
-		listings = new ArrayList<Listing>();
-		listings.add(new Listing(10, new Product(0, "blanket" , "")));
 		
-		ImageButton imgb = new ImageButton(getApplicationContext());
-	//	imgb.setImageDrawable();
+		listings = new ArrayList<Listing>();
+//		listings.add(new Listing(10, new Product(0, "blanket" , "", .getResources().getDrawable(R.drawable.blanket,1));
+		
+//		ImageView img = (ImageView) findViewById(R.id.imageView1);
+		
+		Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+		photoPickerIntent.setType("image/*");
+		startActivityForResult(photoPickerIntent, SELECT_PHOTO); 
+		 
+	}	
+	
+	protected void onActivityResult(int requestCode, int resultCode, 
+		       Intent imageReturnedIntent) {
+		    super.onActivityResult(requestCode, resultCode, imageReturnedIntent); 
 
-	}
+		    switch(requestCode) { 
+		    case SELECT_PHOTO:
+		        if(resultCode == RESULT_OK){  
+		            Uri selectedImage = imageReturnedIntent.getData();
+		            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+		            Cursor cursor = getContentResolver().query(
+		                               selectedImage, filePathColumn, null, null, null);
+		            cursor.moveToFirst();
+
+		            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+		            String filePath = cursor.getString(columnIndex);
+		            cursor.close();
+		            Bitmap yourSelectedImage = BitmapFactory.decodeFile(filePath);
+		           
+		            
+		        }
+		    }
+		}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,6 +96,7 @@ public class SearchResultsActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 	/**
 	 * A placeholder fragment containing a simple view.
