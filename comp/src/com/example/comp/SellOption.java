@@ -21,7 +21,7 @@ public class SellOption extends Activity {
 	private RadioButton radioQualityButton;
 	private EditText doublePrice;
 	private EditText stringTitle;
-	private EditText stringSummary;
+	//private EditText stringSummary;
 	private EditText stringDescription;
 	
 	/** Called when the user clicks the Submit button */
