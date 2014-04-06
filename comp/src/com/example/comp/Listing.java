@@ -6,16 +6,21 @@ import java.util.Date;
 
 public class Listing {
 
-	public static ArrayList<Listing> BeddingListing = new ArrayList<Listing>();;
-	ArrayList<Listing> BooksListing;
+	public static ArrayList<Listing> bookListing = new ArrayList<Listing>();;
+	public static ArrayList<Listing> beddingListing = new ArrayList<Listing>();;
+	public static ArrayList<Listing> sportListing = new ArrayList<Listing>();;
+	public static ArrayList<Listing> fashionListing = new ArrayList<Listing>();;
+	public static ArrayList<Listing> cookingListing = new ArrayList<Listing>();;
+	public static ArrayList<Listing> electronicsListing = new ArrayList<Listing>();
+	//ArrayList<Listing> BooksListing;
 	
 //	public static ArrayList<Listing> collection = new ArrayList<Listing>();
 	
 	
-	public ArrayList<Listing> createListing(){
+	/*public ArrayList<Listing> createListing(){
 		BeddingListing.add(new Listing(10, new Product("Good", "blanket" , " ", R.drawable.blanket)));
 		return BeddingListing;
-	}
+	}*/
 	
 
 	
@@ -80,8 +85,8 @@ public class Listing {
 		return product;
 	}
 	
-	public ArrayList<Listing> getBeddingListing(){
+	/*public ArrayList<Listing> getBeddingListing(){
 		return BeddingListing;
-	}
+	}*/
 	
 }

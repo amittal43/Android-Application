@@ -48,7 +48,7 @@ public class Product {
 	/**
 	 * @return the summary
 	 */
-	public String gettitle() {
+	public String getTitle() {
 		return title;
 	}
 

@@ -24,6 +24,26 @@
                 android:text="Item Description"
                 android:textSize="25dp" />
 
+            
+            <View
+                android:layout_width="1dp"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textTitle" />
+
+            <EditText
+                android:id="@+id/itemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+            
             <View
                 android:layout_width="1dp"
                 android:layout_height="30dp" >
@@ -78,24 +98,7 @@
                     android:text="Electronics" />
             </RadioGroup>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/textTitle" />
-
-            <EditText
-                android:id="@+id/itemTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10" >
-
-                <requestFocus />
-            </EditText>
+            
             
             <View
                 android:layout_width="1dp"
@@ -108,7 +111,7 @@
                 android:text="@+string/textPrice" />
 
             <EditText
-                android:id="@+id/doublePrice"
+                android:id="@+id/itemPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -170,25 +173,8 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="30dp" />
-            
-             <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/textSummary"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-             <EditText
-                 android:id="@+id/description"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:ems="10"
-                 android:inputType="textMultiLine" />
         
-             <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-             
              <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
@@ -197,7 +183,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
              <EditText
-                 android:id="@+id/description"
+                 android:id="@+id/itemDescription"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:ems="10"
@@ -211,7 +197,7 @@
                  android:id="@+id/sellOptionSubmit"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:layout_gravity="right"
+                 android:layout_gravity="center_horizontal"
                  android:onClick="sellOptionSubmit"
                  android:text="Submit" />
              

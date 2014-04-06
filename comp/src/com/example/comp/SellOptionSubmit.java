@@ -8,9 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class SellOptionSubmit extends Activity {
 
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -20,6 +22,30 @@ public class SellOptionSubmit extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+	    Bundle bundle = getIntent().getExtras();
+	    //Extract each value from the bundle for usage
+	    String title = bundle.getString("TITLE");
+	    String category = bundle.getString("CATEGORY");
+	    String quality = bundle.getString("QUALITY");
+	    String description = bundle.getString("DESCRIPTION");
+	    String price = Double.toString(bundle.getDouble("PRICE"));
+	    
+	    
+	    TextView textTitle = (TextView) findViewById(R.id.confirmTitle);
+	    textTitle.append(title);
+	    
+	    TextView textCategory = (TextView) findViewById(R.id.confirmCategory);
+	    textCategory.append(category);
+	    
+	    TextView textQuality = (TextView) findViewById(R.id.confirmQuality);
+	    textQuality.append(quality);
+	    
+	    TextView textDescription = (TextView) findViewById(R.id.confirmDescription);
+	    textDescription.append(description);
+	    
+	    TextView textPrice = (TextView) findViewById(R.id.confirmPrice);
+	    textPrice.append(price);
 	}
 
 	@Override
