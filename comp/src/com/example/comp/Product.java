@@ -1,13 +1,14 @@
 package com.example.comp;
 
 import java.util.ArrayList;
-import java.util.List;
-import android.widget.ImageButton;
+
+import android.graphics.Bitmap;
 
 public class Product {
 	
 
 	public enum Categories{BOOK, BEDDING, SPORT, FASHION, COOKING, ELECTRONICS}
+
 	
 	/**
 	 * The state of the product
@@ -24,7 +25,9 @@ public class Product {
 	 */
 	private String description;
 	
-	//private ImageButton image;
+	private Bitmap image;
+
+	private int icon;
 
 	
 	// TODO: image of product
@@ -35,11 +38,12 @@ public class Product {
 	 * @param summary
 	 * @param description
 	 */
-	public Product(int condition, String summary, String description) {
+	public Product(int condition, String summary, String description, int icon, int index) {
 		//super();
 		this.condition = condition;
 		this.summary = summary;
 		this.description = description;
+//		this.icon = context.getResources().getDrawable(icon);
 		
 	}
 
@@ -76,6 +80,14 @@ public class Product {
 	 */
 	public int getCondition() {
 		return condition;
+	}
+	
+	public void setImage(Bitmap image){
+		this.image = image;
+	}
+	
+	public Bitmap getImage(){
+		return image;
 	}
 	
 }

@@ -64,6 +64,10 @@ public class MainActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	public void searchItem(View view) {
+		Intent intent = new Intent(this, SearchResultsActivity.class);
+	}
 
 	/**
 	 * A placeholder fragment containing a simple view.
