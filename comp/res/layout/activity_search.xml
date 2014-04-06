@@ -3,35 +3,45 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.comp.SearchActivity"
     tools:ignore="MergeRootFrame" >
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonFashion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Fashion" />
+        android:text="@string/buttonFashion" />
     
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonBedding"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bedding" />
+        android:text="@string/buttonBedding" />
+
     <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonSports"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sport" />
+        android:text="@string/buttonSports" />
+
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonElectronics"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Electronic" />
+        android:text="@string/buttonElectronics" />
+
     <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonCooking"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cooking" />
+        android:text="@string/buttonCooking" />
+    
+    <Button
+        android:id="@+id/buttonBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonBook" />
     
 
 </LinearLayout>

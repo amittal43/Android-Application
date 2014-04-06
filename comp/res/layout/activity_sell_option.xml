@@ -65,37 +65,37 @@
                     android:id="@+id/radioBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Book" />
+                    android:text="@string/radioBook" />
 
                 <RadioButton
                     android:id="@+id/radioBedding"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bedding" />
+                    android:text="@string/radioBedding" />
 
                 <RadioButton
                     android:id="@+id/radioSport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sport Goods" />
+                    android:text="@string/radioSport" />
 
                 <RadioButton
                     android:id="@+id/radioFashion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fashion" />
+                    android:text="@string/radioFashion" />
 
                 <RadioButton
                     android:id="@+id/radioCooking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Cooking Utensils" />
+                    android:text="@string/radioCooking" />
 
                 <RadioButton
                     android:id="@+id/radioElectronics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Electronics" />
+                    android:text="@string/radioElectronics" />
             </RadioGroup>
 
             
@@ -142,31 +142,31 @@
                         android:id="@+id/radioVeryGood"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Very Good" />
+                        android:text="@string/radioVeryGood" />
 
                     <RadioButton
                         android:id="@+id/radioGood"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Good" />
+                        android:text="@string/radioGood" />
 
                     <RadioButton
                         android:id="@+id/radioFair"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fair" />
+                        android:text="@string/radioFair" />
 
                     <RadioButton
                         android:id="@+id/radioPoor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Poor" />
+                        android:text="@string/radioPoor" />
 
                     <RadioButton
                         android:id="@+id/radioVeryPoor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Very Poor" />
+                        android:text="@string/radioVeryPoor" />
                 </RadioGroup>
             </LinearLayout>
             

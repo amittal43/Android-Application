@@ -1,19 +1,15 @@
 package com.example.comp;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.os.Build;
 
 public class MainActivity extends Activity {
 
@@ -67,6 +63,8 @@ public class MainActivity extends Activity {
 	
 	public void searchItem(View view) {
 		Intent intent = new Intent(this, SearchResultsActivity.class);
+		Button searchButton = (Button) findViewById(R.id.sellClick);
+		startActivity(intent);
 	}
 
 	/**
