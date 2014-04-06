@@ -13,5 +13,6 @@
     <string name="textSummary"><b>Item Summary</b></string>
     <string name="textDescription"><b>Item Description</b></string>
     <string name="title_activity_sell_option_submit">SellOptionSubmit</string>
+    <string name="title_activity_search">SearchActivity</string>
 
 </resources>

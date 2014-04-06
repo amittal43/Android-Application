@@ -6,7 +6,17 @@ import java.util.Date;
 
 public class Listing {
 
-	public static ArrayList<Listing> collection = new ArrayList<Listing>();
+	public static ArrayList<Listing> BeddingListing = new ArrayList<Listing>();;
+	ArrayList<Listing> BooksListing;
+	
+//	public static ArrayList<Listing> collection = new ArrayList<Listing>();
+	
+	
+	public ArrayList<Listing> createListing(){
+		BeddingListing.add(new Listing(10, new Product("Good", "blanket" , " ", R.drawable.blanket)));
+		return BeddingListing;
+	}
+	
 
 	
 	/**
@@ -70,8 +80,8 @@ public class Listing {
 		return product;
 	}
 	
-	public ArrayList<Listing> getCollection(){
-		return collection;
+	public ArrayList<Listing> getBeddingListing(){
+		return BeddingListing;
 	}
 	
 }
