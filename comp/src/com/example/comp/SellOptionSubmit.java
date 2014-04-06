@@ -2,6 +2,7 @@ package com.example.comp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SellOptionSubmit extends Activity {
 
@@ -47,7 +49,18 @@ public class SellOptionSubmit extends Activity {
 	    TextView textPrice = (TextView) findViewById(R.id.confirmPrice);
 	    textPrice.append(price);
 	}
-
+	
+	/**
+	 * Called when the user clicks the confirm button
+	 * Go back to MainActivity (Menu) page
+	 * @param view
+	 */
+	public void backToHome(View view){
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		Toast.makeText(this, "The Item is added successfully",Toast.LENGTH_LONG).show();
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
