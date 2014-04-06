@@ -1,24 +1,22 @@
 package com.example.comp;
 
-import java.util.ArrayList;
-
 import android.graphics.Bitmap;
 
 public class Product {
 	
 
-	public enum Categories{BOOK, BEDDING, SPORT, FASHION, COOKING, ELECTRONICS}
+//	public enum Categories{BOOK, BEDDING, SPORT, FASHION, COOKING, ELECTRONICS}
 
 	
 	/**
 	 * The state of the product
 	 */
-	private int condition;
+	private String quality;
 	
 	/**
 	 * A short description of the project
 	 */
-	private String summary;
+	private String title;
 	
 	/**
 	 * A long description of the product
@@ -38,27 +36,27 @@ public class Product {
 	 * @param summary
 	 * @param description
 	 */
-	public Product(int condition, String summary, String description, int icon, int index) {
+	public Product(String quality, String title, String description, int icon) {
 		//super();
-		this.condition = condition;
-		this.summary = summary;
+		this.quality = quality;
+		this.title = title;
 		this.description = description;
-//		this.icon = context.getResources().getDrawable(icon);
+		this.icon = icon;
 		
 	}
 
 	/**
 	 * @return the summary
 	 */
-	public String getSummary() {
-		return summary;
+	public String gettitle() {
+		return title;
 	}
 
 	/**
 	 * @param summary the summary to set
 	 */
-	public void setSummary(String summary) {
-		this.summary = summary;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**
@@ -78,8 +76,8 @@ public class Product {
 	/**
 	 * @return the quality
 	 */
-	public int getCondition() {
-		return condition;
+	public String getQuality() {
+		return quality;
 	}
 	
 	public void setImage(Bitmap image){
@@ -88,6 +86,10 @@ public class Product {
 	
 	public Bitmap getImage(){
 		return image;
+	}
+	
+	public int getIcon(){
+		return icon;
 	}
 	
 }
