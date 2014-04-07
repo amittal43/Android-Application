@@ -29,7 +29,11 @@ public class SearchActivity extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 		
-		Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+		
+		/**
+		 * load pictures
+		 */
+		/*Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
 	    buttonLoadImage.setOnClickListener(new View.OnClickListener() {
 	         
 	        @Override
@@ -41,7 +45,7 @@ public class SearchActivity extends Activity {
 	             
 	            startActivityForResult(i, RESULT_LOAD_IMAGE);
 	        }
-	    });
+	    });*/
 		
 	}
 	
@@ -60,7 +64,7 @@ public class SearchActivity extends Activity {
 		startActivity(intent);
 	}
  
- 
+	/*
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	    super.onActivityResult(requestCode, resultCode, data);
@@ -83,7 +87,7 @@ public class SearchActivity extends Activity {
 	    }
  
  
-}
+	}*/
 	
 	
 

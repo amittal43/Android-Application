@@ -51,10 +51,6 @@
             android:label="@string/title_activity_search_electronics" >
         </activity>
         <activity
-            android:name="com.example.comp.SearchBedding"
-            android:label="@string/title_activity_search_bedding" >
-        </activity>
-        <activity
             android:name="com.example.comp.ShowProduct"
             android:label="@string/title_activity_show_product" >
         </activity>

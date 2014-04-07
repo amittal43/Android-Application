@@ -1,7 +1,9 @@
 package com.example.comp;
 
 import android.app.Activity;
+import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -9,9 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.os.Build;
 
 public class ShowProduct extends Activity {
 
+
+    int category;
+    int index;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,13 +29,11 @@ public class ShowProduct extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
-		
-
-	    Bundle bundle = getIntent().getExtras();
+		Bundle bundle = getIntent().getExtras();
 	    //Extract each value from the bundle for usage
-	    int category = bundle.getInt("CATEGORY");
-	    int index = bundle.getInt("INDEX");
-	    
+	    category = bundle.getInt("CATEGORY");
+	    index = bundle.getInt("INDEX");
+		
 	    TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 	    textTitle.append(Listing.bookListing.get(index).getProduct().getTitle());
 	    
@@ -40,6 +46,14 @@ public class ShowProduct extends Activity {
 	    TextView textPrice = (TextView) findViewById(R.id.showproductPrice);
 	    String price = Double.toString(Listing.bookListing.get(index).getPrice());
 	    textPrice.append(price);
+		
+	}
+	
+	public void buy (View view){
+		Intent intent = new Intent(this, MainActivity.class);
+		startActivity(intent);
+		Toast.makeText(this, "The item is bought successfully",Toast.LENGTH_LONG).show();
+		Listing.bookListing.remove(index);
 		
 	}
 

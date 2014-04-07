@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:text="Description&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:text="Quality&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -53,8 +55,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:text="Price&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Buy"
+            android:onClick="buy" />
 
     </LinearLayout>
 
