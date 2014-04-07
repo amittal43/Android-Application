@@ -50,6 +50,10 @@
             android:name="com.example.comp.SearchElectronics"
             android:label="@string/title_activity_search_electronics" >
         </activity>
+        <activity
+            android:name="com.example.comp.SearchBedding"
+            android:label="@string/title_activity_search_bedding" >
+        </activity>
     </application>
 
 </manifest>

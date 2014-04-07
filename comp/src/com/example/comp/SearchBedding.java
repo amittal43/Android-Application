@@ -12,24 +12,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SearchElectronics extends Activity {
+public class SearchBedding extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_electronics);
+		setContentView(R.layout.activity_search_bedding);
 
-		/*if (savedInstanceState == null) {
+		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
+		}
 		
-		for(int i=0;i<Listing.electronicsListing.size();i++){
+		for(int i=0;i<Listing.beddingListing.size();i++){
 			LinearLayout container = (LinearLayout)findViewById(R.id.container);
 			final TextView rowTextView = new TextView(this);
-			rowTextView.setText(Listing.electronicsListing.get(i).getProduct().getTitle());
+			rowTextView.setText(Listing.beddingListing.get(i).getProduct().getTitle());
 			final ImageView rowImageView = new ImageView(this);
-			rowImageView.setImageBitmap(Listing.electronicsListing.get(i).getProduct().getImage());
+			rowImageView.setImageBitmap(Listing.beddingListing.get(i).getProduct().getImage());
 			
 			container.addView(rowTextView);
 		}	
@@ -39,7 +39,7 @@ public class SearchElectronics extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.search_electronics, menu);
+		getMenuInflater().inflate(R.menu.search_bedding, menu);
 		return true;
 	}
 
@@ -66,8 +66,8 @@ public class SearchElectronics extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_search_electronics, container, false);
+			View rootView = inflater.inflate(R.layout.fragment_search_bedding,
+					container, false);
 			return rootView;
 		}
 	}
