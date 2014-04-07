@@ -192,6 +192,19 @@
              <View
                  android:layout_width="1dp"
                  android:layout_height="30dp" />
+             
+             <ImageView
+		        android:id="@+id/imgView"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"></ImageView>
+	   	 	<Button
+		        android:id="@+id/buttonLoadPicture"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="0"
+		        android:text="Load Picture"
+		        android:layout_gravity="center"></Button>
 
              <Button
                  android:id="@+id/sellOptionSubmit"

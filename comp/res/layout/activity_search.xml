@@ -80,6 +80,7 @@
             android:onClick="searchElectronics" />
 
     </LinearLayout>
+    
 
 </LinearLayout>
 
