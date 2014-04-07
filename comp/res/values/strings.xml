@@ -32,5 +32,7 @@
     <string name="buttonBedding">Bedding</string>
     <string name="buttonBook">Books</string>
     <string name="title_activity_search_books">SearchBooks</string>
+    <string name="title_activity_search_fashion">SearchFashion</string>
+    <string name="title_activity_search_electronics">SearchElectronics</string>
 
 </resources>
