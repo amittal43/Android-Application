@@ -2,6 +2,7 @@ package com.example.comp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +23,11 @@ public class SearchActivity extends Activity {
 		}
 		
 		
+	}
+	
+	public void searchBooksFunc (View view){
+		Intent intent = new Intent(this, SearchBooks.class);
+		startActivity(intent);
 	}
 
 	@Override
