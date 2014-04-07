@@ -14,28 +14,23 @@
     <string name="textDescription"><b>Description</b></string>
     <string name="title_activity_sell_option_submit">SellOptionSubmit</string>
     <string name="title_activity_search">SearchActivity</string>
-    
-    
     <string name="radioVeryGood">Very Good</string>
     <string name="radioGood">Good</string>
     <string name="radioFair">Fair</string>
     <string name="radioVeryPoor">Very Poor</string>
     <string name="radioPoor">Poor</string>
-    
-    
     <string name="radioBook">Book</string>
     <string name="radioBedding">Bedding</string>
     <string name="radioFashion">Fashion</string>
     <string name="radioElectronics">Electronics</string>
     <string name="radioCooking">Cooking Utensils</string>
     <string name="radioSport">Sport</string>
-    
-    
     <string name="buttonSports">Sports</string>
     <string name="buttonCooking">Cooking Utensils</string>
     <string name="buttonFashion">Fashion</string>
     <string name="buttonElectronics">Electronics</string>
     <string name="buttonBedding">Bedding</string>
     <string name="buttonBook">Books</string>
+    <string name="title_activity_search_books">SearchBooks</string>
 
 </resources>

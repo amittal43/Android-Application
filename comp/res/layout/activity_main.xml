@@ -7,16 +7,25 @@
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="232dp"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
         android:orientation="vertical" >
 
+        <View
+                android:layout_width="1dp"
+                android:layout_height="20dp" />
+        
         <Button
             android:id="@+id/buyClick"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:onClick="openSearchResult"
             android:text="Buy" />
+        
+        <View
+                android:layout_width="1dp"
+                android:layout_height="20dp" />
 
         <Button
             android:id="@+id/sellClick"
