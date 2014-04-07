@@ -2,12 +2,16 @@ package com.example.comp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,29 +28,44 @@ public class SearchBooks extends Activity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 		
-		for (int i=0; i< Listing.bookListing.size(); ++i){
+		final Bundle bundle = new Bundle();
+		
+		for (int i=0; i < Listing.bookListing.size(); ++i){
 			
 		    LinearLayout container = (LinearLayout)findViewById(R.id.container);
-			final TextView rowTextView = new TextView(this);
-		    // set some properties of rowTextView or something
-		    rowTextView.setText(Listing.bookListing.get(i).getProduct().getTitle());
-
-		    container.addView(rowTextView);
-		    // add the textview to the linearlayout
-		    //myLinearLayout.addView(rowTextView);
-
-		    // save a reference to the textview for later
-		    //myTextViews[i] = rowTextView
+		    Button rowButton = new Button(this);
+		    //LinearLayout.LayoutParams param = (LinearLayout.LayoutParams)container.getLayoutParams();
+		    //rowButton.setLayoutParams(param);
 		    
 
-		    //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-		    //TextView tv = new TextView(viewrecords.this);
-		    /*tv.setId(1);
-		    tv.setTextSize(15);
-		    tv.setText("test adding");
-		    tv.setLayoutParams(lp);*/
-		    //ll.addView(tv);
+			String content = Listing.bookListing.get(i).getProduct().getTitle();
+			content += "\n" + Listing.bookListing.get(i).getPrice();
+		    // set some properties of rowTextView or something
+		    rowButton.setText(content);
+		    
+		    final int index = i;
+		    
+		    rowButton.setOnClickListener(new OnClickListener() {
+		        public void onClick(View v) {
+		            bundle.putInt("CATEGORY", 0);
+		            bundle.putInt("INDEX", index);
+		            Intent intent = new Intent(SearchBooks.this, ShowProduct.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+		        }
+		    });
+		    
+		    container.addView(rowButton);
+
+		    
+		   /* RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)button.getLayoutParams();
+		    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		    params.addRule(RelativeLayout.LEFT_OF, R.id.id_to_be_left_of);
+		    button.setLayoutParams(params); //causes layout update
+			*/
 		}
+		
+
 	}
 
 	@Override

@@ -55,6 +55,10 @@ public class SearchActivity extends Activity {
 		startActivity(intent);
 	}
 
+	public void searchBedding(View view){
+		Intent intent = new Intent(this, SearchBedding.class);
+		startActivity(intent);
+	}
  
  
 	@Override
