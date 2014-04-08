@@ -3,15 +3,10 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.comp.SellOption"
+    tools:context="com.example.comp.LendOption"
     tools:ignore="MergeRootFrame" >
 
-    <!-- <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="534dp" > -->
-
-        <LinearLayout
+	<LinearLayout
             android:layout_width="306dp"
             android:layout_height="440dp"
             android:layout_gravity="center_horizontal"
@@ -192,13 +187,23 @@
              <View
                  android:layout_width="1dp"
                  android:layout_height="30dp" />
+
+        
+             <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@+string/textPeriod"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
              
-             <ImageView
+             
+             <!-- <ImageView
 		        android:id="@+id/imgView"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"></ImageView>
-	   	 	<!-- <Button
+	   	 	 <Button
 		        android:id="@+id/buttonLoadPicture"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
@@ -206,15 +211,25 @@
 		        android:text="Load Picture"
 		        android:layout_gravity="center"></Button> -->
 
+             <EditText
+                 android:id="@+id/editText1"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:ems="10"
+                 android:inputType="date"
+                 android:hint="DD/MM/YYYY" />
+
+             <View
+                 android:layout_width="1dp"
+                 android:layout_height="30dp" />
+
              <Button
                  android:id="@+id/sellOptionSubmit"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_gravity="center_horizontal"
-                 android:onClick="sellOptionSubmit"
+                 android:onClick="lendOptionSubmit"
                  android:text="Submit" />
              
         </LinearLayout>
-    
-
-</ScrollView>
+</ScrollView>        
