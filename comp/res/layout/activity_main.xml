@@ -19,7 +19,7 @@
         <Button
             android:id="@+id/buyClick"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
+            android:layout_height="65dp"
             android:onClick="openSearchResult"
             android:text="Buy" />
         
@@ -55,6 +55,38 @@
             android:layout_height="68dp"
             android:onClick="lendOption"
             android:text="Lend" />
+        
+        <View
+                android:layout_width="1dp"
+                android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Login using Username" />
+        
+        
+
+        <!-- <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login using Facebook" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login using Google +" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Create Account" /> -->
 
     </LinearLayout>
 
