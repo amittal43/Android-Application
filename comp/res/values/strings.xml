@@ -11,6 +11,8 @@
     <string name="textPrice"><b>Price</b></string>
     <string name="textQuality"><b>Quality</b></string>
     <string name="textSummary"><b>Summary</b></string>
+    <string name="textPeriod"><b>Loan due date</b></string>
+    <string name="pick_date"><b>Pick the date</b></string>
     <string name="textDescription"><b>Description</b></string>
     <string name="title_activity_sell_option_submit">SellOptionSubmit</string>
     <string name="title_activity_search">SearchActivity</string>
@@ -35,5 +37,6 @@
     <string name="title_activity_search_fashion">SearchFashion</string>
     <string name="title_activity_search_electronics">SearchElectronics</string>
     <string name="title_activity_show_product">ShowProduct</string>
+    <string name="title_activity_lend_option">LendOption</string>
 
 </resources>

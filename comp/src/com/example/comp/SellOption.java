@@ -3,6 +3,7 @@ package com.example.comp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,7 +23,7 @@ public class SellOption extends Activity {
 	private EditText stringTitle;
 	//private EditText stringSummary;
 	private EditText stringDescription;
-	
+
 	/** Called when the user clicks the Submit button */
 	public void sellOptionSubmit (View view){
 		

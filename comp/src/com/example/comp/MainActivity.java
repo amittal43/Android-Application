@@ -27,19 +27,19 @@ public class MainActivity extends Activity {
 
 	}
 
-	/** Called when the user clicks the Buy button */
+	//TODO: Create the method where the borrow button is clicked
+	
+	/** Called when the user clicks the Buy <and Borrow> button */
 	public void openSearchResult (View view){
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
 	}
-	
+
 	/** Called when the user clicks the Sell button */
-	public void sellOption (View view){
-		Intent intent = new Intent(this, SellOption.class);
-		Button sellButton = (Button) findViewById(R.id.sellClick);
+	public void lendOption (View view){
+		Intent intent = new Intent(this, LendOption.class);
 		startActivity(intent);
 	}
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
