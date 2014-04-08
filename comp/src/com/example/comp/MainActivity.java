@@ -24,8 +24,25 @@ public class MainActivity extends Activity {
                 openSearchResult(v);
             }
         });*/
-
+		
 	}
+		public void onClick(View view) 
+		{
+			switch(view.getId()){
+			case R.id.button1: 
+				Intent intent1 = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(intent1);
+				break;
+			
+
+/*			case R.id.button4:
+				Intent intent2 = new Intent(getBaseContext(), CreateUserActivity.class);
+				startActivity(intent2);
+				break;*/
+		}
+
+		}
+
 
 	//TODO: Create the method where the borrow button is clicked
 	
