@@ -30,15 +30,15 @@ public class MainActivity extends Activity {
 		{
 			switch(view.getId()){
 			case R.id.button1: 
-				Intent intent1 = new Intent(getBaseContext(), LoginActivity.class);
+				Intent intent1 = new Intent(this, LoginActivity.class);
 				startActivity(intent1);
 				break;
 			
 
-/*			case R.id.button4:
-				Intent intent2 = new Intent(getBaseContext(), CreateUserActivity.class);
+			case R.id.button4:
+				Intent intent2 = new Intent(this, CreateUserActivity.class);
 				startActivity(intent2);
-				break;*/
+				break;
 		}
 
 		}
