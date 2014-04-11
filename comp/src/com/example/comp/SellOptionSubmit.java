@@ -74,7 +74,6 @@ public class SellOptionSubmit extends Activity {
 	 */
 	public void backToHome(View view){
 		Intent intent = new Intent(this, MainActivity.class);
-		Toast.makeText(this, "The Item is added successfully",Toast.LENGTH_LONG).show();
 		Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
 		String title = bundle.getString("TITLE");
@@ -84,7 +83,6 @@ public class SellOptionSubmit extends Activity {
 		String price = String.valueOf(bundle.getDouble("PRICE"));
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
 				title, category,price, quality, description);
-		
 		startActivity(intent);
 	}
 
