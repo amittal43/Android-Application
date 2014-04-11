@@ -40,5 +40,6 @@
     <string name="title_activity_lend_option">LendOption</string>
     <string name="title_activity_create_user">CreateUserActivity</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
 
 </resources>
