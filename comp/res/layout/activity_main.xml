@@ -8,13 +8,13 @@
 
     <LinearLayout
         android:layout_width="232dp"
-        android:layout_height="match_parent"
+        android:layout_height="303dp"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical" >
-        
+
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/button1"
@@ -22,28 +22,37 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="Login using Username" />
-        
-        
 
-        <!-- <Button
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
+        <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login using Facebook" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
+           android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Login using Google +" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/button4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClick"
-            android:text="Create Account" /> -->
-
+            android:text="Create Account" />
     </LinearLayout>
 
 </FrameLayout>

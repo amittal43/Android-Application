@@ -125,7 +125,7 @@ public class LoginActivity extends ActionBarActivity {
 				JSONObject jObj = new JSONObject(result);
 				if(jObj.optString("result").equals("1"))
 				{
-					Intent intent = new Intent(getBaseContext(), MainActivity.class);
+					Intent intent = new Intent(getBaseContext(), MenuActivity.class);
 					startActivity(intent);
 				}
 				else
@@ -140,6 +140,7 @@ public class LoginActivity extends ActionBarActivity {
 						Toast.LENGTH_SHORT).show();
 			}
 
+			
 		}
 	}
 
