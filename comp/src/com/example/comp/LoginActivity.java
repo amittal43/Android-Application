@@ -14,7 +14,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -73,7 +76,7 @@ public class LoginActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	
+
 	public void onClick(View view) 
 	{
 		switch(view.getId()){
@@ -90,7 +93,7 @@ public class LoginActivity extends ActionBarActivity {
 			break;
 		}
 	}
-	
+
 	private boolean validateFormInput()
 	{
 		EditText username = (EditText) findViewById(R.id.username2);
@@ -100,7 +103,7 @@ public class LoginActivity extends ActionBarActivity {
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -110,11 +113,33 @@ public class LoginActivity extends ActionBarActivity {
 			return POST(urls[0], urls[1], urls[2]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
-		
+
 		@Override
 		protected void onPostExecute(String result) 
 		{
-			Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
+			//Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
+			try
+			{
+				int index = result.indexOf("bin/php");	
+				result = result.substring(index+7);
+				JSONObject jObj = new JSONObject(result);
+				if(jObj.optString("result").equals("1"))
+				{
+					Intent intent = new Intent(getBaseContext(), MainActivity.class);
+					startActivity(intent);
+				}
+				else
+				{
+					Toast.makeText(getBaseContext(), "Login Failed" , Toast.LENGTH_LONG).show();
+
+				}
+			}
+			catch(JSONException e)
+			{
+				Toast.makeText(getApplicationContext(), "Error" + e.toString(),
+						Toast.LENGTH_SHORT).show();
+			}
+
 		}
 	}
 
@@ -130,7 +155,7 @@ public class LoginActivity extends ActionBarActivity {
 			// 2. make POST request to the given URL
 			HttpPost httpPost = new HttpPost(url);
 
-			
+
 			// ** Alternative way to convert Person object to JSON string usin Jackson Lib 
 			// ObjectMapper mapper = new ObjectMapper();
 			// json = mapper.writeValueAsString(person); 
@@ -164,11 +189,7 @@ public class LoginActivity extends ActionBarActivity {
 		// 11. return result
 		return result;
 	}
-	
-	/*private void printJSONObject(JSONObject js)
-	{
-		System.out.println(js.toString());
-	}*/
+
 
 	private static String convertInputStreamToString(InputStream inputStream) throws IOException{
 		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
