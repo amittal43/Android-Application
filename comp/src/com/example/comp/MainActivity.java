@@ -53,6 +53,13 @@ public class MainActivity extends Activity {
 	}
 
 	/** Called when the user clicks the Sell button */
+	public void sellOption (View view){
+		Intent intent = new Intent(this, SellOption.class);
+		startActivity(intent);
+	}
+	
+	
+	/** Called when the user clicks the Sell button */
 	public void lendOption (View view){
 		Intent intent = new Intent(this, LendOption.class);
 		startActivity(intent);
