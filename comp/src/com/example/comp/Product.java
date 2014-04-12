@@ -1,6 +1,5 @@
 package com.example.comp;
 
-import android.graphics.Bitmap;
 
 public class Product {
 	
@@ -23,9 +22,9 @@ public class Product {
 	 */
 	private String description;
 	
-	private Bitmap image;
+	//private Bitmap image;
 
-	private int icon;
+
 
 	
 	// TODO: image of product
@@ -36,12 +35,11 @@ public class Product {
 	 * @param summary
 	 * @param description
 	 */
-	public Product(String quality, String title, String description, int icon) {
+	public Product(String quality, String title, String description) {
 		//super();
 		this.quality = quality;
 		this.title = title;
 		this.description = description;
-		this.icon = icon;
 		
 	}
 
@@ -80,16 +78,12 @@ public class Product {
 		return quality;
 	}
 	
-	public void setImage(Bitmap image){
+	/*public void setImage(Bitmap image){
 		this.image = image;
 	}
 	
 	public Bitmap getImage(){
 		return image;
-	}
-	
-	public int getIcon(){
-		return icon;
-	}
+	}*/
 	
 }
