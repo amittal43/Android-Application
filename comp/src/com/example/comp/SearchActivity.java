@@ -54,7 +54,7 @@ public class SearchActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	public void searchFashion(View view){
+	/*public void searchFashion(View view){
 		Intent intent = new Intent(this, SearchFashion.class);
 		startActivity(intent);
 	}
