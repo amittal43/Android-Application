@@ -78,6 +78,10 @@ public class Product {
 		return quality;
 	}
 	
+	public void setQuality(String quality){
+		this.quality = quality;
+	}
+	
 	/*public void setImage(Bitmap image){
 		this.image = image;
 	}

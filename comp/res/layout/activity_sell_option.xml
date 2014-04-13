@@ -65,7 +65,8 @@
                     android:id="@+id/radioBook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioBook" />
+                    android:text="@string/radioBook"
+                    android:checked="true" />
 
                 <RadioButton
                     android:id="@+id/radioBedding"
@@ -142,7 +143,8 @@
                         android:id="@+id/radioVeryGood"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioVeryGood" />
+                        android:text="@string/radioVeryGood"
+                        android:checked="true" />
 
                     <RadioButton
                         android:id="@+id/radioGood"
@@ -193,12 +195,12 @@
                  android:layout_width="1dp"
                  android:layout_height="30dp" />
              
-             <ImageView
+            <!-- <ImageView
 		        android:id="@+id/imgView"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:layout_weight="1"></ImageView>
-	   	 	<!-- <Button
+	   	 	 <Button
 		        android:id="@+id/buttonLoadPicture"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
