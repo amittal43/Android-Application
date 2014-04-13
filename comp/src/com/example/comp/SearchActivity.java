@@ -85,7 +85,7 @@ public class SearchActivity extends Activity {
 	}*/
 	
 	
-
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -109,7 +109,7 @@ public class SearchActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	/*public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
 		}
@@ -121,6 +121,6 @@ public class SearchActivity extends Activity {
 					container, false);
 			return rootView;
 		}
-	}
+	}*/
 
 }

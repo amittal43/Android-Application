@@ -20,10 +20,10 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
 
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 		
 	}
 	
@@ -47,7 +47,7 @@ public class MenuActivity extends Activity {
 			Intent intent = new Intent(this, LendOption.class);
 			startActivity(intent);
 		}*/
-
+/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -77,7 +77,7 @@ public class MenuActivity extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
-	public static class PlaceholderFragment extends Fragment {
+	/*public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
 		}
@@ -89,6 +89,6 @@ public class MenuActivity extends Activity {
 					false);
 			return rootView;
 		}
-	}
+	}*/
 
 }
