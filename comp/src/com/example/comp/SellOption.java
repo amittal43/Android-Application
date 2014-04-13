@@ -71,10 +71,7 @@ public class SellOption extends Activity {
 		stringDescription = (EditText) findViewById(R.id.itemDescription);
 		String description = getStringValue(stringDescription);
 		
-		Product prod = new Product(quality, title, description, 0);
-		Listing newList = new Listing(price,prod);
 		
-		addItemToListCollection(newList, categoryIdx);
 		
 		//TODO: create an exception if user's input is not valid
 		
@@ -85,39 +82,13 @@ public class SellOption extends Activity {
 		bundle.putString("QUALITY", quality);
 		bundle.putString("DESCRIPTION", description);
 		bundle.putDouble("PRICE", price);
+		bundle.putInt("CATEGORYINDEX", categoryIdx);
 		intent.putExtras(bundle);
 		startActivity(intent);
 		//Toast.makeText(this, "Sucessful",Toast.LENGTH_LONG).show();
 	}
 
-	/**
-	 * add a Listing instance to one of the collections
-	 * (book/bedding/sport/fashion/cooking/electronics)
-	 * @param newList
-	 * @param index
-	 */
-	private void addItemToListCollection(Listing newList, int index){
-		switch(index){
-			case 0:
-				Listing.bookListing.add(newList);
-				break;
-			case 1:
-				Listing.beddingListing.add(newList);
-				break;
-			case 2:
-				Listing.sportListing.add(newList);
-				break;
-			case 3:
-				Listing.fashionListing.add(newList);
-				break;
-			case 4:
-				Listing.cookingListing.add(newList);
-				break;
-			default:
-				Listing.electronicsListing.add(newList);
-				break;
-		}
-	}
+
 	    
 	private double getDoubleValue(EditText text) {
 		double value;
@@ -136,7 +107,7 @@ public class SellOption extends Activity {
 
 
 	}
-
+/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -146,7 +117,7 @@ public class SellOption extends Activity {
 		
 		
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -158,10 +129,11 @@ public class SellOption extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	*/
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
+	/*
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -175,5 +147,5 @@ public class SellOption extends Activity {
 			return rootView;
 		}
 	}
-
+	*/
 }

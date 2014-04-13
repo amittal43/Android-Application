@@ -37,10 +37,10 @@ public class SellOptionSubmit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option_submit);
 
-		if (savedInstanceState == null) {
+		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 
 		Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
@@ -73,56 +73,27 @@ public class SellOptionSubmit extends Activity {
 	 * @param view
 	 */
 	public void backToHome(View view){
-		Intent intent = new Intent(this, MainActivity.class);
+		Intent intent = new Intent(this, MenuActivity.class);
 		Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
 		String title = bundle.getString("TITLE");
 		String category = bundle.getString("CATEGORY");
 		String quality = bundle.getString("QUALITY");
 		String description = bundle.getString("DESCRIPTION");
-		String price = String.valueOf(bundle.getDouble("PRICE"));
+		String price = Double.toString(bundle.getDouble("PRICE"));
+		//int categoryIdx = bundle.getInt("CATEGORYINDEX");
+		
+		/*Product prod = new Product(quality, title, description);
+		Listing newList = new Listing(price,prod);
+		
+		
+		addItemToListCollection(newList, categoryIdx);*/
+		
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
 				title, category,price, quality, description);
 		startActivity(intent);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.sell_option_submit, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_sell_option_submit, container, false);
-			return rootView;
-		}
-	}
-
+	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
@@ -188,7 +159,74 @@ public class SellOptionSubmit extends Activity {
 		inputStream.close();
 		return result;
 
-	}   
+	}  
+	
+	
+	/**
+	 * add a Listing instance to one of the collections
+	 * (book/bedding/sport/fashion/cooking/electronics)
+	 * @param newList
+	 * @param index
+	 */
+	/*private void addItemToListCollection(Listing newList, int index){
+		switch(index){
+			case 0:
+				Listing.bookListing.add(newList);
+				break;
+			case 1:
+				Listing.beddingListing.add(newList);
+				break;
+			case 2:
+				Listing.sportListing.add(newList);
+				break;
+			case 3:
+				Listing.fashionListing.add(newList);
+				break;
+			case 4:
+				Listing.cookingListing.add(newList);
+				break;
+			default:
+				Listing.electronicsListing.add(newList);
+				break;
+		}
+	}
+	*/
 
+	/*@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
 
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.sell_option_submit, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}*/
+
+	/**
+	 * A placeholder fragment containing a simple view.
+	 */
+	/*public static class PlaceholderFragment extends Fragment {
+
+		public PlaceholderFragment() {
+		}
+
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			View rootView = inflater.inflate(
+					R.layout.fragment_sell_option_submit, container, false);
+			return rootView;
+		}
+	}
+	*/
 }
