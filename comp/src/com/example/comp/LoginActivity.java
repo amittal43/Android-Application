@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,10 +37,22 @@ public class LoginActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
 	}
+	
+	public ActionBarActivity getActionBarActivity()
+	{
+		return this;
+	}
 
+	public Activity getActivity()
+	{
+		return (Activity) this;
+	}
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -125,13 +138,16 @@ public class LoginActivity extends ActionBarActivity {
 				JSONObject jObj = new JSONObject(result);
 				if(jObj.optString("result").equals("1"))
 				{
+					EditText et = (EditText) findViewById(R.id.status2);
+					et.setText("User Authenticated");
 					Intent intent = new Intent(getBaseContext(), MenuActivity.class);
 					startActivity(intent);
 				}
 				else
 				{
-					Toast.makeText(getBaseContext(), "Login Failed" , Toast.LENGTH_LONG).show();
-
+					EditText et = (EditText) findViewById(R.id.status2);
+					et.setText("User Authentication Failed");
+					//Toast.makeText(getBaseContext(), "User Authentication Failure" , Toast.LENGTH_LONG).show();
 				}
 			}
 			catch(JSONException e)
