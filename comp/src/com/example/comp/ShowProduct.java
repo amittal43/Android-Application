@@ -52,11 +52,12 @@ public class ShowProduct extends Activity {
 	public void buy (View view){
 		Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
-		Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG).show();
+		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
+		toast.show();
 		Listing.bookListing.remove(index);
 		
 	}
-
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -80,6 +81,7 @@ public class ShowProduct extends Activity {
 	/**
 	 * A placeholder fragment containing a simple view.
 	 */
+	/*
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -92,6 +94,6 @@ public class ShowProduct extends Activity {
 					container, false);
 			return rootView;
 		}
-	}
+	}*/
 
 }

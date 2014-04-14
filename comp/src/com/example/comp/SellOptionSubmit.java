@@ -81,13 +81,14 @@ public class SellOptionSubmit extends Activity {
 		String quality = bundle.getString("QUALITY");
 		String description = bundle.getString("DESCRIPTION");
 		String price = Double.toString(bundle.getDouble("PRICE"));
-		//int categoryIdx = bundle.getInt("CATEGORYINDEX");
+		int categoryIdx = bundle.getInt("CATEGORYINDEX");
 		
-		/*Product prod = new Product(quality, title, description);
-		Listing newList = new Listing(price,prod);
+		double priceDouble = bundle.getDouble("PRICE");
+		Product prod = new Product(quality, title, description);
+		Listing newList = new Listing(priceDouble,prod);
 		
 		
-		addItemToListCollection(newList, categoryIdx);*/
+		addItemToListCollection(newList, categoryIdx);
 		
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
 				title, category,price, quality, description);
@@ -168,7 +169,7 @@ public class SellOptionSubmit extends Activity {
 	 * @param newList
 	 * @param index
 	 */
-	/*private void addItemToListCollection(Listing newList, int index){
+	private void addItemToListCollection(Listing newList, int index){
 		switch(index){
 			case 0:
 				Listing.bookListing.add(newList);
@@ -190,7 +191,7 @@ public class SellOptionSubmit extends Activity {
 				break;
 		}
 	}
-	*/
+	
 
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
