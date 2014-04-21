@@ -13,19 +13,19 @@
         android:orientation="vertical" >
 
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
-        
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/buyClick"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:onClick="openSearchResult"
             android:text="Buy" />
-        
+
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
 
         <Button
             android:id="@+id/sellClick"
@@ -33,31 +33,40 @@
             android:layout_height="68dp"
             android:onClick="sellOption"
             android:text="Sell" />
-        
+
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
-        
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/borrowClick"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:onClick="openSearchResult"
             android:text="Borrow" />
-        
+
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
-        
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
         <Button
             android:id="@+id/lendClick"
             android:layout_width="match_parent"
             android:layout_height="68dp"
             android:onClick="lendOption"
             android:text="Lend" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+
+        <Button
+            android:id="@+id/checkMsgs"
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:onClick="showMessages"
+            android:text="My Messages" />
         
-
-
     </LinearLayout>
 
 </FrameLayout>

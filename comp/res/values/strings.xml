@@ -41,5 +41,7 @@
     <string name="title_activity_create_user">CreateUserActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_message">MessageActivity</string>
+    <string name="title_activity_create_message">CreateMessageActivity</string>
 
 </resources>

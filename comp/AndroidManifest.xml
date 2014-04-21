@@ -10,7 +10,6 @@
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="19" />
-    
 
     <application
         android:allowBackup="true"
@@ -75,6 +74,14 @@
         <activity
             android:name="com.example.comp.MenuActivity"
             android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name="com.example.comp.MessageActivity"
+            android:label="@string/title_activity_message" >
+        </activity>
+        <activity
+            android:name="com.example.comp.CreateMessageActivity"
+            android:label="@string/title_activity_create_message" >
         </activity>
     </application>
 
