@@ -37,7 +37,6 @@ public class LoginActivity extends ActionBarActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 
 	}
@@ -49,7 +48,7 @@ public class LoginActivity extends ActionBarActivity {
 
 	public Activity getActivity()
 	{
-		return (Activity) this;
+		return (Activity) getApplicationContext();
 	}
 	
 	
@@ -141,6 +140,8 @@ public class LoginActivity extends ActionBarActivity {
 					EditText et = (EditText) findViewById(R.id.status2);
 					et.setText("User Authenticated");
 					Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+					EditText user = (EditText) findViewById(R.id.username2);
+					intent.putExtra("user", user.getText().toString());
 					startActivity(intent);
 				}
 				else
