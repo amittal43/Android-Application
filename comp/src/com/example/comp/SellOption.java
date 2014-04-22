@@ -71,6 +71,8 @@ public class SellOption extends Activity {
 		stringDescription = (EditText) findViewById(R.id.itemDescription);
 		String description = getStringValue(stringDescription);
 		
+		Product prod = new Product(quality, title, description);
+		Listing newList = new Listing(price,prod);
 		
 		
 		//TODO: create an exception if user's input is not valid
