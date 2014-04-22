@@ -40,6 +40,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -85,30 +86,33 @@ public class MessageActivity extends Activity {
 		setContentView(R.layout.activity_message);
 		messages = new ArrayList<ArrayList<JSONObject>>();
 		thisUser = getIntent().getExtras().getString("user");
-		/*try
-		{*/
-
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-messages.php", getIntent().getExtras().getString("user"));
-
-		/*synchronized( this )
-			{if(wait)
-				this.wait();
-			else
-				this.notify();}
-		}
-		catch(InterruptedException e)
-		{
-
-		}*/
-		//System.out.println("sixe = " + messages.size());
-
-
-		//setContentView(ll);
-
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
+	}
+
+	@Override
+	public void onBackPressed() 
+	{
+		Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+		intent.putExtra("user", getIntent().getExtras().getString("user"));
+		startActivity(intent);
+	}
+
+	public void search(View view)
+	{
+		EditText et1 = (EditText) findViewById (R.id.searchKey);
+		if(getIntent().hasExtra("search-keyword"))
+			getIntent().removeExtra("search-keyword");
+
+		if(et1.getText().toString().length() > 0)
+		{
+			getIntent().putExtra("search-keyword", et1.getText().toString());
+		}
+		finish();
+		startActivity(getIntent());
 	}
 
 	@Override
@@ -155,7 +159,7 @@ public class MessageActivity extends Activity {
 		intent.putExtra("calling-activity", "MessageActivity");
 		startActivity(intent);
 	}
-
+	
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
@@ -167,6 +171,7 @@ public class MessageActivity extends Activity {
 		protected void onPostExecute(String result) 
 		{
 			//Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
+			System.out.println(result);
 			try
 			{
 				int index = result.indexOf("bin/php");	
@@ -191,11 +196,13 @@ public class MessageActivity extends Activity {
 					}
 				}
 				// the above code would get you all the users who have communicated with this user
+			
 				users.remove(getIntent().getExtras().getString("user"));
 
+				System.out.println("Printing users" + users);
+				
 				String thisUser = getIntent().getExtras().getString("user");
-				/*ArrayList<ArrayList<JSONObject>>*/ ;
-
+				
 				for(int i=0; i < users.size(); i++)
 				{
 					messages.add(new ArrayList<JSONObject>());
@@ -213,6 +220,7 @@ public class MessageActivity extends Activity {
 					{
 						otherUser = obj.optString("from");
 					}
+					System.out.println("for " + thisUser + " this is the user we are searching for " + otherUser);
 					int userIndex = users.indexOf(otherUser);
 					messages.get(userIndex).add(obj);
 				}
@@ -227,7 +235,32 @@ public class MessageActivity extends Activity {
 						System.out.println(messages.get(i).get(j));
 					}
 				}
-				
+
+
+				// filtering by search-keyword
+				if(getIntent().hasExtra("search-keyword"))
+				{
+					String term = getIntent().getExtras().getString("search-keyword");
+					for(int i=0; i < messages.size(); i++)
+					{
+						boolean show = false; 
+
+						for(int j=0; j < messages.get(i).size(); j++)
+						{
+							String msgContent = messages.get(i).get(j).optString("message");
+							if(msgContent.contains(term))
+							{
+								show = true;
+								break;
+							}
+						}
+						if(show == false)
+						{
+							messages.remove(i);
+							i--;
+						}
+					}
+				}
 				ListView lv = (ListView) findViewById(R.id.listView);
 				initList();
 				SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), usersList, android.R.layout.simple_list_item_1, new String[] {"user"}, new int[] {android.R.id.text1});
@@ -253,12 +286,12 @@ public class MessageActivity extends Activity {
 								&& i < messages.get(position).size(); i++)
 						{
 							String temp = messages.get(position).get(i).optString("from") + "!!!@@@###" + messages.get(position).get(i).optString("to") + "$$$%%%^^^" + 
-									 messages.get(position).get(i).optString("message") + "&&&***(((" + messages.get(position).get(i).optString("time");
+									messages.get(position).get(i).optString("message") + "&&&***(((" + messages.get(position).get(i).optString("time");
 							conversation.add(temp);
 						}
 						intent.putStringArrayListExtra("conversation", conversation);
 						intent.putExtra("calling-activity", "MessageActivity");
-						
+
 						intent.putExtra("user", getIntent().getExtras().getString("user"));
 						startActivity(intent);
 						/*TextView clickedView = (TextView) view;
@@ -336,8 +369,6 @@ public class MessageActivity extends Activity {
 
 			// 9. receive response as inputStream
 			inputStream = httpResponse.getEntity().getContent();
-
-
 
 			// 10. convert inputstream to string
 			if(inputStream != null)

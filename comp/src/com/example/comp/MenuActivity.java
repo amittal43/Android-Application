@@ -48,6 +48,13 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 		
+		@Override
+		public void onBackPressed() 
+		{
+			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+			startActivity(intent);
+		}
+		
 		
 		/** Called when the user clicks the Sell button */
 		/*public void lendOption (View view){

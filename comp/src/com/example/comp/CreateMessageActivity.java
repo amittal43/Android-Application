@@ -18,66 +18,46 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
-
-
-
-
-
-
-
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
-import android.os.Build;
 
 public class CreateMessageActivity extends Activity {
 
 	ArrayList<String> conversation;
 	List<Map<String, String>> messageThread = new ArrayList<Map<String,String>>();
-
+	ArrayList<String> allUsers;
+	
 	private void initList()
 	{
-		boolean notset = true;
 		for(int i=0; conversation!=null && i < conversation.size(); i++)
 		{
 			System.out.println(conversation.get(i));
 			String message = null;
 			String fromUser = null, toUser = null, time = null;
-			EditText et = (EditText) findViewById(R.id.destUser);
 			String allInfo = conversation.get(i);
 			int i1 = allInfo.indexOf("!!!@@@###");
-
 			fromUser = allInfo.substring(0, i1);
 			int i2 = allInfo.indexOf("$$$%%%^^^");
 			toUser = allInfo.substring(i1+9, i2);
-			if(notset)
-			{
-				if(toUser.equals(getIntent().getExtras().getString("user")))
-					et.setText(fromUser);
-				else
-					et.setText(toUser);
-				notset = false;
-			}
 			i1 = allInfo.indexOf("&&&***(((");
 			message = allInfo.substring(i2+9, i1);
 			time = allInfo.substring(i1+9);
@@ -101,15 +81,26 @@ public class CreateMessageActivity extends Activity {
 		setContentView(R.layout.activity_create_message);
 		if(getIntent().hasExtra("conversation") )
 			conversation = new ArrayList<String>(getIntent().getStringArrayListExtra("conversation"));
+		else
+			conversation = new ArrayList<String>();
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-users.php", "", "", "");
+		
+		
 		if(getIntent().hasExtra("conversation"))
 		{
-			Button b1 = (Button) findViewById (R.id.findUser);
-			b1.setVisibility(View.INVISIBLE);
+			int index1 = conversation.get(0).indexOf("!!!@@@###");
+			int index2 = conversation.get(0).indexOf("$$$%%%^^^");
+			String recepient = conversation.get(0).substring(index1+9, index2);
+			System.out.println("the recip is " + recepient);
+			Spinner spin = (Spinner) findViewById(R.id.recepList);
+			//ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+			//int spinnerPosition = myAdap.getPosition(recepient);
+			//spin.setSelection(spinnerPosition);
+			//spin.setEnabled(false);
 		}
 		else
 		{
-			Button b1 = (Button) findViewById (R.id.findUser);
-			b1.setVisibility(View.VISIBLE);
+		//	new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-users.php", "", "", "");
 		}
 		if(getIntent().hasExtra("conversation"))
 		{
@@ -118,14 +109,12 @@ public class CreateMessageActivity extends Activity {
 			SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), messageThread, android.R.layout.simple_list_item_1, new String[] {"message"}, new int[] {android.R.id.text1});
 			lv.setAdapter(simpleAdpt);
 		}
+
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 	}
-
-
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -169,17 +158,19 @@ public class CreateMessageActivity extends Activity {
 		if(validateFormInput())
 		{
 			EditText em = (EditText) findViewById (R.id.newMessage);
-			EditText to = (EditText) findViewById (R.id.destUser);
-			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/send-message.php", getIntent().getExtras().getString("user"), to.getText().toString(), em.getText().toString());
-			Toast.makeText(getApplicationContext(), "Sending " + em.getText().toString() + " to " + to.getText().toString() , Toast.LENGTH_SHORT).show();
+			Spinner spin = (Spinner) findViewById (R.id.recepList);
+			String toUser = String.valueOf(spin.getSelectedItem());
+			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/send-message.php", getIntent().getExtras().getString("user"), toUser, em.getText().toString());
+			Toast.makeText(getApplicationContext(), "Sending " + em.getText().toString() + " to " + toUser , Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	private boolean validateFormInput()
 	{
 		EditText em = (EditText) findViewById (R.id.newMessage);
-		EditText to = (EditText) findViewById (R.id.destUser);
-		if(em.getText().toString().length()>0 && to.getText().toString().length()>0)
+		Spinner spin = (Spinner) findViewById (R.id.recepList);
+		String toUser = String.valueOf(spin.getSelectedItem());
+		if(em.getText().toString().length()>0 && toUser.length()>0)
 			return true;
 		else
 			return false;
@@ -187,7 +178,8 @@ public class CreateMessageActivity extends Activity {
 
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
-		protected String doInBackground(String...urls) {
+		protected String doInBackground(String...urls) 
+		{
 			return POST(urls[0], urls[1], urls[2], urls[3]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
@@ -195,7 +187,8 @@ public class CreateMessageActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) 
 		{
-			Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
+			//Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
+			boolean useToMessage = false;
 			boolean success = false;
 			try
 			{
@@ -205,14 +198,29 @@ public class CreateMessageActivity extends Activity {
 				else
 					result = result.trim();
 				JSONObject jObj = new JSONObject(result);
-				if(jObj.optString("result").equals("1"))
+				if(jObj.has("result") && jObj.optString("result").equals("1"))
 				{
 					Toast.makeText(getApplicationContext(), "Sent message", Toast.LENGTH_SHORT);
 					success = true;
+					useToMessage = true;
+				}
+				else if(jObj.has("list"))
+				{
+					JSONArray jArray = jObj.getJSONArray("list");
+					allUsers = new ArrayList<String>();
+						for(int i=0; i < jArray.length(); i++)
+						{
+							String obj = jArray.get(i).toString();
+							allUsers.add(obj);
+						}
+					allUsers.remove(getIntent().getExtras().getString("user"));
+					//Toast.makeText(getApplicationContext(), "Downloaded all users info", Toast.LENGTH_SHORT).show();;
+					//success = true;
 				}
 				else
 				{
 					Toast.makeText(getApplicationContext(), "Message not sent!" , Toast.LENGTH_LONG).show();
+					useToMessage = true;
 				}
 			}
 			catch(JSONException e)
@@ -220,24 +228,53 @@ public class CreateMessageActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "Error" + e.toString(),
 						Toast.LENGTH_SHORT).show();
 			}
-			finish();
-			getIntent().putExtra("calling-activity", "CreateMessageActivity");
-			if(success)
-			{	
-				EditText et1 = (EditText) findViewById (R.id.newMessage);
-				EditText et2 = (EditText) findViewById (R.id.destUser);
-				Date d = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+			if(useToMessage)
+			{
+				finish();
+				getIntent().putExtra("calling-activity", "CreateMessageActivity");
+				if(success)
+				{	
+					EditText et1 = (EditText) findViewById (R.id.newMessage);
+					Spinner spin = (Spinner) findViewById (R.id.recepList);
+					String toUser = String.valueOf(spin.getSelectedItem());
+					Date d = new Date();
+					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
 
-				String newMessage = getIntent().getExtras().getString("user") + "!!!@@@###" +
-						et2.getText().toString() + "$$$%%%^^^" +
-						et1.getText().toString() + "&&&***(((" +
-						sdf.format(d);
-				conversation.add(newMessage);
-				getIntent().removeExtra("conversation");
-				getIntent().putStringArrayListExtra("conversation", conversation);
+					String newMessage = getIntent().getExtras().getString("user") + "!!!@@@###" +
+							toUser + "$$$%%%^^^" +
+							et1.getText().toString() + "&&&***(((" +
+							sdf.format(d);
+					conversation.add(newMessage);
+					getIntent().removeExtra("conversation");
+					getIntent().putStringArrayListExtra("conversation", conversation);
+				}
+				startActivity(getIntent());
 			}
-			startActivity(getIntent());
+			else
+			{
+				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(),
+						android.R.layout.simple_spinner_item, allUsers);
+					dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					Spinner spin = (Spinner) findViewById(R.id.recepList);
+					spin.setAdapter(dataAdapter);
+					if(getIntent().hasExtra("conversation"))
+					{
+						int index1 = conversation.get(0).indexOf("!!!@@@###");
+						int index2 = conversation.get(0).indexOf("$$$%%%^^^");
+						String sender = conversation.get(0).substring(0, index1);
+						String recepient = conversation.get(0).substring(index1+9, index2);
+						String reqName = null;
+						if(getIntent().getExtras().getString("user").equals(sender))
+							reqName = recepient;
+						else
+							reqName = sender;
+						System.out.println("the recip is " + recepient);
+						ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+						int spinnerPosition = myAdap.getPosition(reqName);
+						spin.setSelection(spinnerPosition);
+						spin.setEnabled(false);
+					}
+			}
 		}
 	}
 
