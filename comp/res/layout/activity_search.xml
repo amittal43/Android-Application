@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonBook"
-            android:onClick="searchBooksFunc" />
+            android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
@@ -33,18 +33,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonBedding"
-            android:onClick="searchBedding" />
+            android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
                 android:layout_height="20dp" />
         
         <Button
-            android:id="@+id/buttonSports"
+            android:id="@+id/buttonSport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonSports"
-            android:onClick="searchSports" />
+            android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonFashion"
-            android:onClick="searchFashion" />
+            android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonCooking"
-            android:onClick="searchCooking" />
+            android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
@@ -77,7 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/buttonElectronics"
-            android:onClick="searchElectronics" />
+            android:onClick = "onClick"/>
 
     </LinearLayout>
     

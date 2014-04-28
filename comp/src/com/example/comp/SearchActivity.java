@@ -44,8 +44,28 @@ public class SearchActivity extends Activity {
 		
 	}
 	
-	public void searchBooksFunc (View view){
-		Intent intent = new Intent(this, SearchBooks.class);
+	public void onClick(View view){
+		Intent intent = new Intent(this, SearchItem.class);
+		switch(view.getId()){
+			case R.id.buttonBook:
+				intent.putExtra("CATEGORY", "Book");
+				break;
+			case R.id.buttonBedding:
+				intent.putExtra("CATEGORY", "Bedding");
+				break;
+			case R.id.buttonSport:
+				intent.putExtra("CATEGORY", "Sport");
+				break;
+			case R.id.buttonFashion:
+				intent.putExtra("CATEGORY", "Fashion");
+				break;
+			case R.id.buttonCooking:
+				intent.putExtra("CATEGORY", "Cooking Utensils");
+				break;
+			case R.id.buttonElectronics:
+				intent.putExtra("CATEGORY", "Electronics");
+				break;
+		}
 		startActivity(intent);
 	}
 	

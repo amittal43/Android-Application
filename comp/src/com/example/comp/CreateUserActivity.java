@@ -17,6 +17,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,7 +118,13 @@ public class CreateUserActivity extends ActionBarActivity {
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
+			if (result.equals("0")){
+				Toast.makeText(getBaseContext(), "The username has already been used!", Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+				startActivity(intent);
+			}
 		}
 	}
 
