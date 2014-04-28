@@ -42,7 +42,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.example.comp.SearchBooks"
+            android:name="com.example.comp.SearchItem"
             android:label="@string/app_name" >
         </activity>
         <activity
