@@ -106,7 +106,6 @@ public class MessageActivity extends Activity {
 		EditText et1 = (EditText) findViewById (R.id.searchKey);
 		if(getIntent().hasExtra("search-keyword"))
 			getIntent().removeExtra("search-keyword");
-
 		if(et1.getText().toString().length() > 0)
 		{
 			getIntent().putExtra("search-keyword", et1.getText().toString());
@@ -247,6 +246,16 @@ public class MessageActivity extends Activity {
 
 						for(int j=0; j < messages.get(i).size(); j++)
 						{
+							String s1 = messages.get(i).get(0).optString("from");
+							String s2 = messages.get(i).get(0).optString("to");
+							if(!term.equals(thisUser))
+							{
+								if(s1.equals(term) || s2.equals(term))
+								{
+									show = true;
+									break;
+								}
+							}
 							String msgContent = messages.get(i).get(j).optString("message");
 							if(msgContent.contains(term))
 							{
