@@ -2,15 +2,25 @@ package com.example.comp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -23,6 +33,9 @@ public class SellOption extends Activity {
 	private EditText stringTitle;
 	//private EditText stringSummary;
 	private EditText stringDescription;
+	private String imagePath = "noImage";
+	
+	private static final int SELECT_PICTURE = 1;
 
 	/** Called when the user clicks the Submit button */
 	public void sellOptionSubmit (View view){
@@ -71,6 +84,7 @@ public class SellOption extends Activity {
 		stringDescription = (EditText) findViewById(R.id.itemDescription);
 		String description = getStringValue(stringDescription);
 		
+		// TODO: Add the picture to the product
 		Product prod = new Product(quality, title, description);
 		Listing newList = new Listing(price,prod);
 		
@@ -85,6 +99,7 @@ public class SellOption extends Activity {
 		bundle.putString("DESCRIPTION", description);
 		bundle.putDouble("PRICE", price);
 		bundle.putInt("CATEGORYINDEX", categoryIdx);
+		bundle.putString("IMAGE", imagePath);
 		intent.putExtras(bundle);
 		startActivity(intent);
 		//Toast.makeText(this, "Sucessful",Toast.LENGTH_LONG).show();
@@ -106,8 +121,60 @@ public class SellOption extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option);
+		
+		OnTouchListener l = new OnTouchListener() {
 
 
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				Intent intent = new Intent();
+				intent.setType("image/*");
+				intent.setAction(Intent.ACTION_GET_CONTENT);
+				startActivityForResult(Intent.createChooser(intent, "Select picture"), SELECT_PICTURE);;
+				return true;
+			}
+		};
+
+
+		((Button) findViewById(R.id.buttonLoadPicture)).setOnTouchListener(l);
+
+	}
+	
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (resultCode == RESULT_OK) {
+			if (requestCode == SELECT_PICTURE) {
+				Uri selectedImageUri = data.getData();
+				imagePath = getPath(selectedImageUri);            
+				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath), 200, 200);
+				//Toast.makeText(getApplicationContext(), imagePath, Toast.LENGTH_SHORT).show();
+				ImageView image = (ImageView) findViewById(R.id.imageTumbnail);
+				image.setImageBitmap(ThumbImage);
+			}
+		}
+	}
+
+	/**
+	 * helper to retrieve the path of an image URI
+	 */	
+	public String getPath(Uri uri) {
+		// just some safety built in 
+		if( uri == null ) {
+			// TODO perform some logging or show user feedback
+			return null;
+		}
+		// try to retrieve the image from the media store first
+		// this will only work for images selected from gallery
+		String[] projection = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		if( cursor != null ){
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			return cursor.getString(column_index);
+		}
+		// this is our fallback here
+		return uri.getPath();
 	}
 /*
 	@Override
