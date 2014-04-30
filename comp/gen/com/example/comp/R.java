@@ -997,7 +997,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050089;
+        public static final int action_settings=0x7f05008a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1106,6 +1106,7 @@ containing a value of this type.
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int showproductDescription=0x7f050085;
+        public static final int showproductDueDate=0x7f050089;
         public static final int showproductPrice=0x7f050087;
         public static final int showproductQuality=0x7f050086;
         public static final int showproductTitle=0x7f050084;
@@ -1184,25 +1185,29 @@ containing a value of this type.
         public static final int activity_message=0x7f03001e;
         public static final int activity_search=0x7f03001f;
         public static final int activity_search_item=0x7f030020;
-        public static final int activity_search_results=0x7f030021;
-        public static final int activity_sell_option=0x7f030022;
-        public static final int activity_sell_option_submit=0x7f030023;
-        public static final int activity_show_product=0x7f030024;
-        public static final int fragment_create_message=0x7f030025;
-        public static final int fragment_create_user=0x7f030026;
-        public static final int fragment_lend_option=0x7f030027;
-        public static final int fragment_lend_option_submit=0x7f030028;
-        public static final int fragment_login=0x7f030029;
-        public static final int fragment_main=0x7f03002a;
-        public static final int fragment_menu=0x7f03002b;
-        public static final int fragment_message=0x7f03002c;
-        public static final int fragment_search=0x7f03002d;
-        public static final int fragment_search_item=0x7f03002e;
-        public static final int fragment_search_page=0x7f03002f;
-        public static final int fragment_sell_option=0x7f030030;
-        public static final int fragment_sell_option_submit=0x7f030031;
-        public static final int fragment_show_product=0x7f030032;
-        public static final int support_simple_spinner_dropdown_item=0x7f030033;
+        public static final int activity_search_item_exchange=0x7f030021;
+        public static final int activity_search_results=0x7f030022;
+        public static final int activity_sell_option=0x7f030023;
+        public static final int activity_sell_option_submit=0x7f030024;
+        public static final int activity_show_product=0x7f030025;
+        public static final int activity_show_product_exchange=0x7f030026;
+        public static final int fragment_create_message=0x7f030027;
+        public static final int fragment_create_user=0x7f030028;
+        public static final int fragment_lend_option=0x7f030029;
+        public static final int fragment_lend_option_submit=0x7f03002a;
+        public static final int fragment_login=0x7f03002b;
+        public static final int fragment_main=0x7f03002c;
+        public static final int fragment_menu=0x7f03002d;
+        public static final int fragment_message=0x7f03002e;
+        public static final int fragment_search=0x7f03002f;
+        public static final int fragment_search_item=0x7f030030;
+        public static final int fragment_search_item_exchange=0x7f030031;
+        public static final int fragment_search_page=0x7f030032;
+        public static final int fragment_sell_option=0x7f030033;
+        public static final int fragment_sell_option_submit=0x7f030034;
+        public static final int fragment_show_product=0x7f030035;
+        public static final int fragment_show_product_exchange=0x7f030036;
+        public static final int support_simple_spinner_dropdown_item=0x7f030037;
     }
     public static final class menu {
         public static final int create_message=0x7f0c0000;
@@ -1218,10 +1223,12 @@ containing a value of this type.
         public static final int search_books=0x7f0c000a;
         public static final int search_electronics=0x7f0c000b;
         public static final int search_fashion=0x7f0c000c;
-        public static final int search_page=0x7f0c000d;
-        public static final int sell_option=0x7f0c000e;
-        public static final int sell_option_submit=0x7f0c000f;
-        public static final int show_product=0x7f0c0010;
+        public static final int search_item_exchange=0x7f0c000d;
+        public static final int search_page=0x7f0c000e;
+        public static final int sell_option=0x7f0c000f;
+        public static final int sell_option_submit=0x7f0c0010;
+        public static final int show_product=0x7f0c0011;
+        public static final int show_product_exchange=0x7f0c0012;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1304,10 +1311,12 @@ containing a value of this type.
         public static final int title_activity_search_books=0x7f0a002d;
         public static final int title_activity_search_electronics=0x7f0a002f;
         public static final int title_activity_search_fashion=0x7f0a002e;
+        public static final int title_activity_search_item_exchange=0x7f0a0039;
         public static final int title_activity_search_page=0x7f0a0010;
         public static final int title_activity_sell_option=0x7f0a0011;
         public static final int title_activity_sell_option_submit=0x7f0a001a;
         public static final int title_activity_show_product=0x7f0a0030;
+        public static final int title_activity_show_product_exchange=0x7f0a003a;
     }
     public static final class style {
         /** 

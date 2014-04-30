@@ -87,6 +87,14 @@
             android:name="com.example.comp.LendOptionSubmit"
             android:label="@string/title_activity_lend_option_submit" >
         </activity>
+        <activity
+            android:name="com.example.comp.SearchItemExchange"
+            android:label="@string/title_activity_search_item_exchange" >
+        </activity>
+        <activity
+            android:name="com.example.comp.ShowProductExchange"
+            android:label="@string/title_activity_show_product_exchange" >
+        </activity>
     </application>
 
 </manifest>

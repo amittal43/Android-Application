@@ -27,11 +27,18 @@ public class MenuActivity extends Activity {
 		
 	}
 	
-	//TODO: Create the method where the borrow button is clicked
 	
-		/** Called when the user clicks the Buy <and Borrow> button */
+		/** Called when the user clicks the Buy or Borrow button */
 		public void openSearchResult (View view){
 			Intent intent = new Intent(this, SearchActivity.class);
+			switch(view.getId()){
+			case R.id.buyClick:
+				intent.putExtra("menu", "buy");
+				break;
+			case R.id.borrowClick:
+				intent.putExtra("menu", "borrow");
+				break;
+			}
 			startActivity(intent);
 		}
 
@@ -41,19 +48,19 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 		
-		/** Called when the user clicks the Message button */
-		public void showMessages (View view){
-			Intent intent = new Intent(this, MessageActivity.class);
-			intent.putExtra("user", getIntent().getExtras().getString("user"));
-			startActivity(intent);
-		}
-		
 		/** Called when the user clicks the Lend button */
 		public void lendOption (View view){
 			Intent intent = new Intent(this, LendOption.class);
 			startActivity(intent);
 		}
 		
+		/** Called when the user clicks the Message button */
+		public void showMessages (View view){
+			Intent intent = new Intent(this, MessageActivity.class);
+			intent.putExtra("user", getIntent().getExtras().getString("user"));
+			startActivity(intent);
+		}
+
 		@Override
 		public void onBackPressed() 
 		{

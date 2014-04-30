@@ -37,14 +37,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.os.Build;
 
-public class ShowProduct extends Activity {
-	String title, price, quality, descr;
+public class ShowProductExchange extends Activity {
+	String title, price, quality, descr, duedate;
 	int id;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_show_product);
+		setContentView(R.layout.activity_show_product_exchange);
 
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -57,6 +57,7 @@ public class ShowProduct extends Activity {
 		price = bundle.getString("PRICE");
 		quality = bundle.getString("QUALITY");
 		descr = bundle.getString("DESCR");
+		duedate = bundle.getString("DUEDATE");
 		
 	    TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 	    textTitle.append(title);
@@ -69,11 +70,14 @@ public class ShowProduct extends Activity {
 	    
 	    TextView textPrice = (TextView) findViewById(R.id.showproductPrice);
 	    textPrice.append(price);
+	    
+	    TextView textDueDate = (TextView) findViewById(R.id.showproductDueDate);
+	    textDueDate.append(duedate);
 		
 	}
 	
-	public void buy (View view){
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", Integer.toString(id));
+	public void borrow (View view){
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", Integer.toString(id), "borrow");
 		/*Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
@@ -85,7 +89,7 @@ public class ShowProduct extends Activity {
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1]);
+			return POST(urls[0], urls[1], urls[2]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
@@ -97,7 +101,7 @@ public class ShowProduct extends Activity {
 			
 	}
 
-	public static String POST(String url, String id){
+	public static String POST(String url, String id, String menu){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -111,6 +115,7 @@ public class ShowProduct extends Activity {
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("id", id));
+			params.add(new BasicNameValuePair("menu", menu));
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
