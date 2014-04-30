@@ -45,5 +45,7 @@
     <string name="title_activity_message">MessageActivity</string>
     <string name="title_activity_create_message">CreateMessageActivity</string>
     <string name="loadPicture">Load Picture</string>
+    <string name="title_activity_search_item_exchange">SearchItemExchange</string>
+    <string name="title_activity_show_product_exchange">ShowProductExchange</string>
 
 </resources>

@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.*;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -19,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,57 +29,30 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
-public class ShowProduct extends Activity {
-	String title, price, quality, descr;
-	int id;
-    
+public class SearchItemExchange extends Activity {
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_show_product);
+		setContentView(R.layout.activity_search_item_exchange);
+		
+		String category = getIntent().getExtras().getString("CATEGORY");
+		//Toast.makeText(this, category, Toast.LENGTH_LONG).show();
+		
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item-exchange.php", category);
 
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
-		Bundle bundle = getIntent().getExtras();
-	    //Extract each value from the bundle for usage
-		id = bundle.getInt("ID");
-		title = bundle.getString("TITLE");
-		price = bundle.getString("PRICE");
-		quality = bundle.getString("QUALITY");
-		descr = bundle.getString("DESCR");
-		
-	    TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
-	    textTitle.append(title);
-	    
-	    TextView textDescription = (TextView) findViewById(R.id.showproductDescription);
-	    textDescription.append(descr);
-	    
-	    TextView textQuality = (TextView) findViewById(R.id.showproductQuality);
-	    textQuality.append(quality);
-	    
-	    TextView textPrice = (TextView) findViewById(R.id.showproductPrice);
-	    textPrice.append(price);
-		
-	}
-	
-	public void buy (View view){
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", Integer.toString(id));
-		/*Intent intent = new Intent(this, MainActivity.class);
-		startActivity(intent);
-		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
-		toast.show();
-		Listing.bookListing.remove(index);*/
-		
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -90,14 +63,69 @@ public class ShowProduct extends Activity {
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-			startActivity(intent);
-			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
-		}
+			//Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
 			
+			try {
+				int index = result.indexOf("bin/php");	
+				result = result.substring(index+7);
+				JSONObject jObj = new JSONObject(result);
+					
+				if (jObj.optString("result").equals("0")){
+					Toast.makeText(getBaseContext(), "No item available", Toast.LENGTH_SHORT).show();
+				} else {
+					
+					JSONArray jArray = jObj.getJSONArray("list");
+					for(int i=0; i < jArray.length(); i++){
+						JSONObject obj = jArray.getJSONObject(i);
+	
+						LinearLayout container = (LinearLayout)findViewById(R.id.container);
+					    Button rowButton = new Button(getBaseContext());
+					    
+					    final String title = obj.optString("title");
+					    final String price = obj.optString("price");
+					    final String quality = obj.optString("quality");
+					    final String descr = obj.optString("descr");
+					    final int id = obj.optInt("id");
+					    //final String id = obj.optString("id");
+					    final String duedate = obj.optString("duedate");
+						
+					    //Toast.makeText(getBaseContext(), title + " " + price + " " + id + " " + duedate, Toast.LENGTH_LONG).show();
+					    
+					    //set the content of the button
+					    String content =  title + "\n" + price;
+					    rowButton.setText(content);
+					    
+					    //rowButton.setOnClickListener((OnClickListener) this);
+					    
+					    rowButton.setOnClickListener(new OnClickListener() {
+					        @Override
+					    	public void onClick(View v) {
+					        	Bundle bundle = new Bundle();
+					        	bundle.putInt("ID", id);
+					        	bundle.putString("TITLE", title);
+					        	bundle.putString("PRICE", price);
+					        	bundle.putString("QUALITY", quality);
+					        	bundle.putString("DESCR", descr);
+					        	bundle.putString("DUEDATE", duedate);
+					            Intent intent = new Intent(SearchItemExchange.this, ShowProductExchange.class);
+								intent.putExtras(bundle);
+								startActivity(intent);
+					        }
+					    });
+					    container.addView(rowButton);
+					}
+				}
+			}
+			catch(JSONException e)
+			{
+				Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
+							Toast.LENGTH_SHORT).show();
+			}
+
+		}
 	}
 
-	public static String POST(String url, String id){
+	public static String POST(String url, String category){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -110,7 +138,7 @@ public class ShowProduct extends Activity {
 
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("id", id));
+			params.add(new BasicNameValuePair("category", category));
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
@@ -142,44 +170,5 @@ public class ShowProduct extends Activity {
 		return result;
 
 	}  
-	
-	/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.show_product, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	/*
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_show_product,
-					container, false);
-			return rootView;
-		}
-	}*/
 
 }
