@@ -12,7 +12,6 @@
         android:layout_gravity="center"
         android:orientation="vertical" >
 
-        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -26,15 +25,14 @@
                 android:id="@+id/confirmTitle"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": " />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -48,15 +46,14 @@
                 android:id="@+id/confirmCategory"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": " />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -70,15 +67,14 @@
                 android:id="@+id/confirmQuality"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": " />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -87,12 +83,11 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="@+string/textDescription" />
-            
+
             <TextView
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": " />
         </LinearLayout>
 
         <TextView
@@ -100,12 +95,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -119,26 +114,35 @@
                 android:id="@+id/confirmPrice"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": HKD "/>
-
+                android:text=": HKD " />
         </LinearLayout>
-        
-        
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" >
+        </View>
+
+        <ImageView
+            android:id="@+id/confirmImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:maxWidth="200dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/no_image" />
         
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>    
+        </View>
 
         <Button
             android:id="@+id/buttonConfirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Confirm"
-            android:onClick="backToHome" />
-
+            android:onClick="backToHome"
+            android:text="Confirm" />
     </LinearLayout>
 
 </FrameLayout>
-
