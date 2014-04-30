@@ -205,7 +205,7 @@
                 android:maxHeight="200dp"
                 android:maxWidth="200dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/no_image" />
+                android:src="@+drawable/no_image" />
 
             <Button
                 android:id="@+id/buttonLoadPicture"

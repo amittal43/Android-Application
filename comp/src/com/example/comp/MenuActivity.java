@@ -41,10 +41,16 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 		
-		/** Called when the user clicks the Sell button */
+		/** Called when the user clicks the Message button */
 		public void showMessages (View view){
 			Intent intent = new Intent(this, MessageActivity.class);
 			intent.putExtra("user", getIntent().getExtras().getString("user"));
+			startActivity(intent);
+		}
+		
+		/** Called when the user clicks the Lend button */
+		public void lendOption (View view){
+			Intent intent = new Intent(this, LendOption.class);
 			startActivity(intent);
 		}
 		
