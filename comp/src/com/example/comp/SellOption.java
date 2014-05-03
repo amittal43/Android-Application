@@ -32,10 +32,15 @@ public class SellOption extends Activity {
 	private EditText doublePrice;
 	private EditText stringTitle;
 	private EditText stringDescription;
+<<<<<<< .mine
+	String thisUser;
+	
+=======
 	private String imagePath = "noImage";
 	
 	private static final int SELECT_PICTURE = 1;
 
+>>>>>>> .r157
 	/** Called when the user clicks the Submit button */
 	public void sellOptionSubmit (View view){
 		
@@ -93,6 +98,10 @@ public class SellOption extends Activity {
 		bundle.putInt("CATEGORYINDEX", categoryIdx);
 		bundle.putString("IMAGE", imagePath);
 		intent.putExtras(bundle);
+		if(thisUser == null)
+			System.out.println("this user is null");
+		intent.putExtra("user", thisUser);
+		System.out.println("Passing info to SellOptionSubmit");
 		startActivity(intent);
 		//Toast.makeText(this, "Sucessful",Toast.LENGTH_LONG).show();
 	}
@@ -113,9 +122,12 @@ public class SellOption extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option);
+<<<<<<< .mine
+		thisUser = getIntent().getExtras().getString("user");
+=======
 		
 		OnTouchListener l = new OnTouchListener() {
-
+>>>>>>> .r157
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {

@@ -15,11 +15,14 @@ import android.os.Build;
 
 public class MenuActivity extends Activity {
 
+	String thisUser;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-
+		thisUser = getIntent().getExtras().getString("user");
+		
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -45,6 +48,7 @@ public class MenuActivity extends Activity {
 		/** Called when the user clicks the Sell button */
 		public void sellOption (View view){
 			Intent intent = new Intent(this, SellOption.class);
+			intent.putExtra("user", thisUser);
 			startActivity(intent);
 		}
 		
@@ -57,7 +61,7 @@ public class MenuActivity extends Activity {
 		/** Called when the user clicks the Message button */
 		public void showMessages (View view){
 			Intent intent = new Intent(this, MessageActivity.class);
-			intent.putExtra("user", getIntent().getExtras().getString("user"));
+			intent.putExtra("user", thisUser);
 			startActivity(intent);
 		}
 

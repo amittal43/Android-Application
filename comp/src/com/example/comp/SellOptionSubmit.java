@@ -34,8 +34,13 @@ import android.widget.Toast;
 
 public class SellOptionSubmit extends Activity {
 
+<<<<<<< .mine
+	static String thisUser;
+	
+=======
 	String title, category, quality, description, price;
 	
+>>>>>>> .r157
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,8 +54,10 @@ public class SellOptionSubmit extends Activity {
 		description = bundle.getString("DESCRIPTION");
 		price = Double.toString(bundle.getDouble("PRICE"));
 		String imagePath = bundle.getString("IMAGE");
+		thisUser = getIntent().getExtras().getString("user");
 
-
+		System.out.println("this user value is " + thisUser);
+		
 		TextView textTitle = (TextView) findViewById(R.id.confirmTitle);
 		textTitle.append(title);
 
@@ -78,15 +85,16 @@ public class SellOptionSubmit extends Activity {
 	public void backToHome(View view){
 		Intent intent = new Intent(this, MenuActivity.class);
 
+		intent.putExtra("user", thisUser);
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
-				title, category,price, quality, description);
+				title, category,price, quality, description, thisUser);
 		startActivity(intent);
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5]);
+			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
@@ -96,7 +104,7 @@ public class SellOptionSubmit extends Activity {
 	}
 
 
-	public static String POST(String url, String title, String category, String price, String quality, String desc){
+	public static String POST(String url, String title, String category, String price, String quality, String desc, String user){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -116,6 +124,7 @@ public class SellOptionSubmit extends Activity {
 			params.add(new BasicNameValuePair("price", price.toString()));
 			params.add(new BasicNameValuePair("quality", quality.toString()));
 			params.add(new BasicNameValuePair("description", desc.toString()));
+			params.add(new BasicNameValuePair("user", thisUser));
 			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
