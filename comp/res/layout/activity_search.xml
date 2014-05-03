@@ -15,68 +15,82 @@
 
         <View
                 android:layout_width="1dp"
-                android:layout_height="20dp" />
-        
+                android:layout_height="10dp" />
+
         <Button
             android:id="@+id/buttonBook"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonBook"
-            android:onClick = "onClick"/>
+            android:layout_height="60dp"
+            android:background="@drawable/blue"
+            android:drawableRight="@drawable/books"
+            android:onClick="onClick"
+            android:scaleType="center"
+            android:text="@string/buttonBook" />
 
         <View
                 android:layout_width="1dp"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
         
         <Button
             android:id="@+id/buttonBedding"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/buttonBedding"
+            android:layout_height="60dp"
+            android:background="@drawable/blue"
+            android:drawableRight="@drawable/bedding"
+            android:text="@string/buttonBedding"           
             android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
         
         <Button
             android:id="@+id/buttonSport"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="@string/buttonSports"
+            android:background="@drawable/blue"
+            android:drawableRight="@drawable/sports"
             android:onClick = "onClick"/>
 
         <View
-                android:layout_width="1dp"
-                android:layout_height="20dp" />
+            android:layout_width="1dp"
+            android:layout_height="10dp"
+            android:background="@style/AppBaseTheme" />
         
         <Button
             android:id="@+id/buttonFashion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="@string/buttonFashion"
+            android:background="@drawable/blue"
+            android:drawableRight="@drawable/fashion"
             android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
         
         <Button
             android:id="@+id/buttonCooking"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+          	android:background="@drawable/blue"
             android:text="@string/buttonCooking"
+            android:drawableRight="@drawable/CookingUtensils"
             android:onClick = "onClick"/>
 
         <View
                 android:layout_width="1dp"
-                android:layout_height="20dp" />
+                android:layout_height="10dp" />
         
         <Button
             android:id="@+id/buttonElectronics"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:background="@drawable/blue"
             android:text="@string/buttonElectronics"
+            android:drawableRight="@drawable/Smartphones"
             android:onClick = "onClick"/>
 
     </LinearLayout>
