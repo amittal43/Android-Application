@@ -143,6 +143,7 @@ public class LoginActivity extends ActionBarActivity {
 					EditText user = (EditText) findViewById(R.id.username2);
 					intent.putExtra("user", user.getText().toString());
 					startActivity(intent);
+					finish();
 				}
 				else
 				{

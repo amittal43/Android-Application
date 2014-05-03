@@ -2,7 +2,9 @@ package com.example.comp;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -61,12 +63,19 @@ public class MenuActivity extends Activity {
 			startActivity(intent);
 		}
 
+		//TODO: when back is pressed, directly close the app
+		
 		@Override
-		public void onBackPressed() 
-		{
-			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-			startActivity(intent);
-		}
+	    public void onBackPressed() {
+	        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+	                .setMessage("Are you sure you want to exit?")
+	                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	                        finish();
+	                    }
+	                }).setNegativeButton("No", null).show();
+	    }
 		
 		
 		/** Called when the user clicks the Sell button */
