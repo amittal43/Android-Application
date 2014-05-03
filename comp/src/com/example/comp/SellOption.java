@@ -1,6 +1,8 @@
 package com.example.comp;
 
 import android.app.Activity;
+import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -121,21 +123,19 @@ public class SellOption extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option);
 		thisUser = getIntent().getExtras().getString("user");
-		
-		OnTouchListener l = new OnTouchListener() {
 
+		((Button) findViewById(R.id.buttonLoadPicture)).setOnClickListener(new View.OnClickListener() {
+			
 			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				Intent intent = new Intent();
-				intent.setType("image/*");
-				intent.setAction(Intent.ACTION_GET_CONTENT);
-				startActivityForResult(Intent.createChooser(intent, "Select picture"), SELECT_PICTURE);;
-				return true;
+			public void onClick(View v) {
+				//Intent intent = new Intent();
+				//intent.setType("image/*");
+				//intent.setAction(Intent.ACTION_GET_CONTENT);
+				//startActivityForResult(Intent.createChooser(intent, "Select picture"), SELECT_PICTURE);;
+				Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(i, SELECT_PICTURE);
 			}
-		};
-
-
-		((Button) findViewById(R.id.buttonLoadPicture)).setOnTouchListener(l);
+		});
 
 	}
 	
