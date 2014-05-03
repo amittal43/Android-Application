@@ -23,11 +23,6 @@ public class MenuActivity extends Activity {
 		setContentView(R.layout.activity_menu);
 		thisUser = getIntent().getExtras().getString("user");
 		
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
-		
 	}
 	
 	

@@ -47,5 +47,11 @@
     <string name="loadPicture">Load Picture</string>
     <string name="title_activity_search_item_exchange">SearchItemExchange</string>
     <string name="title_activity_show_product_exchange">ShowProductExchange</string>
+    <string name="Buy">Buy</string>
+    <string name="Sell">Sell</string>
+    <string name="Lend">Lend</string>
+    <string name="Borrow">Borrow</string>
+   <string name="MyMessages">My Messages</string>
+    
 
 </resources>
