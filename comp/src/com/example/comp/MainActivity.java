@@ -1,9 +1,12 @@
 package com.example.comp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,24 +14,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
+	
+	private MainFragment mainFragment; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		//setContentView(R.layout.activity_main);
 		
-		/*final Button buyButton = (Button) findViewById(R.id.buyClick);
-        buyButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                openSearchResult(v);
-            }
-        });*/
+		if (savedInstanceState == null) {
+	        // Add the fragment on initial activity setup
+	        mainFragment = new MainFragment();
+	        getSupportFragmentManager()
+	        .beginTransaction()
+	        .add(android.R.id.content, mainFragment)
+	        .commit();
+	    } else {
+	        // Or set the fragment from restored state info
+	        mainFragment = (MainFragment) getSupportFragmentManager()
+	        .findFragmentById(android.R.id.content);
+	    }
 		
 	}
-		public void onClick(View view) 
-		{
-			switch(view.getId()){
+	
+	public void onClick(View view) 
+	{
+		switch(view.getId()){
 			case R.id.button1: 
 				Intent intent1 = new Intent(this, LoginActivity.class);
 				startActivity(intent1);
@@ -41,7 +53,7 @@ public class MainActivity extends Activity {
 				break;
 		}
 
-		}
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,5 +94,17 @@ public class MainActivity extends Activity {
 			return rootView;
 		}
 	}
+	
+	@Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).setNegativeButton("No", null).show();
+    }
 
 }
