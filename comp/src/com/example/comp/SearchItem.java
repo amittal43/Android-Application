@@ -38,11 +38,14 @@ import android.widget.Toast;
 
 public class SearchItem extends Activity {
 
+	String thisUser, menu;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_item);
+		thisUser = getIntent().getExtras().getString("user");
+		menu = getIntent().getExtras().getString("menu");
 		
 		String category = getIntent().getExtras().getString("CATEGORY");
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category);
@@ -84,8 +87,7 @@ public class SearchItem extends Activity {
 					    final String quality = obj.optString("quality");
 					    final String descr = obj.optString("descr");
 					    final String id = obj.optString("id");
-						
-					    //set the content of the button
+						//set the content of the button
 					    String content =  title + "\n" + price;
 					    rowButton.setText(content);
 					    
@@ -102,6 +104,8 @@ public class SearchItem extends Activity {
 					        	bundle.putString("DESCR", descr);
 					            Intent intent = new Intent(SearchItem.this, ShowProduct.class);
 								intent.putExtras(bundle);
+								intent.putExtra("user", thisUser);
+								intent.putExtra("menu", menu);
 								startActivity(intent);
 					        }
 					    });

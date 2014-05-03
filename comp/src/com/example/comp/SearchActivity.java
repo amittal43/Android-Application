@@ -17,21 +17,29 @@ public class SearchActivity extends Activity {
     // Tab titles
     private String[] tabs = { "Top Rated", "Games", "Movies" }; */
 	
-	String menu;
+	String menu, thisUser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
-		
+		thisUser = getIntent().getExtras().getString("user");
 		menu = this.getIntent().getExtras().getString("menu");		
 	}
 	
 	public void onClick(View view){
 		
 		Intent intent;
-		if (menu.matches("buy")) intent = new Intent(this, SearchItem.class);
-		else intent = new Intent(this, SearchItemExchange.class);
+		if (menu.matches("buy")) 
+			{
+			intent = new Intent(this, SearchItem.class);
+			intent.putExtra("menu", "buy");
+			}
+		else 
+			{
+			intent = new Intent(this, SearchItemExchange.class);
+			intent.putExtra("menu", "borrow");
+			}
 		switch(view.getId()){
 			case R.id.buttonBook:
 				intent.putExtra("CATEGORY", "Book");
@@ -52,6 +60,7 @@ public class SearchActivity extends Activity {
 				intent.putExtra("CATEGORY", "Electronics");
 				break;
 		}
+		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
 

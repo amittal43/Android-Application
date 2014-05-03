@@ -38,26 +38,28 @@ import android.widget.Toast;
 import android.os.Build;
 
 public class ShowProduct extends Activity {
-	String title, price, quality, descr;
-	int id;
+	String title, price, quality, descr, thisUser;
+	String menu;
+	String id;
+	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_show_product);
-
+		thisUser = getIntent().getExtras().getString("user");
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 		Bundle bundle = getIntent().getExtras();
 	    //Extract each value from the bundle for usage
-		id = bundle.getInt("ID");
+		id = bundle.getString("ID");
 		title = bundle.getString("TITLE");
 		price = bundle.getString("PRICE");
 		quality = bundle.getString("QUALITY");
 		descr = bundle.getString("DESCR");
-		
+		menu = getIntent().getExtras().getString("menu");
 	    TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 	    textTitle.append(title);
 	    
@@ -73,7 +75,8 @@ public class ShowProduct extends Activity {
 	}
 	
 	public void buy (View view){
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", Integer.toString(id));
+		System.out.println("id = " + id);
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu);
 		/*Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
@@ -85,19 +88,22 @@ public class ShowProduct extends Activity {
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1]);
+			return POST(urls[0], urls[1], urls[2], urls[3]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
+		
 		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-			startActivity(intent);
+			intent.putExtra("user", thisUser);
 			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
+			startActivity(intent);
+			
 		}
 			
 	}
 
-	public static String POST(String url, String id){
+	public static String POST(String url, String id, String user, String menu){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -111,6 +117,9 @@ public class ShowProduct extends Activity {
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("id", id));
+			params.add(new BasicNameValuePair("menu", menu));
+			params.add(new BasicNameValuePair("user", user));
+			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
