@@ -34,13 +34,10 @@ import android.widget.Toast;
 
 public class SellOptionSubmit extends Activity {
 
-<<<<<<< .mine
 	static String thisUser;
 	
-=======
 	String title, category, quality, description, price;
 	
->>>>>>> .r157
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
