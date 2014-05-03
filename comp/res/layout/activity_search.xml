@@ -55,8 +55,7 @@
 
         <View
             android:layout_width="1dp"
-            android:layout_height="10dp"
-            android:background="@style/AppBaseTheme" />
+            android:layout_height="10dp"/>
         
         <Button
             android:id="@+id/buttonFashion"
