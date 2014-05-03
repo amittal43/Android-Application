@@ -37,6 +37,7 @@ public class MenuActivity extends Activity {
 				intent.putExtra("menu", "borrow");
 				break;
 			}
+			intent.putExtra("user", thisUser);
 			startActivity(intent);
 		}
 
