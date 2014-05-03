@@ -11,8 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 public class SearchActivity extends Activity {
-	/*private static int RESULT_LOAD_IMAGE = 1;
-	private ViewPager viewPager;
+	/*private ViewPager viewPager;
     private TabsPagerAdapter mAdapter;
     private ActionBar actionBar;
     // Tab titles
@@ -25,27 +24,7 @@ public class SearchActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search);
 		
-		menu = this.getIntent().getExtras().getString("menu");
-				
-		
-		
-		/**
-		 * load pictures
-		 */
-		/*Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
-	    buttonLoadImage.setOnClickListener(new View.OnClickListener() {
-	         
-	        @Override
-	        public void onClick(View arg0) {
-	             
-	            Intent i = new Intent(
-	                    Intent.ACTION_PICK,
-	                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-	             
-	            startActivityForResult(i, RESULT_LOAD_IMAGE);
-	        }
-	    });*/
-		
+		menu = this.getIntent().getExtras().getString("menu");		
 	}
 	
 	public void onClick(View view){
@@ -75,41 +54,7 @@ public class SearchActivity extends Activity {
 		}
 		startActivity(intent);
 	}
-	
-	/*public void searchFashion(View view){
-		Intent intent = new Intent(this, SearchFashion.class);
-		startActivity(intent);
-	}
 
-	public void searchBedding(View view){
-		Intent intent = new Intent(this, SearchBedding.class);
-		startActivity(intent);
-	}
- 
-	/*
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	    super.onActivityResult(requestCode, resultCode, data);
-	     
-	    if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-	        Uri selectedImage = data.getData();
-	        String[] filePathColumn = { MediaStore.Images.Media.DATA };
-	
-	        Cursor cursor = getContentResolver().query(selectedImage,
-	                filePathColumn, null, null, null);
-	        cursor.moveToFirst();
-	
-	        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-	        String picturePath = cursor.getString(columnIndex);
-	        cursor.close();
-	         
-	        ImageView imageView = (ImageView) findViewById(R.id.imgView);
-	        imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-	     
-	    }
- 
- 
-	}*/
 	
 	
 	/*
