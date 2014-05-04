@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import android.os.Build;
 
 public class MenuActivity extends Activity {
@@ -24,6 +25,7 @@ public class MenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
 		thisUser = getIntent().getExtras().getString("user");
+		//Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
 		
 	}
 	
@@ -76,55 +78,5 @@ public class MenuActivity extends Activity {
 	                    }
 	                }).setNegativeButton("No", null).show();
 	    }
-		
-		
-		/** Called when the user clicks the Sell button */
-		/*public void lendOption (View view){
-			Intent intent = new Intent(this, LendOption.class);
-			startActivity(intent);
-		}*/
-/*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
-/*	public void searchItem(View view) {
-		Intent intent = new Intent(this, SearchResultsActivity.class);
-		Button searchButton = (Button) findViewById(R.id.sellClick);
-		startActivity(intent);
-	}*/
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	/*public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_menu, container,
-					false);
-			return rootView;
-		}
-	}*/
 
 }
