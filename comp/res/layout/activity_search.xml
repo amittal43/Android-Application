@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background = "#FFFFFF"
     tools:context="com.example.comp.SearchActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -89,7 +90,7 @@
             android:layout_height="60dp"
             android:background="@drawable/blue"
             android:text="@string/buttonElectronics"
-            android:drawableRight="@drawable/smartphones"
+            android:drawableRight="@drawable/electronics"
             android:onClick = "onClick"/>
 
     </LinearLayout>
