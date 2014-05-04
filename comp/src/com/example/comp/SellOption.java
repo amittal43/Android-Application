@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class SellOption extends Activity {
 	private RadioGroup radioCategoryGroup;
@@ -41,83 +42,7 @@ public class SellOption extends Activity {
 	
 	private static final int SELECT_PICTURE = 1;
 
-	/** Called when the user clicks the Submit button */
-	public void sellOptionSubmit (View view){
-		
-		
-		/**
-		 * Get the title of the product
-		 */
-		stringTitle = (EditText) findViewById(R.id.itemTitle);
-		String title = getStringValue(stringTitle);	
-		
-		
-		/**
-		 * Get the category of the product
-		 */
-		radioCategoryGroup = (RadioGroup) findViewById(R.id.radioGroup1);
-		int selectedId = radioCategoryGroup.getCheckedRadioButtonId();
-		radioCategoryButton = (RadioButton) findViewById(selectedId);
-		String category = (String) radioCategoryButton.getText();
-		int categoryIdx = radioCategoryGroup.indexOfChild(radioCategoryButton);
 
-		/**
-		 * Get the price of the product
-		 */
-		doublePrice = (EditText) findViewById(R.id.itemPrice);
-		double price = getDoubleValue(doublePrice);
-		
-		/**
-		 * Get the quality of the product
-		 */
-		radioQualityGroup = (RadioGroup) findViewById(R.id.radioGroup2);
-		selectedId = radioQualityGroup.getCheckedRadioButtonId();
-		radioQualityButton = (RadioButton) findViewById(selectedId);
-		String quality = (String) radioQualityButton.getText();
-
-		/**
-		 * Get the description of the product
-		 */
-		stringDescription = (EditText) findViewById(R.id.itemDescription);
-		String description = getStringValue(stringDescription);
-		
-		// TODO: Add the picture to the product
-		Product prod = new Product(quality, title, description);
-		Listing newList = new Listing(price,prod);
-		
-		
-		//TODO: create an exception if user's input is not valid
-		
-		Intent intent = new Intent(this, SellOptionSubmit.class);
-		Bundle bundle = new Bundle();
-		bundle.putString("TITLE", title);
-		bundle.putString("CATEGORY", category);
-		bundle.putString("QUALITY", quality);
-		bundle.putString("DESCRIPTION", description);
-		bundle.putDouble("PRICE", price);
-		bundle.putInt("CATEGORYINDEX", categoryIdx);
-		bundle.putString("IMAGE", imagePath);
-		intent.putExtras(bundle);
-		if(thisUser == null)
-			System.out.println("this user is null");
-		intent.putExtra("user", thisUser);
-		System.out.println("Passing info to SellOptionSubmit");
-		startActivity(intent);
-		//Toast.makeText(this, "Sucessful",Toast.LENGTH_LONG).show();
-	}
-
-
-	    
-	private double getDoubleValue(EditText text) {
-		double value;
-		value = Double.parseDouble(text.getText().toString());
-		return value;
-	}
-	
-	private String getStringValue(EditText text){
-		return text.getText().toString();
-	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -175,4 +100,82 @@ public class SellOption extends Activity {
 		// this is our fallback here
 		return uri.getPath();
 	}
+	
+	/** Called when the user clicks the Submit button */
+	public void sellOptionSubmit (View view){
+		
+		
+		/**
+		 * Get the title of the product
+		 */
+		stringTitle = (EditText) findViewById(R.id.itemTitle);
+		String title = getStringValue(stringTitle);	
+		
+		
+		/**
+		 * Get the category of the product
+		 */
+		radioCategoryGroup = (RadioGroup) findViewById(R.id.radioGroup1);
+		int selectedId = radioCategoryGroup.getCheckedRadioButtonId();
+		radioCategoryButton = (RadioButton) findViewById(selectedId);
+		String category = (String) radioCategoryButton.getText();
+
+		/**
+		 * Get the price of the product
+		 */
+		doublePrice = (EditText) findViewById(R.id.itemPrice);
+		String price = doublePrice.getText().toString();
+		
+		/**
+		 * Get the quality of the product
+		 */
+		radioQualityGroup = (RadioGroup) findViewById(R.id.radioGroup2);
+		selectedId = radioQualityGroup.getCheckedRadioButtonId();
+		radioQualityButton = (RadioButton) findViewById(selectedId);
+		String quality = (String) radioQualityButton.getText();
+
+		/**
+		 * Get the description of the product
+		 */
+		stringDescription = (EditText) findViewById(R.id.itemDescription);
+		String description = getStringValue(stringDescription);
+		
+		//TODO: create an exception if user's input is not valid
+		
+		if (title.matches("") || description.matches("") || price.matches("")){
+			Toast.makeText(this, "Input data is not complete!", Toast.LENGTH_LONG).show();
+		}
+		else {
+			double priceDouble = Double.parseDouble(price);
+			Intent intent = new Intent(this, SellOptionSubmit.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("TITLE", title);
+			bundle.putString("CATEGORY", category);
+			bundle.putString("QUALITY", quality);
+			bundle.putString("DESCRIPTION", description);
+			bundle.putDouble("PRICE", priceDouble);
+			bundle.putString("IMAGE", imagePath);
+			intent.putExtras(bundle);
+			if(thisUser == null)
+				System.out.println("this user is null");
+			intent.putExtra("user", thisUser);
+			System.out.println("Passing info to SellOptionSubmit");
+			startActivity(intent);
+		}
+		//Toast.makeText(this, "Successful",Toast.LENGTH_LONG).show();
+	}
+
+
+	    
+	private double getDoubleValue(EditText text) {
+		double value;
+		value = Double.parseDouble(text.getText().toString());
+		return value;
+	}
+	
+	private String getStringValue(EditText text){
+		return text.getText().toString();
+	}
+	
+	
 }

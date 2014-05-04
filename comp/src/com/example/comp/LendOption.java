@@ -32,13 +32,13 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 	private RadioButton radioQualityButton;
 	private EditText doublePrice, stringTitle, stringDescription, showDate;
 	private Calendar calendar;
-	private String duedate = "", title = "", category = "", quality = "", description = "", price = "";
+	private String duedate = "", title = "", category = "", quality = "", description = "", price = "", thisUser;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lend_option);
-
+        thisUser = getIntent().getExtras().getString("user");
     }
     
     //Call DatePickerFragment - to pick a date
@@ -91,19 +91,19 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 		}
 		else
 		{
-			double pricedouble = Double.parseDouble(price);
+			double priceDouble = Double.parseDouble(price);
 			Intent intent = new Intent(this, LendOptionSubmit.class);
 			Bundle bundle = new Bundle();
 			bundle.putString("TITLE", title);
 			bundle.putString("CATEGORY", category);
 			bundle.putString("QUALITY", quality);
 			bundle.putString("DESCRIPTION", description);
-			bundle.putDouble("PRICE", pricedouble);
+			bundle.putDouble("PRICE", priceDouble);
 			bundle.putString("DUEDATE", duedate);
 			intent.putExtras(bundle);
 			startActivity(intent);
 
-		//Toast.makeText(this, "Sucessful",Toast.LENGTH_LONG).show();
+		//Toast.makeText(this, "Successful",Toast.LENGTH_LONG).show();
 		}
 	}
 

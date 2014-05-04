@@ -55,6 +55,7 @@ public class MenuActivity extends Activity {
 		/** Called when the user clicks the Lend button */
 		public void lendOption (View view){
 			Intent intent = new Intent(this, LendOption.class);
+			intent.putExtra("user", thisUser);
 			startActivity(intent);
 		}
 		

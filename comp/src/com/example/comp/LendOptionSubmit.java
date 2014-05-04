@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 public class LendOptionSubmit extends Activity {
 
-	String title, category, quality, description, price, duedate;
+	String title, category, quality, description, price, duedate, thisUser;
 	//Calendar cal;
 
 	@Override
@@ -37,6 +37,8 @@ public class LendOptionSubmit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lend_option_submit);
 
+		thisUser = getIntent().getExtras().getString("user");
+		
 		Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
 		title = bundle.getString("TITLE");
@@ -80,16 +82,17 @@ public class LendOptionSubmit extends Activity {
 	 */
 	public void backToHome(View view){
 		Intent intent = new Intent(this, MenuActivity.class);
-
+		intent.putExtra("user", thisUser);
+		
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-exchange-to-database.php", 
-				title, category,price, quality, description, duedate);
+				title, category,price, quality, description, duedate, thisUser);
 		startActivity(intent);
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6]);
+			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6], urls[7]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
@@ -99,7 +102,7 @@ public class LendOptionSubmit extends Activity {
 	}
 
 
-	public static String POST(String url, String title, String category, String price, String quality, String desc, String duedate){
+	public static String POST(String url, String title, String category, String price, String quality, String desc, String duedate, String user){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -120,6 +123,7 @@ public class LendOptionSubmit extends Activity {
 			params.add(new BasicNameValuePair("quality", quality.toString()));
 			params.add(new BasicNameValuePair("description", desc.toString()));
 			params.add(new BasicNameValuePair("duedate",duedate));
+			params.add(new BasicNameValuePair("user", user));
 			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 

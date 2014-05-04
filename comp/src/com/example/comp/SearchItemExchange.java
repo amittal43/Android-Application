@@ -38,27 +38,27 @@ import android.widget.Toast;
 
 public class SearchItemExchange extends Activity {
 
+	String thisUser;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_item_exchange);
+		thisUser = getIntent().getExtras().getString("user");
 		
 		String category = getIntent().getExtras().getString("CATEGORY");
+		
+		String order = "Increasing";
+		String field = "price";
 		//Toast.makeText(this, category, Toast.LENGTH_LONG).show();
 		
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item-exchange.php", category);
-
-		/*if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item-exchange.php", category, order, field, thisUser);
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1]);
+			return POST(urls[0], urls[1],urls[2],urls[3],urls[4]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
@@ -85,7 +85,7 @@ public class SearchItemExchange extends Activity {
 					    final String price = obj.optString("price");
 					    final String quality = obj.optString("quality");
 					    final String descr = obj.optString("descr");
-					    final int id = obj.optInt("id");
+					    final String id = obj.optString("id");
 					    //final String id = obj.optString("id");
 					    final String duedate = obj.optString("duedate");
 						
@@ -101,7 +101,7 @@ public class SearchItemExchange extends Activity {
 					        @Override
 					    	public void onClick(View v) {
 					        	Bundle bundle = new Bundle();
-					        	bundle.putInt("ID", id);
+					        	bundle.putString("ID", id);
 					        	bundle.putString("TITLE", title);
 					        	bundle.putString("PRICE", price);
 					        	bundle.putString("QUALITY", quality);
@@ -125,7 +125,7 @@ public class SearchItemExchange extends Activity {
 		}
 	}
 
-	public static String POST(String url, String category){
+	public static String POST(String url, String category, String order, String field, String user){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -139,6 +139,9 @@ public class SearchItemExchange extends Activity {
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
 			params.add(new BasicNameValuePair("category", category));
+			params.add(new BasicNameValuePair("ordering", order));
+			params.add(new BasicNameValuePair("sortField",field));
+			params.add(new BasicNameValuePair("user", user));
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
