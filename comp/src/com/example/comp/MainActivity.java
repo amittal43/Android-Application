@@ -1,5 +1,14 @@
 package com.example.comp;
 
+
+import com.facebook.LoggingBehavior;
+import com.facebook.Request;
+import com.facebook.Response;
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.Settings;
+import com.facebook.model.GraphUser;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,30 +21,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	
-	private MainFragment mainFragment; 
+	//private static final String URL_PREFIX_FRIENDS = "https://graph.facebook.com/me/friends?access_token=";
+	private Button loginFB;
+	private Session.StatusCallback statusCallback = new SessionStatusCallback();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_main);
+		loginFB = (Button)findViewById(R.id.authButton);
+		Settings.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
 		
-		if (savedInstanceState == null) {
-	        // Add the fragment on initial activity setup
-	        mainFragment = new MainFragment();
-	        getSupportFragmentManager()
-	        .beginTransaction()
-	        .add(android.R.id.content, mainFragment)
-	        .commit();
-	    } else {
-	        // Or set the fragment from restored state info
-	        mainFragment = (MainFragment) getSupportFragmentManager()
-	        .findFragmentById(android.R.id.content);
-	    }
-		
+		Session session = Session.getActiveSession();
+        if (session == null) {
+            if (savedInstanceState != null) {
+                session = Session.restoreSession(this, null, statusCallback, savedInstanceState);
+            }
+            if (session == null) {
+                session = new Session(this);
+            }
+            Session.setActiveSession(session);
+            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
+                session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+            }
+        }
+        updateView();
 	}
 	
 	public void onClick(View view) 
@@ -54,47 +69,90 @@ public class MainActivity extends FragmentActivity {
 		}
 
 	}
-	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+    public void onStart() {
+        super.onStart();
+        Session.getActiveSession().addCallback(statusCallback);
+    }
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        Session.getActiveSession().removeCallback(statusCallback);
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-	
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+    }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Session session = Session.getActiveSession();
+        Session.saveSession(session, outState);
+    }
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
+    
+    @SuppressWarnings("deprecation")
+    private void updateView() {
+        Session session = Session.getActiveSession();
+        if (session.isOpened()) {
+        	
+        	final Intent intent = new Intent(this, MenuActivity.class);
+        	
+        	Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
 
-		public PlaceholderFragment() {
-			
-		}
+	            // callback after Graph API response with user object
+	            @Override
+	            public void onCompleted(GraphUser user, Response response) {
+	            	
+	            	// Request user data and show the results
+	                        if (user != null) {
+	                        	
+	                            // Display the parsed user info
+	                            //userInfoTextView.setText(buildUserInfoDisplay(user));
+	                        	intent.putExtra("user", user.getName());
+	                        	startActivity(intent);
+	                        	finish();
+	                        }
+	            }
+	          });
+            
+            /*loginFB.setText("Log Out");
+            loginFB.setOnClickListener(new OnClickListener() {
+                public void onClick(View view) { onClickLogout(); }
+            });*/
+        } else {
+            loginFB.setOnClickListener(new OnClickListener() {
+                public void onClick(View view) { onClickLogin(); }
+            });
+        }
+    }
 
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
-		}
-	}
-	
+    private void onClickLogin() {
+        Session session = Session.getActiveSession();
+        if (!session.isOpened() && !session.isClosed()) {
+            session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
+        } else {
+            Session.openActiveSession(this, true, statusCallback);
+        }
+    }
+
+    /*private void onClickLogout() {
+        Session session = Session.getActiveSession();
+        if (!session.isClosed()) {
+            session.closeAndClearTokenInformation();
+        }
+    }*/
+
+    private class SessionStatusCallback implements Session.StatusCallback {
+        @Override
+        public void call(Session session, SessionState state, Exception exception) {
+            updateView();
+        }
+    }
 	@Override
     public void onBackPressed() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")

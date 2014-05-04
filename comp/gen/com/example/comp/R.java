@@ -1471,23 +1471,24 @@ containing a value of this type.
     public static final class menu {
         public static final int create_message=0x7f0c0000;
         public static final int create_user=0x7f0c0001;
-        public static final int lend_option=0x7f0c0002;
-        public static final int lend_option_submit=0x7f0c0003;
-        public static final int login=0x7f0c0004;
-        public static final int main=0x7f0c0005;
-        public static final int menu=0x7f0c0006;
-        public static final int message=0x7f0c0007;
-        public static final int search=0x7f0c0008;
-        public static final int search_bedding=0x7f0c0009;
-        public static final int search_books=0x7f0c000a;
-        public static final int search_electronics=0x7f0c000b;
-        public static final int search_fashion=0x7f0c000c;
-        public static final int search_item_exchange=0x7f0c000d;
-        public static final int search_page=0x7f0c000e;
-        public static final int sell_option=0x7f0c000f;
-        public static final int sell_option_submit=0x7f0c0010;
-        public static final int show_product=0x7f0c0011;
-        public static final int show_product_exchange=0x7f0c0012;
+        public static final int fblogin=0x7f0c0002;
+        public static final int lend_option=0x7f0c0003;
+        public static final int lend_option_submit=0x7f0c0004;
+        public static final int login=0x7f0c0005;
+        public static final int main=0x7f0c0006;
+        public static final int menu=0x7f0c0007;
+        public static final int message=0x7f0c0008;
+        public static final int search=0x7f0c0009;
+        public static final int search_bedding=0x7f0c000a;
+        public static final int search_books=0x7f0c000b;
+        public static final int search_electronics=0x7f0c000c;
+        public static final int search_fashion=0x7f0c000d;
+        public static final int search_item_exchange=0x7f0c000e;
+        public static final int search_page=0x7f0c000f;
+        public static final int sell_option=0x7f0c0010;
+        public static final int sell_option_submit=0x7f0c0011;
+        public static final int show_product=0x7f0c0012;
+        public static final int show_product_exchange=0x7f0c0013;
     }
     public static final class string {
         public static final int Borrow=0x7f080059;
@@ -1593,6 +1594,7 @@ containing a value of this type.
         public static final int textTitle=0x7f08002e;
         public static final int title_activity_create_message=0x7f080052;
         public static final int title_activity_create_user=0x7f08004e;
+        public static final int title_activity_fblogin=0x7f08005b;
         public static final int title_activity_lend_option=0x7f08004c;
         public static final int title_activity_lend_option_submit=0x7f08004d;
         public static final int title_activity_login=0x7f08004f;

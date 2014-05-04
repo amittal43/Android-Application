@@ -52,7 +52,7 @@
     <string name="Sell">Sell</string>
     <string name="Lend">Lend</string>
     <string name="Borrow">Borrow</string>
-   <string name="MyMessages">My Messages</string>
-    
+    <string name="MyMessages">My Messages</string>
+    <string name="title_activity_fblogin">FBLogin</string>
 
 </resources>

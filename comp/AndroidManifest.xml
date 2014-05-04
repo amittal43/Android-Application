@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
@@ -103,6 +103,10 @@
         <activity
             android:name="com.example.comp.ShowProductExchange"
             android:label="@string/title_activity_show_product_exchange" >
+        </activity>
+        <activity
+            android:name="com.example.comp.FBLogin"
+            android:label="@string/title_activity_fblogin" >
         </activity>
     </application>
 
