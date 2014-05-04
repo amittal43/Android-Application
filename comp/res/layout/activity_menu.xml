@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.MainActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -20,6 +21,8 @@
             android:id="@+id/buyClick"
             android:layout_width="match_parent"
             android:layout_height="65dp"
+            android:background="@drawable/blue"
+            android:drawableRight="@drawable/buy"
             android:onClick="openSearchResult"
             android:text="@string/Buy" />
 
@@ -30,6 +33,8 @@
         <Button
             android:id="@+id/sellClick"
             android:layout_width="match_parent"
+            android:drawableRight="@drawable/sell"
+            android:background="@drawable/blue"
             android:layout_height="68dp"
             android:onClick="sellOption"
             android:text="@string/Sell" />
@@ -41,7 +46,9 @@
         <Button
             android:id="@+id/borrowClick"
             android:layout_width="match_parent"
+            android:drawableRight="@drawable/borrow"
             android:layout_height="68dp"
+            android:background="@drawable/blue"
             android:onClick="openSearchResult"
             android:text="@string/Borrow" />
 
@@ -53,6 +60,8 @@
             android:id="@+id/lendClick"
             android:layout_width="match_parent"
             android:layout_height="68dp"
+            android:drawableRight="@drawable/lend"
+            android:background="@drawable/blue"
             android:onClick="lendOption"
             android:text="@string/Lend" />
 
@@ -64,6 +73,8 @@
             android:id="@+id/checkMsgs"
             android:layout_width="match_parent"
             android:layout_height="68dp"
+            android:drawableRight="@drawable/chat"
+            android:background="@drawable/blue"
             android:onClick="showMessages"
             android:text="@string/MyMessages" />
         
