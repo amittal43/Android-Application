@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.SellOptionSubmit"
     tools:ignore="MergeRootFrame" >
 
@@ -19,11 +20,13 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text="@+string/textTitle" />
 
             <TextView
                 android:id="@+id/confirmTitle"
                 android:layout_width="180dp"
+                android:textColor="#0000FF"
                 android:layout_height="wrap_content"
                 android:text=": " />
         </LinearLayout>
@@ -40,11 +43,13 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text="@+string/chooseCategory" />
 
             <TextView
                 android:id="@+id/confirmCategory"
                 android:layout_width="180dp"
+                android:textColor="#0000FF"
                 android:layout_height="wrap_content"
                 android:text=": " />
         </LinearLayout>
@@ -61,11 +66,13 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                 android:textColor="#0000FF"
                 android:text="@+string/textQuality" />
 
             <TextView
                 android:id="@+id/confirmQuality"
                 android:layout_width="180dp"
+                android:textColor="#0000FF"
                 android:layout_height="wrap_content"
                 android:text=": " />
         </LinearLayout>
@@ -82,11 +89,13 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text="@+string/textDescription" />
 
             <TextView
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text=": " />
         </LinearLayout>
 
@@ -108,12 +117,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text="@+string/textPrice" />
 
             <TextView
                 android:id="@+id/confirmPrice"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text=": HKD " />
         </LinearLayout>
 
@@ -130,12 +141,14 @@
                 android:id="@+id/confirmPicture"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text="Picture" />
             
             <TextView
                 android:id="@+id/confirmTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#0000FF"
                 android:text=": " />
 
             <ImageView
@@ -159,6 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/blue"
             android:onClick="backToHome"
             android:text="Confirm" />
     </LinearLayout>
