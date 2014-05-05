@@ -1,8 +1,9 @@
 package com.example.comp;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Activity;
-import android.content.DialogInterface.OnClickListener;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -11,16 +12,9 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -37,9 +31,9 @@ public class SellOption extends Activity {
 	private EditText stringDescription;
 
 	String thisUser;
-	
+
 	private String imagePath = "noImage";
-	
+
 	private static final int SELECT_PICTURE = 1;
 
 
@@ -50,7 +44,7 @@ public class SellOption extends Activity {
 		thisUser = getIntent().getExtras().getString("user");
 
 		((Button) findViewById(R.id.buttonLoadPicture)).setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				//Intent intent = new Intent();
@@ -63,7 +57,41 @@ public class SellOption extends Activity {
 		});
 
 	}
-	
+
+	public void setAuctionDate(View view)
+	{
+		CheckBox cb = (CheckBox) view;
+		if(cb.isChecked())
+		{
+
+			EditText hh = (EditText) findViewById(R.id.aucHour);
+			EditText mm = (EditText) findViewById(R.id.aucMin);
+			EditText DD = (EditText) findViewById(R.id.aucDay);
+			EditText MM = (EditText) findViewById(R.id.aucMonth);
+			EditText YY = (EditText) findViewById(R.id.aucYear);
+			hh.setEnabled(true);
+			mm.setEnabled(true);
+			DD.setEnabled(true);
+			MM.setEnabled(true);
+			YY.setEnabled(true);
+		}
+		else
+		{
+			EditText hh = (EditText) findViewById(R.id.aucHour);
+			EditText mm = (EditText) findViewById(R.id.aucMin);
+			EditText DD = (EditText) findViewById(R.id.aucDay);
+			EditText MM = (EditText) findViewById(R.id.aucMonth);
+			EditText YY = (EditText) findViewById(R.id.aucYear);
+			hh.setEnabled(false);
+			mm.setEnabled(false);
+			DD.setEnabled(false);
+			MM.setEnabled(false);
+			YY.setEnabled(false);
+
+		}
+	}
+
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		if (resultCode == RESULT_OK) {
@@ -100,18 +128,18 @@ public class SellOption extends Activity {
 		// this is our fallback here
 		return uri.getPath();
 	}
-	
+
 	/** Called when the user clicks the Submit button */
 	public void sellOptionSubmit (View view){
-		
-		
+
+
 		/**
 		 * Get the title of the product
 		 */
 		stringTitle = (EditText) findViewById(R.id.itemTitle);
 		String title = getStringValue(stringTitle);	
-		
-		
+
+
 		/**
 		 * Get the category of the product
 		 */
@@ -125,7 +153,7 @@ public class SellOption extends Activity {
 		 */
 		doublePrice = (EditText) findViewById(R.id.itemPrice);
 		String price = doublePrice.getText().toString();
-		
+
 		/**
 		 * Get the quality of the product
 		 */
@@ -139,43 +167,75 @@ public class SellOption extends Activity {
 		 */
 		stringDescription = (EditText) findViewById(R.id.itemDescription);
 		String description = getStringValue(stringDescription);
-		
+
 		//TODO: create an exception if user's input is not valid
-		
-		if (title.matches("") || description.matches("") || price.matches("")){
+
+		if (title.matches("") || description.matches("") || price.matches(""))
+		{
 			Toast.makeText(this, "Input data is not complete!", Toast.LENGTH_LONG).show();
 		}
 		else {
 			double priceDouble = Double.parseDouble(price);
-			Intent intent = new Intent(this, SellOptionSubmit.class);
-			Bundle bundle = new Bundle();
-			bundle.putString("TITLE", title);
-			bundle.putString("CATEGORY", category);
-			bundle.putString("QUALITY", quality);
-			bundle.putString("DESCRIPTION", description);
-			bundle.putDouble("PRICE", priceDouble);
-			bundle.putString("IMAGE", imagePath);
-			intent.putExtras(bundle);
-			if(thisUser == null)
-				System.out.println("this user is null");
-			intent.putExtra("user", thisUser);
-			System.out.println("Passing info to SellOptionSubmit");
-			startActivity(intent);
+
+			EditText hh = (EditText) findViewById(R.id.aucHour);
+			EditText mm = (EditText) findViewById(R.id.aucMin);
+			EditText DD = (EditText) findViewById(R.id.aucDay);
+			EditText MM = (EditText) findViewById(R.id.aucMonth);
+			EditText YY = (EditText) findViewById(R.id.aucYear);
+
+			try
+			{
+				int h = Integer.valueOf(hh.getText().toString());
+				int m = Integer.valueOf(mm.getText().toString());
+				int D = Integer.valueOf(DD.getText().toString());
+				int M = Integer.valueOf(MM.getText().toString());
+				int Y = Integer.valueOf(YY.getText().toString());
+				Date d = new Date();
+				d.setHours(h);
+				d.setMinutes(m);
+				d.setDate(D);
+				d.setMonth(M);
+				d.setYear(Y);
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+				String end = sdf.format(d);
+				System.out.println("Auction end date is " + end);
+				Intent intent = new Intent(this, SellOptionSubmit.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("DATE", end);
+				bundle.putString("TITLE", title);
+				bundle.putString("CATEGORY", category);
+				bundle.putString("QUALITY", quality);
+				bundle.putString("DESCRIPTION", description);
+				bundle.putDouble("PRICE", priceDouble);
+				bundle.putString("IMAGE", imagePath);
+				intent.putExtras(bundle);
+				if(thisUser == null)
+					System.out.println("this user is null");
+				intent.putExtra("user", thisUser);
+				System.out.println("Passing info to SellOptionSubmit");
+				startActivity(intent);
+
+			}
+			catch(Exception e)
+			{
+				Toast.makeText(getApplicationContext(), "Illegal Format", Toast.LENGTH_LONG).show();
+			}
+
 		}
 		//Toast.makeText(this, "Successful",Toast.LENGTH_LONG).show();
 	}
 
 
-	    
+
 	private double getDoubleValue(EditText text) {
 		double value;
 		value = Double.parseDouble(text.getText().toString());
 		return value;
 	}
-	
+
 	private String getStringValue(EditText text){
 		return text.getText().toString();
 	}
-	
-	
+
+
 }
