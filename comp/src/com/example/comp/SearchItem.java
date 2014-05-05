@@ -162,6 +162,7 @@ public class SearchItem extends Activity {
 								bundle.putString("PRICE", price);
 								bundle.putString("QUALITY", quality);
 								bundle.putString("DESCR", descr);
+								bundle.putString("SELLER", seller);
 								Intent intent = new Intent(SearchItem.this, ShowProduct.class);
 								intent.putExtras(bundle);
 								intent.putExtra("user", thisUser);
@@ -178,7 +179,6 @@ public class SearchItem extends Activity {
 				Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
 						Toast.LENGTH_SHORT).show();
 			}
-
 		}
 	}
 
