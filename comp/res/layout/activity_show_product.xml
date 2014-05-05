@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.ShowProduct"
     tools:ignore="MergeRootFrame" >
 
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:textColor="#0000FF"
             android:text="Description&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -44,6 +46,7 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:text="Quality&#10;"
+            android:textColor="#0000FF"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <View
@@ -56,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
+            android:textColor="#0000FF"
             android:text="Price&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
@@ -65,11 +69,12 @@
 
         <Button
             android:id="@+id/buyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="119dp"
+            android:layout_height="51dp"
             android:layout_gravity="center_horizontal"
-            android:text="Buy"
-            android:onClick="buy" />
+            android:background="@drawable/blue"
+            android:onClick="buy"
+            android:text="Buy" />
 
     </LinearLayout>
 

@@ -54,5 +54,12 @@
     <string name="Borrow">Borrow</string>
     <string name="MyMessages">My Messages</string>
     <string name="title_activity_fblogin">FBLogin</string>
+   	<string name="LOGINUSINGUSERNAME">LOGIN USING USERNAME</string>
+   	<string name="UserName">User Name</string>
+   	<string name="Password">Password</string>
+   	<string name="Login">Login</string>
+   	<string name="Status">Status</string>
+   	<string name="ItemDetails">Item Details</string>
+   	<string name="Submit">Submit</string>
 
 </resources>
