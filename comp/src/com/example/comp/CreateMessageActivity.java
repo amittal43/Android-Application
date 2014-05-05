@@ -45,7 +45,7 @@ public class CreateMessageActivity extends Activity {
 	ArrayList<String> conversation;
 	List<Map<String, String>> messageThread = new ArrayList<Map<String,String>>();
 	ArrayList<String> allUsers;
-	
+
 	private void initList()
 	{
 		for(int i=0; conversation!=null && i < conversation.size(); i++)
@@ -84,15 +84,14 @@ public class CreateMessageActivity extends Activity {
 		else
 			conversation = new ArrayList<String>();
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-users.php", "", "", "");
-		
-		
+
+
 		if(getIntent().hasExtra("conversation"))
 		{
 			int index1 = conversation.get(0).indexOf("!!!@@@###");
 			int index2 = conversation.get(0).indexOf("$$$%%%^^^");
 			String recepient = conversation.get(0).substring(index1+9, index2);
 			System.out.println("the recip is " + recepient);
-			Spinner spin = (Spinner) findViewById(R.id.recepList);
 			//ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
 			//int spinnerPosition = myAdap.getPosition(recepient);
 			//spin.setSelection(spinnerPosition);
@@ -100,7 +99,7 @@ public class CreateMessageActivity extends Activity {
 		}
 		else
 		{
-		//	new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-users.php", "", "", "");
+			//	new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-users.php", "", "", "");
 		}
 		if(getIntent().hasExtra("conversation"))
 		{
@@ -109,7 +108,7 @@ public class CreateMessageActivity extends Activity {
 			SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), messageThread, android.R.layout.simple_list_item_1, new String[] {"message"}, new int[] {android.R.id.text1});
 			lv.setAdapter(simpleAdpt);
 		}
-
+		
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
@@ -208,11 +207,11 @@ public class CreateMessageActivity extends Activity {
 				{
 					JSONArray jArray = jObj.getJSONArray("list");
 					allUsers = new ArrayList<String>();
-						for(int i=0; i < jArray.length(); i++)
-						{
-							String obj = jArray.get(i).toString();
-							allUsers.add(obj);
-						}
+					for(int i=0; i < jArray.length(); i++)
+					{
+						String obj = jArray.get(i).toString();
+						allUsers.add(obj);
+					}
 					allUsers.remove(getIntent().getExtras().getString("user"));
 					//Toast.makeText(getApplicationContext(), "Downloaded all users info", Toast.LENGTH_SHORT).show();;
 					//success = true;
@@ -254,26 +253,35 @@ public class CreateMessageActivity extends Activity {
 			{
 				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(),
 						android.R.layout.simple_spinner_item, allUsers);
-					dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-					Spinner spin = (Spinner) findViewById(R.id.recepList);
-					spin.setAdapter(dataAdapter);
-					if(getIntent().hasExtra("conversation"))
-					{
-						int index1 = conversation.get(0).indexOf("!!!@@@###");
-						int index2 = conversation.get(0).indexOf("$$$%%%^^^");
-						String sender = conversation.get(0).substring(0, index1);
-						String recepient = conversation.get(0).substring(index1+9, index2);
-						String reqName = null;
-						if(getIntent().getExtras().getString("user").equals(sender))
-							reqName = recepient;
-						else
-							reqName = sender;
-						System.out.println("the recip is " + recepient);
-						ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
-						int spinnerPosition = myAdap.getPosition(reqName);
-						spin.setSelection(spinnerPosition);
-						spin.setEnabled(false);
-					}
+				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				Spinner spin = (Spinner) findViewById(R.id.recepList);
+				spin.setAdapter(dataAdapter);
+				if(getIntent().hasExtra("conversation"))
+				{
+					int index1 = conversation.get(0).indexOf("!!!@@@###");
+					int index2 = conversation.get(0).indexOf("$$$%%%^^^");
+					String sender = conversation.get(0).substring(0, index1);
+					String recepient = conversation.get(0).substring(index1+9, index2);
+					String reqName = null;
+					if(getIntent().getExtras().getString("user").equals(sender))
+						reqName = recepient;
+					else
+						reqName = sender;
+					System.out.println("the recip is " + recepient);
+					ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+					int spinnerPosition = myAdap.getPosition(reqName);
+					spin.setSelection(spinnerPosition);
+					spin.setEnabled(false);
+				}
+				if(getIntent().hasExtra("toUser"))
+				{
+					ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+					System.out.println(getIntent().getExtras().getString("toUser"));
+					int spinnerPosition = myAdap.getPosition(getIntent().getExtras().getString("toUser"));
+					spin.setSelection(spinnerPosition);
+					spin.setEnabled(false); 
+				}
+
 			}
 		}
 	}
@@ -281,9 +289,19 @@ public class CreateMessageActivity extends Activity {
 	@Override
 	public void onBackPressed() 
 	{
-		Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
-		intent.putExtra("user", getIntent().getExtras().getString("user"));
-		startActivity(intent);
+		if(getIntent().hasExtra("toUser"))
+		{
+			Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+			intent.putExtra("user", getIntent().getExtras().getString("user"));
+			startActivity(intent);
+
+		}
+		else
+		{
+			Intent intent = new Intent(getApplicationContext(), MessageActivity.class);
+			intent.putExtra("user", getIntent().getExtras().getString("user"));
+			startActivity(intent);
+		}
 	}
 
 	public static String POST(String url, String fromUser, String toUser, String message){
