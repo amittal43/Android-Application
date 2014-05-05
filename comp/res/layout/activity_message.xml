@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.MessageActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -28,14 +29,17 @@
             <Button
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick = "search"
+                android:layout_height="30dp"
+                android:background="@drawable/blue"
+                android:paddingRight="10dp"
+                android:onClick="search"
                 android:text="Find" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/blue"
                 android:onClick="createNewMessage"
                 android:text="+" />
         </LinearLayout>

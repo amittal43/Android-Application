@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.SellOption"
     tools:ignore="MergeRootFrame" >
 
@@ -22,6 +23,7 @@
                 android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:text="Item Details"
+                android:textColor="#990000"
                 android:textSize="25dp" />
 
             <View
@@ -32,6 +34,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#990000"
                 android:text="@+string/textTitle" />
 
             <EditText
@@ -53,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/chooseCategory"
+                android:textColor="#990000"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <RadioGroup
@@ -65,31 +69,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/radioBook" />
+                    android:text="@string/radioBook"
+                    android:textColor="#0000FF" />
 
                 <RadioButton
                     android:id="@+id/radioBedding"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioBedding" />
+                    android:text="@string/radioBedding"
+                    android:textColor="#0000FF" />
 
                 <RadioButton
                     android:id="@+id/radioSport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioSport" />
+                    android:text="@string/radioSport"
+                    android:textColor="#0000FF" />
 
                 <RadioButton
                     android:id="@+id/radioFashion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioFashion" />
+                    android:text="@string/radioFashion"
+                    android:textColor="#0000FF" />
 
                 <RadioButton
                     android:id="@+id/radioCooking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioCooking" />
+                    android:text="@string/radioCooking"
+                    android:textColor="#0000FF" />
 
                 <RadioButton
                     android:id="@+id/radioElectronics"
@@ -106,6 +115,7 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#990000"
                 android:text="@+string/textPrice" />
 
             <EditText
@@ -124,6 +134,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#990000"
                 android:text="@+string/textQuality" />
 
             <LinearLayout
@@ -141,31 +152,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
-                        android:text="@string/radioVeryGood" />
+                        android:text="@string/radioVeryGood"
+                        android:textColor="#0000FF" />
 
                     <RadioButton
                         android:id="@+id/radioGood"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioGood" />
+                        android:text="@string/radioGood"
+                        android:textColor="#0000FF" />
 
                     <RadioButton
                         android:id="@+id/radioFair"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioFair" />
+                        android:text="@string/radioFair"
+                        android:textColor="#0000FF" />
 
                     <RadioButton
                         android:id="@+id/radioPoor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioPoor" />
+                        android:text="@string/radioPoor"
+                        android:textColor="#0000FF" />
 
                     <RadioButton
                         android:id="@+id/radioVeryPoor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/radioVeryPoor" />
+                        android:text="@string/radioVeryPoor"
+                        android:textColor="#0000FF" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -178,6 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/textDescription"
+                android:textColor="#990000"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <EditText
@@ -203,13 +220,13 @@
 		        android:layout_height="wrap_content"
 		        android:layout_weight="0"
 		        android:text="Load Picture"
-		        android:layout_gravity="center"></Button>
-            -->
+		        android:layout_gravity="center"></Button> -->
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#990000"
                 android:text="@+string/textPeriod"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -219,8 +236,9 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.02"
+                    android:layout_height="50dp"
+                    android:layout_weight="0.13"
+                    android:background="@drawable/blue"
                     android:onClick="showDatePickerDialog"
                     android:text="Pick a date" />
 
@@ -229,8 +247,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.02"
-                    android:ems="10"/>
-
+                    android:ems="10" />
             </LinearLayout>
 
             <View
@@ -239,9 +256,11 @@
 
             <Button
                 android:id="@+id/lendOptionSubmit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="122dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_weight="0.12"
+                android:background="@drawable/blue"
                 android:onClick="lendOptionSubmit"
                 android:text="Submit" />
         </LinearLayout>
