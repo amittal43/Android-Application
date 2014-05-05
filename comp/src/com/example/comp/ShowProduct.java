@@ -89,8 +89,7 @@ public class ShowProduct extends Activity {
 		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
 		toast.show();
 		Listing.bookListing.remove(index);*/
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu);		
-}
+	}
 
 	public void postBuyOptions(String str)
 	{

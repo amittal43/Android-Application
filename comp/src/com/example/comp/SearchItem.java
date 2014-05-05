@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -20,28 +19,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SearchItem extends Activity {
 
-	String thisUser, menu;
-
+	static String thisUser;
+	String menu;
+	boolean onCreate;
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,60 +82,64 @@ public class SearchItem extends Activity {
 			ArrayAdapter myAdap = (ArrayAdapter) spin2.getAdapter(); 
 			int spinnerPosition = myAdap.getPosition(getIntent().getExtras().getString("sort-order"));
 			spin2.setSelection(spinnerPosition);
-			String category = getIntent().getExtras().getString("CATEGORY");
+		
 		}
 		String category = getIntent().getExtras().getString("CATEGORY");
-
+	
 		if(getIntent().hasExtra("sort-field") && getIntent().hasExtra("sort-order"))
-			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category, getIntent().getExtras().getString("sort-field"), getIntent().getExtras().getString("sort-order") );
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category, getIntent().getExtras().getString("sort-field"), getIntent().getExtras().getString("sort-order") );
 		else
 		{
-			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category, "title", "Increasing");
-			getIntent().putExtra("sort-field", "title");	
-			getIntent().putExtra("sort-order", "Increasing");	
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category, "title", "Increasing");
+		getIntent().putExtra("sort-field", "title");	
+		getIntent().putExtra("sort-order", "Increasing");	
 		}
-		String order = "Increasing";
-		String field = "price";
-
-		//Toast.makeText(this, thisUser + " " + category, Toast.LENGTH_LONG).show();
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-item.php", category, order, field, thisUser);
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 	}
+	
+	public void sort(View view)
+	{
+		Intent i = getIntent();
+		Spinner spin = (Spinner) findViewById(R.id.sortByField);
+		String field = spin.getSelectedItem().toString();
+		if(field.equals("Description"))
+			field = "descr";
+		i.putExtra("sort-field", field);
+		spin = (Spinner) findViewById(R.id.incOrDec);
+		String order = spin.getSelectedItem().toString();
+		i.putExtra("sort-order", order);
+		finish();
+		startActivity(i);
+	}
 
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
-		protected String doInBackground(String...urls) 
-		{
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4]);
+		protected String doInBackground(String...urls) {
+			return POST(urls[0], urls[1], urls[2], urls[3]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
-		protected void onPostExecute(String result) 
-		{
+		protected void onPostExecute(String result) {
 			//Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
 
-			try 
-			{
+			try {
 				int index = result.indexOf("bin/php");	
 				result = result.substring(index+7);
 				JSONObject jObj = new JSONObject(result);
 
 				if (jObj.optString("result").equals("0")){
 					Toast.makeText(getBaseContext(), "No item available", Toast.LENGTH_SHORT).show();
-				} 
-				else 
-				{
+				} else {
 
 					JSONArray jArray = jObj.getJSONArray("list");
-					for(int i=0; i < jArray.length(); i++)
-					{
+					for(int i=0; i < jArray.length(); i++){
 						JSONObject obj = jArray.getJSONObject(i);
 
-						final LinearLayout container = (LinearLayout)findViewById(R.id.container);
-						final Button rowButton = new Button(getBaseContext());
+						LinearLayout container = (LinearLayout)findViewById(R.id.container);
+						Button rowButton = new Button(getBaseContext());
 
 						final String title = obj.optString("title");
 						final String price = obj.optString("price");
@@ -148,7 +148,6 @@ public class SearchItem extends Activity {
 						final String id = obj.optString("id");
 						final String seller = obj.optString("seller");
 						//set the content of the button
-
 						String content =  title + "\n" + price;
 						rowButton.setText(content);
 
@@ -163,35 +162,17 @@ public class SearchItem extends Activity {
 								bundle.putString("PRICE", price);
 								bundle.putString("QUALITY", quality);
 								bundle.putString("DESCR", descr);
-								bundle.putString("SELLER", seller);
 								Intent intent = new Intent(SearchItem.this, ShowProduct.class);
-								String content =  title + "\n" + price;
-								rowButton.setText(content);
-
-								//rowButton.setOnClickListener((OnClickListener) this);
-
-								rowButton.setOnClickListener(new OnClickListener() {
-									@Override
-									public void onClick(View v) {
-										Bundle bundle = new Bundle();
-										bundle.putString("ID", id);
-										bundle.putString("TITLE", title);
-										bundle.putString("PRICE", price);
-										bundle.putString("QUALITY", quality);
-										bundle.putString("DESCR", descr);
-										Intent intent = new Intent(SearchItem.this, ShowProduct.class);
-
-										intent.putExtras(bundle);
-										intent.putExtra("user", thisUser);
-										startActivity(intent);
-									}
-								});
-								container.addView(rowButton);
+								intent.putExtras(bundle);
+								intent.putExtra("user", thisUser);
+								intent.putExtra("menu", menu);
+								startActivity(intent);
 							}
 						});
-					} // for
-				} // else
-			}// try
+						container.addView(rowButton);
+					}
+				}
+			}
 			catch(JSONException e)
 			{
 				Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
@@ -199,54 +180,53 @@ public class SearchItem extends Activity {
 			}
 
 		}
+	}
 
-		public String POST(String url, String category, String order, String field, String user){
-			InputStream inputStream = null;
-			String result = "";
-			try {
+	public static String POST(String url, String category, String field, String order){
+		InputStream inputStream = null;
+		String result = "";
+		try {
 
-				// 1. create HttpClient
-				HttpClient httpclient = new DefaultHttpClient();
+			// 1. create HttpClient
+			HttpClient httpclient = new DefaultHttpClient();
 
-				// 2. make POST request to the given URL
-				HttpPost httpPost = new HttpPost(url);
+			// 2. make POST request to the given URL
+			HttpPost httpPost = new HttpPost(url);
 
-				// Request parameters and other properties.
-				List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-				params.add(new BasicNameValuePair("category", category));
-				params.add(new BasicNameValuePair("ordering", order));
-				params.add(new BasicNameValuePair("sortField",field));
-				params.add(new BasicNameValuePair("user", user));
-				httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			// Request parameters and other properties.
+			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+			params.add(new BasicNameValuePair("category", category));
+			params.add(new BasicNameValuePair("sortField", field));
+			params.add(new BasicNameValuePair("order", order));
+			params.add(new BasicNameValuePair("user", thisUser));
+			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
-				// 8. Execute POST request to the given URL
-				HttpResponse httpResponse = httpclient.execute(httpPost);
+			// 8. Execute POST request to the given URL
+			HttpResponse httpResponse = httpclient.execute(httpPost);
 
-				// 9. receive response as inputStream
-				inputStream = httpResponse.getEntity().getContent();
+			// 9. receive response as inputStream
+			inputStream = httpResponse.getEntity().getContent();
 
-				// 10. convert inputstream to string
-				if(inputStream != null)
-					result = convertInputStreamToString(inputStream);
-				else
-					result = "Did not work!";
-			} catch (Exception e) {
-				Log.d("InputStream", e.getLocalizedMessage());
-			}
-
-			// 11. return result
-			return result;
+			// 10. convert inputstream to string
+			if(inputStream != null)
+				result = convertInputStreamToString(inputStream);
+			else
+				result = "Did not work!";
+		} catch (Exception e) {
+			Log.d("InputStream", e.getLocalizedMessage());
 		}
 
-		private String convertInputStreamToString(InputStream inputStream) throws IOException{
-			BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-			String line = "";
-			String result = "";
-			while((line = bufferedReader.readLine()) != null)
-				result += line;
-			inputStream.close();
-			return result;
-
-		}  
+		// 11. return result
+		return result;
 	}
-}	
+
+	private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+		BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while((line = bufferedReader.readLine()) != null)
+			result += line;
+		inputStream.close();
+		return result;
+	}  
+}
