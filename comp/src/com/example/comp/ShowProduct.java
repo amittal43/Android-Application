@@ -62,7 +62,9 @@ public class ShowProduct extends Activity {
 		quality = bundle.getString("QUALITY");
 		descr = bundle.getString("DESCR");
 		seller = bundle.getString("SELLER");
+		System.out.println("Seller is: " + seller);
 		menu = getIntent().getExtras().getString("menu");
+		
 		TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 		textTitle.append(title);
 
