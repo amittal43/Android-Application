@@ -36,7 +36,7 @@
             android:background="@drawable/blue"
             android:layout_height="55dp"
             android:onClick="onClick"
-            android:text="Login using Username" />
+            android:text="Sign In" />
 
         <View
             android:layout_width="1dp"
@@ -72,7 +72,7 @@
             android:background="@drawable/blue"
             android:layout_height="55dp"
             android:onClick="onClick"
-            android:text="Create Account" />
+            android:text="Register" />
     </LinearLayout>
 
 </FrameLayout>
