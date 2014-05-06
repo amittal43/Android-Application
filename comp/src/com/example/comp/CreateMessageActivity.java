@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class CreateMessageActivity extends Activity {
 	ArrayList<String> conversation;
 	List<Map<String, String>> messageThread = new ArrayList<Map<String,String>>();
 	ArrayList<String> allUsers;
+	String thisUser;
 
 	private void initList()
 	{
@@ -79,6 +81,7 @@ public class CreateMessageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_message);
+		thisUser = getIntent().getExtras().getString("user");
 		if(getIntent().hasExtra("conversation") )
 			conversation = new ArrayList<String>(getIntent().getStringArrayListExtra("conversation"));
 		else
@@ -115,42 +118,6 @@ public class CreateMessageActivity extends Activity {
 		}*/
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.create_message, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_create_message,
-					container, false);
-			return rootView;
-		}
-	}
 
 	public void sendMessage(View view)
 	{
@@ -159,7 +126,7 @@ public class CreateMessageActivity extends Activity {
 			EditText em = (EditText) findViewById (R.id.newMessage);
 			Spinner spin = (Spinner) findViewById (R.id.recepList);
 			String toUser = String.valueOf(spin.getSelectedItem());
-			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/send-message.php", getIntent().getExtras().getString("user"), toUser, em.getText().toString());
+			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/send-message.php", thisUser, toUser, em.getText().toString());
 			Toast.makeText(getApplicationContext(), "Sending " + em.getText().toString() + " to " + toUser , Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -366,5 +333,26 @@ public class CreateMessageActivity extends Activity {
 
 	}   
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.create_message, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
 
 }

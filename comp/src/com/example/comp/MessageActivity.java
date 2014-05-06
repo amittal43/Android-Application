@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,7 @@ public class MessageActivity extends Activity {
 	public void onBackPressed() 
 	{
 		Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-		intent.putExtra("user", getIntent().getExtras().getString("user"));
+		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
 
@@ -114,47 +115,10 @@ public class MessageActivity extends Activity {
 		startActivity(getIntent());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.message, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-
-		public PlaceholderFragment() {
-		}
-
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_message,
-					container, false);
-			return rootView;
-		}
-	}
-
 	public void createNewMessage(View view)
 	{
 		Intent intent = new Intent(this, CreateMessageActivity.class);
-		intent.putExtra("user", getIntent().getExtras().getString("user"));
+		intent.putExtra("user", thisUser);
 		intent.putExtra("calling-activity", "MessageActivity");
 		startActivity(intent);
 	}
@@ -405,6 +369,27 @@ public class MessageActivity extends Activity {
 
 	}   
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.message, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
 
 
 }

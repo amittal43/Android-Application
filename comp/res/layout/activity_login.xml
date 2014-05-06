@@ -19,6 +19,10 @@
             android:textColor="#990000"
             android:text="Login Using User Name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <View
+            android:layout_width="1dp"
+            android:layout_height="10dp" />
 
         <TextView
             android:id="@+id/lUsername2"
@@ -37,6 +41,10 @@
             <requestFocus />
         </EditText>
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="10dp" />
+        
         <TextView
             android:id="@+id/lPassword2"
             android:layout_width="wrap_content"
@@ -52,6 +60,10 @@
             android:ems="10"
             android:inputType="textPassword" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="10dp" />
+        
         <Button
             android:id="@+id/login"
             android:layout_width="130dp"
@@ -60,6 +72,10 @@
             android:onClick="onClick"
             android:text="Login" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="10dp" />
+        
         <TextView
             android:id="@+id/lStatus"
             android:layout_width="wrap_content"

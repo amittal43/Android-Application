@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -17,98 +14,127 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.example.comp.SearchItem.HttpAsyncTask;
 
 import android.app.Activity;
+import android.app.ActionBar;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Build;
 
-public class LendOptionSubmit extends Activity {
+public class MyProfile extends Activity {
 
-	String title, category, quality, description, price, duedate, thisUser;
-	//Calendar cal;
-
+	String thisUser;
+	TextView username, password, emailAddress, phoneNumber, name;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_lend_option_submit);
-
+		setContentView(R.layout.activity_my_profile);
+		
+		username = (TextView)findViewById(R.id.username);
+		password = (TextView)findViewById(R.id.password);
+		emailAddress = (TextView)findViewById(R.id.emailAddress);
+		phoneNumber = (TextView)findViewById(R.id.phoneNumber);
+		name = (TextView)findViewById(R.id.name);
+		
 		thisUser = getIntent().getExtras().getString("user");
-		//Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
-		
-		Bundle bundle = getIntent().getExtras();
-		//Extract each value from the bundle for usage
-		title = bundle.getString("TITLE");
-		category = bundle.getString("CATEGORY");
-		quality = bundle.getString("QUALITY");
-		description = bundle.getString("DESCRIPTION");
-		price = Double.toString(bundle.getDouble("PRICE"));
-		duedate = bundle.getString("DUEDATE");
-		
-		//Toast.makeText(this, thisUser + " " + title + " " + category + " " + quality + " " + description + " " + price + " " +duedate, Toast.LENGTH_LONG).show();
-		/*cal = Calendar.getInstance();
-	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-	    try {
-			cal.setTime(sdf.parse(duedate));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}*/
-		
-		TextView textTitle = (TextView) findViewById(R.id.confirmTitle);
-		textTitle.append(title);
-
-		TextView textCategory = (TextView) findViewById(R.id.confirmCategory);
-		textCategory.append(category);
-
-		TextView textQuality = (TextView) findViewById(R.id.confirmQuality);
-		textQuality.append(quality);
-
-		TextView textDescription = (TextView) findViewById(R.id.confirmDescription);
-		textDescription.append(description);
-
-		TextView textPrice = (TextView) findViewById(R.id.confirmPrice);
-		textPrice.append(price);
-		
-		TextView textDueDate = (TextView) findViewById(R.id.confirmDueDate);
-		textDueDate.append(duedate);
-	}
-
-	/**
-	 * Called when the user clicks the confirm button
-	 * Go back to MainActivity (Menu) page
-	 * @param view
-	 */
-	public void backToHome(View view){
-		Intent intent = new Intent(this, MenuActivity.class);
-		intent.putExtra("user", thisUser);
-		//Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-exchange-to-database.php", 
-				title, category,price, quality, description, duedate, thisUser);
-		startActivity(intent);
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-user-info.php", thisUser);
 	}
 	
+	public void onClick(View view) {
+		Intent intent = new Intent(this, EditInfo.class);
+		intent.putExtra("user", thisUser);
+		switch(view.getId()){
+			case R.id.editPassword:
+				intent.putExtra("edit", "password");
+				startActivity(intent);
+				break;
+				
+			case R.id.editEmail: 
+				intent.putExtra("edit", "email address");
+				startActivity(intent);
+				break;
+			
+
+			case R.id.editPhone:
+				intent.putExtra("edit", "phone number");
+				startActivity(intent);
+				break;
+		}
+
+	}
+
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6], urls[7]);
+			return POST(urls[0], urls[1]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
+			//Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
+			
+			try {
+				int index = result.indexOf("bin/php");	
+				result = result.substring(index+7);
+				JSONObject jObj = new JSONObject(result);
+					
+				if (jObj.optString("result").equals("0")){
+					Toast.makeText(getBaseContext(), "Error", Toast.LENGTH_SHORT).show();
+				} else {
+					
+					JSONArray jArray = jObj.getJSONArray("list");
+					for(int i=0; i < jArray.length(); i++){
+						JSONObject obj = jArray.getJSONObject(i);
+						
+						String stringPassword = obj.optString("password");
+						String stringEmail = obj.optString("email");
+						String stringPhone = obj.optString("phone");
+						String stringName = obj.optString("name");
+						
+						//Toast.makeText(getBaseContext(), stringName, Toast.LENGTH_LONG).show();
+						
+						String invPassword = "";
+						for (int j=0; j<stringPassword.length(); ++j) invPassword+='*';
+						
+						username.setText(thisUser);
+						password.setText(invPassword);
+						emailAddress.setText(stringEmail);
+						phoneNumber.setText(stringPhone);
+						name.setText(stringName);
+						
+					}
+				}
+			}
+			catch(JSONException e)
+			{
+				Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
+							Toast.LENGTH_SHORT).show();
+			}
+
 		}
 	}
 
-
-	public static String POST(String url, String title, String category, String price, String quality, String desc, String duedate, String user){
-		
+	public static String POST(String url, String user){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -119,18 +145,9 @@ public class LendOptionSubmit extends Activity {
 			// 2. make POST request to the given URL
 			HttpPost httpPost = new HttpPost(url);
 
-			String json = "";
-
 			// Request parameters and other properties.
 			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("title", title));
-			params.add(new BasicNameValuePair("category", category));
-			params.add(new BasicNameValuePair("price", price.toString()));
-			params.add(new BasicNameValuePair("quality", quality.toString()));
-			params.add(new BasicNameValuePair("description", desc.toString()));
-			params.add(new BasicNameValuePair("duedate",duedate));
 			params.add(new BasicNameValuePair("user", user));
-			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
@@ -144,7 +161,6 @@ public class LendOptionSubmit extends Activity {
 				result = convertInputStreamToString(inputStream);
 			else
 				result = "Did not work!";
-
 		} catch (Exception e) {
 			Log.d("InputStream", e.getLocalizedMessage());
 		}
@@ -162,12 +178,13 @@ public class LendOptionSubmit extends Activity {
 		inputStream.close();
 		return result;
 
-	} 
+	}  
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.lend_option_submit, menu);
+	    inflater.inflate(R.menu.my_profile, menu);
 	    return true;
 	}
 	
@@ -184,4 +201,5 @@ public class LendOptionSubmit extends Activity {
 		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
+
 }

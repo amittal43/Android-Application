@@ -27,6 +27,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,5 +141,26 @@ public class ShowProductExchange extends Activity {
 		return result;
 
 	}  
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.show_product_exchange, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
 
 }

@@ -13,6 +13,9 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -253,6 +256,27 @@ public class SellOption extends Activity {
 
 	private String getStringValue(EditText text){
 		return text.getText().toString();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.sell_option, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
 	}
 
 
