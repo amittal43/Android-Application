@@ -14,35 +14,28 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class ShowProduct extends Activity {
-	String title, price, quality, descr, thisUser;
+	String title, price, quality, descr, thisUser, pathname;
 	String menu;
 	String id;
 	String seller;
@@ -66,6 +59,7 @@ public class ShowProduct extends Activity {
 		descr = bundle.getString("DESCR");
 		seller = bundle.getString("SELLER");
 		isAuction = bundle.getBoolean("ISAUCTION");
+		pathname = bundle.getString("PATHNAME");
 		System.out.println("Seller is: " + seller + isAuction);
 		menu = getIntent().getExtras().getString("menu");
 
@@ -83,6 +77,10 @@ public class ShowProduct extends Activity {
 
 		/*TextView textSeller = (TextView) findViewById(R.id.showSeller);
 		textSeller.append(seller);*/
+
+		if (!pathname.equals("null") &&  !pathname.equals("")){
+			new DownloadImageTask((ImageView) findViewById(R.id.image)).execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/image/" + pathname);
+		}
 
 		if(isAuction)
 		{
@@ -244,22 +242,47 @@ public class ShowProduct extends Activity {
 		inputStream.close();
 		return result;
 
-	}  
+	}
+
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.show_product, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.show_product, menu);
+		return true;
 	}
-	
+
 	/** Called when the user clicks the Action Bar - Menu button */
 	public void goToMyProfile(MenuItem item){
 		Intent intent = new Intent(this, MyProfile.class);
 		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
-	
+
 	/** Called when the user clicks the Action Bar - Menu button */
 	public void goToMenu(MenuItem item){
 		Intent intent = new Intent(this, MenuActivity.class);
