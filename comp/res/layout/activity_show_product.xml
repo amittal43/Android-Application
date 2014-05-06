@@ -74,7 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-           	android:text="Seller&#10;"
+           	android:textColor="#0000FF"
+            android:text="Seller&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 	 
         
@@ -82,6 +83,36 @@
             android:layout_width="1dp"
             android:layout_height="20dp" />
 
+        <TextView
+            android:id="@+id/yourBid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+           	android:textColor="#0000FF"
+            android:text="Your Bid&#10;"
+            android:visibility="gone"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+        
+        
+        <EditText
+            android:id="@+id/newBid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:visibility="gone"
+            android:inputType="numberDecimal" >
+			<requestFocus />
+        </EditText>
+	 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+        
         <Button
             android:id="@+id/buyButton"
             android:layout_width="119dp"
