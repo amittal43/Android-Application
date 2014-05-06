@@ -88,7 +88,7 @@ public class SellOptionSubmit extends Activity {
 		intent.putExtra("user", thisUser);
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
 				title, category,price, quality, description, thisUser, String.valueOf(auction), date);
-		//startActivity(intent);
+		startActivity(intent);
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {

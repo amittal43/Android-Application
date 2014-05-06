@@ -1,6 +1,7 @@
 package com.example.comp;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -93,7 +94,7 @@ public class SellOption extends Activity {
 			DD.setEnabled(false);
 			MM.setEnabled(false);
 			YY.setEnabled(false);
-
+			
 		}
 	}
 
@@ -200,19 +201,26 @@ public class SellOption extends Activity {
 					M = Integer.valueOf(MM.getText().toString());
 					Y = Integer.valueOf(YY.getText().toString());
 				}
-				Date d = new Date();
-				d.setHours(h);
-				d.setMinutes(m);
-				d.setDate(D);
-				d.setMonth(M);
-				d.setYear(Y);
+				else
+				{
+					Y = 2079;
+					M = 12;
+					D = 31;
+					h = 23;
+					m = 59;
+				}
+				Calendar cal = Calendar.getInstance();
+				cal.set(Y, M, D, h, m, 0);
+				Date d = cal.getTime();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String end = sdf.format(d);
-				//System.out.println("Auction end date is " + end);
+				System.out.println("Auction end date is " + end);
 				Intent intent = new Intent(this, SellOptionSubmit.class);
 				Bundle bundle = new Bundle();
 				if(cb.isChecked())
 					bundle.putBoolean("auction", true);
+				else
+					bundle.putBoolean("auction", false);
 				bundle.putString("DATE", end);
 				bundle.putString("TITLE", title);
 				bundle.putString("CATEGORY", category);
@@ -226,7 +234,6 @@ public class SellOption extends Activity {
 				intent.putExtra("user", thisUser);
 				System.out.println("Passing info to SellOptionSubmit");
 				startActivity(intent);
-
 			}
 			catch(Exception e)
 			{
@@ -237,9 +244,8 @@ public class SellOption extends Activity {
 		//Toast.makeText(this, "Successful",Toast.LENGTH_LONG).show();
 	}
 
-
-
-	private double getDoubleValue(EditText text) {
+	private double getDoubleValue(EditText text) 
+	{
 		double value;
 		value = Double.parseDouble(text.getText().toString());
 		return value;

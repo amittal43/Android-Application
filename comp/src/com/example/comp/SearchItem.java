@@ -146,6 +146,7 @@ public class SearchItem extends Activity {
 						final String quality = obj.optString("quality");
 						final String descr = obj.optString("descr");
 						final String id = obj.optString("id");
+						final String isAuction = obj.optString("isAuction");
 						final String seller = obj.optString("seller");
 						//set the content of the button
 						String content =  title + "\n" + price;
@@ -163,6 +164,10 @@ public class SearchItem extends Activity {
 								bundle.putString("QUALITY", quality);
 								bundle.putString("DESCR", descr);
 								bundle.putString("SELLER", seller);
+								if(isAuction.equals("true"))
+								bundle.putBoolean("ISAUCTION", true);
+								else
+								bundle.putBoolean("ISAUCTION", false);
 								Intent intent = new Intent(SearchItem.this, ShowProduct.class);
 								intent.putExtras(bundle);
 								intent.putExtra("user", thisUser);

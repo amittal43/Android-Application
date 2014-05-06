@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +45,8 @@ public class ShowProduct extends Activity {
 	String menu;
 	String id;
 	String seller;
-
+	boolean isAuction;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +64,8 @@ public class ShowProduct extends Activity {
 		quality = bundle.getString("QUALITY");
 		descr = bundle.getString("DESCR");
 		seller = bundle.getString("SELLER");
-		System.out.println("Seller is: " + seller);
+		isAuction = bundle.getBoolean("ISAUCTION");
+		System.out.println("Seller is: " + seller + isAuction);
 		menu = getIntent().getExtras().getString("menu");
 		
 		TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
@@ -80,12 +83,48 @@ public class ShowProduct extends Activity {
 		TextView textSeller = (TextView) findViewById(R.id.showSeller);
 		textSeller.append(seller);
 
-
+		if(isAuction)
+		{
+			Button btn = (Button) findViewById(R.id.buyButton);
+			btn.setText("Bid");
+			TextView yourBid = (TextView) findViewById(R.id.yourBid);
+			yourBid.setVisibility(View.VISIBLE);
+			EditText newBid = (EditText) findViewById(R.id.newBid);
+			newBid.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+		
+		}
 	}
 
 	public void buy (View view){
 		System.out.println("id = " + id);
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu);
+		if(isAuction)
+		{
+			try
+			{
+			Double oldPrice = Double.valueOf(price);
+			EditText newBid = (EditText) findViewById(R.id.newBid);
+			Double newPrice = Double.valueOf(newBid.getText().toString());
+				if(newPrice <= oldPrice)
+				{
+					Toast.makeText(getApplicationContext(), "New bid must be higher than current bid", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu, "true", String.valueOf(newPrice));
+				}
+			}
+			catch(Exception e)
+			{
+				
+			}
+		}
+		else
+		{
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu, "false", "random");
+		}
 		/*Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
 		Toast toast = Toast.makeText(this, "You have successfully bought the item!",Toast.LENGTH_LONG);
@@ -132,7 +171,7 @@ public class ShowProduct extends Activity {
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3]);
+			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 
@@ -140,12 +179,11 @@ public class ShowProduct extends Activity {
 		protected void onPostExecute(String result) {
 			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
 			postBuyOptions(result);
-			// abcd
 		}
 
 	}
 
-	public static String POST(String url, String id, String user, String menu){
+	public static String POST(String url, String id, String user, String menu, String isAuction, String price){
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -161,7 +199,9 @@ public class ShowProduct extends Activity {
 			params.add(new BasicNameValuePair("id", id));
 			params.add(new BasicNameValuePair("menu", menu));
 			params.add(new BasicNameValuePair("user", user));
-
+			params.add(new BasicNameValuePair("isAuction", isAuction));
+			params.add(new BasicNameValuePair("price", price));
+			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
