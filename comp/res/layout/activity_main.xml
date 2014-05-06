@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.MainActivity"
     tools:ignore="MergeRootFrame" >
 
@@ -12,15 +13,28 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical" >
+        
+        
 
         <View
             android:layout_width="1dp"
             android:layout_height="20dp" />
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@drawable/ordimain" />
+        
+        <View
+            android:layout_width="1dp"
+            android:layout_height="20dp" />
+        
 
         <Button
             android:id="@+id/button1"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:background="@drawable/blue"
+            android:layout_height="55dp"
             android:onClick="onClick"
             android:text="Login using Username" />
 
@@ -29,10 +43,11 @@
             android:layout_height="20dp" />
 
         <com.facebook.widget.LoginButton
-        android:id="@+id/authButton"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_gravity="center_horizontal" />
+        	android:id="@+id/authButton"
+        	android:layout_width="match_parent"
+        	android:background="@drawable/blue"
+        	android:layout_height="55dp"
+        	android:layout_gravity="center_horizontal" />
 
         <View
             android:layout_width="1dp"
@@ -43,7 +58,7 @@
             android:id="@+id/button3"
            	android:layout_width="match_parent"
             android:background="@drawable/blue"
-            android:layout_height="75dp"
+            android:layout_height="55dp"
             android:text="Login using Google +" />
 
         <View
@@ -54,7 +69,8 @@
         <Button
             android:id="@+id/button4"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
+            android:background="@drawable/blue"
+            android:layout_height="55dp"
             android:onClick="onClick"
             android:text="Create Account" />
     </LinearLayout>
