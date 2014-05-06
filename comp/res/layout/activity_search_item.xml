@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#FFFFFF"
     tools:context="com.example.comp.SearchItemExchange"
     tools:ignore="MergeRootFrame" >
 
@@ -16,14 +17,15 @@
         android:orientation="vertical" >
         
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:orientation="horizontal" >
 
         <Spinner
             android:id="@+id/sortByField"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
+            android:background="@drawable/blue" />
 
         <Spinner
             android:id="@+id/incOrDec"

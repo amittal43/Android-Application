@@ -43,6 +43,7 @@
             android:id="@+id/itemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:ems="10" >
 
             <requestFocus />
@@ -126,6 +127,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textColor="@android:color/black"
             android:hint="in HKD"
             android:inputType="numberDecimal" />
 
@@ -205,8 +207,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:textColor="#0000FF" />
+            android:textColor="@android:color/black"
+            android:inputType="textMultiLine" />
 
         <View
             android:layout_width="1dp"
@@ -253,6 +255,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#990000"
             android:text="Auction Ends On"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
