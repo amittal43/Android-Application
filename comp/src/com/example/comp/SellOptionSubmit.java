@@ -35,18 +35,21 @@ import android.widget.Toast;
 public class SellOptionSubmit extends Activity {
 
 	static String thisUser;
-	
-	String title, category, quality, description, price;
+	boolean auction;
+	String title, category, quality, description, price, date;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option_submit);
-
+		auction = false;
 		Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
 		title = bundle.getString("TITLE");
+		if(getIntent().hasExtra("auction"))
+			auction = bundle.getBoolean("auction");
 		category = bundle.getString("CATEGORY");
+		date = bundle.getString("DATE");
 		quality = bundle.getString("QUALITY");
 		description = bundle.getString("DESCRIPTION");
 		price = Double.toString(bundle.getDouble("PRICE"));
@@ -84,24 +87,26 @@ public class SellOptionSubmit extends Activity {
 
 		intent.putExtra("user", thisUser);
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
-				title, category,price, quality, description, thisUser);
-		startActivity(intent);
+				title, category,price, quality, description, thisUser, String.valueOf(auction), date);
+		//startActivity(intent);
 	}
 	
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6]);
+			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6], urls[7], urls[8]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
 			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
+			System.out.print(result);
 		}
 	}
 
 
-	public static String POST(String url, String title, String category, String price, String quality, String desc, String user){
+	public static String POST(String url, String title, String category, String price, String quality, String desc, String user, String isAuction, String eTime)
+	{
 		InputStream inputStream = null;
 		String result = "";
 		try {
@@ -122,6 +127,9 @@ public class SellOptionSubmit extends Activity {
 			params.add(new BasicNameValuePair("quality", quality.toString()));
 			params.add(new BasicNameValuePair("description", desc.toString()));
 			params.add(new BasicNameValuePair("user", thisUser));
+			params.add(new BasicNameValuePair("isAuction", isAuction));
+			params.add(new BasicNameValuePair("edate", eTime));
+			
 			
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 

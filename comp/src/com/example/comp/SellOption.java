@@ -74,6 +74,12 @@ public class SellOption extends Activity {
 			DD.setEnabled(true);
 			MM.setEnabled(true);
 			YY.setEnabled(true);
+			hh.setText("12");
+			mm.setText("00");
+			DD.setText("12");
+			MM.setText("05");
+			YY.setText("2014");
+			
 		}
 		else
 		{
@@ -174,33 +180,39 @@ public class SellOption extends Activity {
 		{
 			Toast.makeText(this, "Input data is not complete!", Toast.LENGTH_LONG).show();
 		}
-		else {
+		else 
+		{
 			double priceDouble = Double.parseDouble(price);
-
-			EditText hh = (EditText) findViewById(R.id.aucHour);
-			EditText mm = (EditText) findViewById(R.id.aucMin);
-			EditText DD = (EditText) findViewById(R.id.aucDay);
-			EditText MM = (EditText) findViewById(R.id.aucMonth);
-			EditText YY = (EditText) findViewById(R.id.aucYear);
-
+			CheckBox cb = (CheckBox) findViewById(R.id.auction);
 			try
 			{
-				int h = Integer.valueOf(hh.getText().toString());
-				int m = Integer.valueOf(mm.getText().toString());
-				int D = Integer.valueOf(DD.getText().toString());
-				int M = Integer.valueOf(MM.getText().toString());
-				int Y = Integer.valueOf(YY.getText().toString());
+				int h = 0, m =0, D = 0, M = 0, Y = 0;
+				if(cb.isChecked())
+				{
+					EditText hh = (EditText) findViewById(R.id.aucHour);
+					EditText mm = (EditText) findViewById(R.id.aucMin);
+					EditText DD = (EditText) findViewById(R.id.aucDay);
+					EditText MM = (EditText) findViewById(R.id.aucMonth);
+					EditText YY = (EditText) findViewById(R.id.aucYear);
+					h = Integer.valueOf(hh.getText().toString());
+					m = Integer.valueOf(mm.getText().toString());
+					D = Integer.valueOf(DD.getText().toString());
+					M = Integer.valueOf(MM.getText().toString());
+					Y = Integer.valueOf(YY.getText().toString());
+				}
 				Date d = new Date();
 				d.setHours(h);
 				d.setMinutes(m);
 				d.setDate(D);
 				d.setMonth(M);
 				d.setYear(Y);
-				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				String end = sdf.format(d);
-				System.out.println("Auction end date is " + end);
+				//System.out.println("Auction end date is " + end);
 				Intent intent = new Intent(this, SellOptionSubmit.class);
 				Bundle bundle = new Bundle();
+				if(cb.isChecked())
+					bundle.putBoolean("auction", true);
 				bundle.putString("DATE", end);
 				bundle.putString("TITLE", title);
 				bundle.putString("CATEGORY", category);
