@@ -46,7 +46,7 @@ public class ShowProduct extends Activity {
 	String id;
 	String seller;
 	boolean isAuction;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ public class ShowProduct extends Activity {
 		isAuction = bundle.getBoolean("ISAUCTION");
 		System.out.println("Seller is: " + seller + isAuction);
 		menu = getIntent().getExtras().getString("menu");
-		
+
 		TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 		textTitle.append(title);
 
@@ -94,7 +94,7 @@ public class ShowProduct extends Activity {
 		}
 		else
 		{
-		
+
 		}
 	}
 
@@ -104,9 +104,9 @@ public class ShowProduct extends Activity {
 		{
 			try
 			{
-			Double oldPrice = Double.valueOf(price);
-			EditText newBid = (EditText) findViewById(R.id.newBid);
-			Double newPrice = Double.valueOf(newBid.getText().toString());
+				Double oldPrice = Double.valueOf(price);
+				EditText newBid = (EditText) findViewById(R.id.newBid);
+				Double newPrice = Double.valueOf(newBid.getText().toString());
 				if(newPrice <= oldPrice)
 				{
 					Toast.makeText(getApplicationContext(), "New bid must be higher than current bid", Toast.LENGTH_SHORT).show();
@@ -118,12 +118,12 @@ public class ShowProduct extends Activity {
 			}
 			catch(Exception e)
 			{
-				
+
 			}
 		}
 		else
 		{
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu, "false", "random");
+			new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/delete-item-id.php", id, thisUser, menu, "false", "random");
 		}
 		/*Intent intent = new Intent(this, MainActivity.class);
 		startActivity(intent);
@@ -134,38 +134,48 @@ public class ShowProduct extends Activity {
 
 	public void postBuyOptions(String str)
 	{
-		if(str.equals("Item bought successfully"))
+		if(!isAuction)
 		{
-			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-			// set title
-			alertDialogBuilder.setTitle("Seller Information");
+			if(str.equals("Item bought successfully"))
+			{
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+				// set title
+				alertDialogBuilder.setTitle("Seller Information");
 
-			// set dialog message
-			alertDialogBuilder.setMessage("Your seller is " + seller).setCancelable(false)
-			.setPositiveButton("Message Seller",new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// if this button is clicked, close
-					// current activity
-					Intent intent = new Intent(getBaseContext(), CreateMessageActivity.class);
-					intent.putExtra("user", thisUser);
-					intent.putExtra("toUser", seller);
-					startActivity(intent);
-				}
-			})
-			.setNegativeButton("Go Back",new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog,int id) {
-					// if this button is clicked, just close
-					// the dialog box and do nothing
-					Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-					intent.putExtra("user", thisUser);
-					startActivity(intent);
-				}
-			});
-			// create alert dialog
-			AlertDialog alertDialog = alertDialogBuilder.create();
-			// show it
-			alertDialog.show();
+				// set dialog message
+				alertDialogBuilder.setMessage("Your seller is " + seller).setCancelable(false)
+				.setPositiveButton("Message Seller",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, close
+						// current activity
+						Intent intent = new Intent(getBaseContext(), CreateMessageActivity.class);
+						intent.putExtra("user", thisUser);
+						intent.putExtra("toUser", seller);
+						startActivity(intent);
+					}
+				})
+				.setNegativeButton("Go Back",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, just close
+						// the dialog box and do nothing
+						Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+						intent.putExtra("user", thisUser);
+						startActivity(intent);
+					}
+				});
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+				// show it
+				alertDialog.show();
+			}
 		}
+		else
+		{
+			Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+			intent.putExtra("user", thisUser);
+			startActivity(intent);
+		}
+
 	}
 
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
@@ -201,7 +211,7 @@ public class ShowProduct extends Activity {
 			params.add(new BasicNameValuePair("user", user));
 			params.add(new BasicNameValuePair("isAuction", isAuction));
 			params.add(new BasicNameValuePair("price", price));
-			
+
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			// 8. Execute POST request to the given URL
