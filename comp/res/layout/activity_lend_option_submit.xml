@@ -3,6 +3,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background = "#FFFFFF"
     tools:context="com.example.comp.SellOptionSubmit"
     tools:ignore="MergeRootFrame" >
 
@@ -12,7 +13,6 @@
         android:layout_gravity="center"
         android:orientation="vertical" >
 
-        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -20,21 +20,22 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/textTitle" />
+                android:text="@+string/textTitle"
+                android:textColor="#0000FF" />
 
             <TextView
                 android:id="@+id/confirmTitle"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": "
+                android:textColor="#0000FF" />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -42,21 +43,22 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/chooseCategory" />
+                android:text="@+string/chooseCategory"
+                android:textColor="#0000FF" />
 
             <TextView
                 android:id="@+id/confirmCategory"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": "
+                android:textColor="#0000FF" />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -64,21 +66,22 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/textQuality" />
+                android:text="@+string/textQuality"
+                android:textColor="#0000FF" />
 
             <TextView
                 android:id="@+id/confirmQuality"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": "
+                android:textColor="#0000FF" />
         </LinearLayout>
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -86,13 +89,14 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/textDescription" />
-            
+                android:text="@+string/textDescription"
+                android:textColor="#0000FF" />
+
             <TextView
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": "
+                android:textColor="#0000FF" />
         </LinearLayout>
 
         <TextView
@@ -100,12 +104,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="" />
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View>        
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -113,21 +117,22 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/textPrice" />
+                android:text="@+string/textPrice"
+                android:textColor="#0000FF" />
 
             <TextView
                 android:id="@+id/confirmPrice"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": HKD "/>
+                android:text=": HKD "
+                android:textColor="#0000FF" />
+        </LinearLayout>
 
-        </LinearLayout>   
-        
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View> 
-        
+        </View>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -135,30 +140,30 @@
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="@+string/textPeriod" />
+                android:text="@+string/textPeriod"
+                android:textColor="#0000FF" />
 
             <TextView
                 android:id="@+id/confirmDueDate"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text=": "/>
-
+                android:text=": "
+                android:textColor="#0000FF" />
         </LinearLayout>
-        
-        
+
         <View
             android:layout_width="1dp"
             android:layout_height="30dp" >
-        </View> 
-        
+        </View>
+
         <Button
             android:id="@+id/buttonConfirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="116dp"
+            android:layout_height="64dp"
             android:layout_gravity="center_horizontal"
-            android:text="Confirm"
-            android:onClick="backToHome" />
-
+            android:background="@drawable/blue"
+            android:onClick="backToHome"
+            android:text="Confirm" />
     </LinearLayout>
 
 </FrameLayout>
