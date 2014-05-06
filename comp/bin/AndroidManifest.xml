@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.comp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo" >
+		<activity
+            android:name="com.example.comp.SplashActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter >
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
+        <activity
+            android:name="com.facebook.LoginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchResultsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SellOption"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SellOptionSubmit"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchItem"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchFashion"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchElectronics"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.ShowProduct"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.comp.CreateUserActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_create_user"
+            android:theme="@style/Theme.AppCompat" >
+        </activity>
+        <activity
+            android:name="com.example.comp.LoginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.AppCompat" >
+        </activity>
+        <activity
+            android:name="com.example.comp.MenuActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_menu" >
+        </activity>
+        <activity
+            android:name="com.example.comp.MessageActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_message" >
+        </activity>
+        <activity
+            android:name="com.example.comp.CreateMessageActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_create_message" >
+        </activity>
+        <activity
+            android:name="com.example.comp.LendOption"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_lend_option" >
+        </activity>
+        <activity
+            android:name="com.example.comp.LendOptionSubmit"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_lend_option_submit" >
+        </activity>
+        <activity
+            android:name="com.example.comp.SearchItemExchange"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_search_item_exchange" >
+        </activity>
+        <activity
+            android:name="com.example.comp.ShowProductExchange"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_show_product_exchange" >
+        </activity>
+        <activity
+            android:name="com.example.comp.FBLogin"
+            android:screenOrientation="portrait"
+            android:label="@string/title_activity_fblogin" >
+        </activity>
+        <activity
+            android:name="com.example.comp.MyProfile"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
+        <activity
+            android:name="com.example.comp.EditInfo"
+            android:label="@string/title_activity_edit_info" >
+        </activity>
+    </application>
+
+</manifest>
