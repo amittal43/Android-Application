@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-             android:textColor="#0000FF"
+            android:textColor="#0000FF"
             android:text="Due Date&#10;"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
