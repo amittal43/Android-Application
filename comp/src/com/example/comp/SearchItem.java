@@ -31,6 +31,7 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -140,7 +141,7 @@ public class SearchItem extends Activity {
 					JSONArray jArray = jObj.getJSONArray("list");
 					for(int i=0; i < jArray.length(); i++){
 						JSONObject obj = jArray.getJSONObject(i);
-
+						
 						LinearLayout container = (LinearLayout)findViewById(R.id.container);
 						Button rowButton = new Button(getBaseContext());
 
@@ -151,6 +152,7 @@ public class SearchItem extends Activity {
 						final String id = obj.optString("id");
 						final String isAuction = obj.optString("isAuction");
 						final String seller = obj.optString("seller");
+						final String pathname = obj.optString("path");
 						//set the content of the button
 						String content =  title + "\n" + price;
 						rowButton.setText(content);
@@ -167,6 +169,7 @@ public class SearchItem extends Activity {
 								bundle.putString("QUALITY", quality);
 								bundle.putString("DESCR", descr);
 								bundle.putString("SELLER", seller);
+								bundle.putString("PATHNAME", pathname);
 								if(isAuction.equals("true"))
 								bundle.putBoolean("ISAUCTION", true);
 								else

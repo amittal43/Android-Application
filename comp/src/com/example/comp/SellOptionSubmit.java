@@ -1,6 +1,7 @@
 package com.example.comp;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,23 +13,23 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,9 +37,10 @@ import android.widget.Toast;
 public class SellOptionSubmit extends Activity {
 
 	static String thisUser;
+
 	boolean auction;
-	String title, category, quality, description, price, date;
-	
+	String title, category, quality, description, price, date, imagePath;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,11 +56,11 @@ public class SellOptionSubmit extends Activity {
 		quality = bundle.getString("QUALITY");
 		description = bundle.getString("DESCRIPTION");
 		price = Double.toString(bundle.getDouble("PRICE"));
-		String imagePath = bundle.getString("IMAGE");
+		imagePath = bundle.getString("IMAGE");
 		thisUser = getIntent().getExtras().getString("user");
 
 		System.out.println("this user value is " + thisUser);
-		
+
 		TextView textTitle = (TextView) findViewById(R.id.confirmTitle);
 		textTitle.append(title);
 
@@ -73,7 +75,7 @@ public class SellOptionSubmit extends Activity {
 
 		TextView textPrice = (TextView) findViewById(R.id.confirmPrice);
 		textPrice.append(price);
-		
+
 		ImageView image = (ImageView) findViewById(R.id.confirmImage);
 		image.setImageBitmap(ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath), 300, 300));
 	}
@@ -88,14 +90,14 @@ public class SellOptionSubmit extends Activity {
 
 		intent.putExtra("user", thisUser);
 		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database-image.php", 
-				title, category,price, quality, description, thisUser, String.valueOf(auction), date);
+				title, category,price, quality, description, thisUser, String.valueOf(auction), date, imagePath);
 		startActivity(intent);
 	}
-	
+
 	class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) {
-			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6], urls[7], urls[8]);
+			return POST(urls[0], urls[1], urls[2], urls[3], urls[4], urls[5], urls[6], urls[7], urls[8], urls[9]);
 		}
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
@@ -106,7 +108,7 @@ public class SellOptionSubmit extends Activity {
 	}
 
 
-	public static String POST(String url, String title, String category, String price, String quality, String desc, String user, String isAuction, String eTime)
+	public static String POST(String url, String title, String category, String price, String quality, String desc, String user, String isAuction, String eTime, String imagePath)
 	{
 		InputStream inputStream = null;
 		String result = "";
@@ -117,6 +119,8 @@ public class SellOptionSubmit extends Activity {
 
 			// 2. make POST request to the given URL
 			HttpPost httpPost = new HttpPost(url);
+			HttpPost httpPostBis = new HttpPost("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database-image.php");
+			//HttpPost httpPostBis = new HttpPost("http://ihome.ust.hk/~sraghuraman/cgi-bin/testAlexis.php");
 
 			String json = "";
 
@@ -130,15 +134,45 @@ public class SellOptionSubmit extends Activity {
 			params.add(new BasicNameValuePair("user", user));
 			params.add(new BasicNameValuePair("isAuction", isAuction));
 			params.add(new BasicNameValuePair("edate", eTime));
+
+
+			// Request parameters and other properties. using a MultipartEntity
+			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+			FileBody fileBody = new FileBody(new File(imagePath));
 			
+//			// If the image is too big, we want to compress it
+//			File file = File.createTempFile("prefix", "suffix");
+//			
+//			FileOutputStream fOut = new FileOutputStream(file);
+//			Bitmap bitmapImage = BitmapFactory.decodeFile(imagePath);
+//			Bitmap.createScaledBitmap(bitmapImage, bitmapImage.getWidth()/4, bitmapImage.getHeight()/4, false);
+//			bitmapImage.compress(CompressFormat.JPEG, 100, fOut);
+//			fOut.close();
+			builder.addPart("image", fileBody);
 			
+			// Attempt to add a string to see if it is working
+			builder.addTextBody("title", title);
+			builder.addTextBody("category", category);
+			builder.addTextBody("price", price.toString());
+			builder.addTextBody("quality", quality.toString());
+			builder.addTextBody("description", desc.toString());
+			builder.addTextBody("user", thisUser);
+			builder.addTextBody("isAuction", isAuction);
+			builder.addTextBody("edate", eTime);
+
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
+			// The other httpPost
+			httpPostBis.setEntity(builder.build());
+
 			// 8. Execute POST request to the given URL
-			HttpResponse httpResponse = httpclient.execute(httpPost);
+			//HttpResponse httpResponse = httpclient.execute(httpPost);
+			HttpResponse httpResponseBis = httpclient.execute(httpPostBis);
 
 			// 9. receive response as inputStream
-			inputStream = httpResponse.getEntity().getContent();
+			//inputStream = httpResponse.getEntity().getContent();
+			inputStream = httpResponseBis.getEntity().getContent();
 
 			// 10. convert inputstream to string
 			if(inputStream != null)
