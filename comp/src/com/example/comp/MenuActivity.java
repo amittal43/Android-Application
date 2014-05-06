@@ -1,5 +1,6 @@
 package com.example.comp;
 
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +67,9 @@ public class MenuActivity extends Activity {
 			intent.putExtra("user", thisUser);
 			startActivity(intent);
 		}
+		
 
+		
 		//TODO: when back is pressed, directly close the app
 		
 		@Override
@@ -79,5 +83,28 @@ public class MenuActivity extends Activity {
 	                    }
 	                }).setNegativeButton("No", null).show();
 	    }
+		
+		/** Handle Action Bar Menu */
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+		    MenuInflater inflater = getMenuInflater();
+		    inflater.inflate(R.menu.menu, menu);
+		    return true;
+		}
+		
+		/** Called when the user clicks the Action Bar - Menu button */
+		public void goToMyProfile(MenuItem item){
+			Intent intent = new Intent(this, MyProfile.class);
+			intent.putExtra("user", thisUser);
+			startActivity(intent);
+		}
+		
+		/** Called when the user clicks the Action Bar - Menu button */
+		public void goToMenu(MenuItem item){
+			Intent intent = new Intent(this, MenuActivity.class);
+			intent.putExtra("user", thisUser);
+			startActivity(intent);
+		}
+
 
 }

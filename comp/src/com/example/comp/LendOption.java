@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class LendOption extends FragmentActivity implements OnDataPass {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lend_option);
         thisUser = getIntent().getExtras().getString("user");
+        //Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
     }
     
     //Call DatePickerFragment - to pick a date
@@ -93,6 +95,7 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 		{
 			double priceDouble = Double.parseDouble(price);
 			Intent intent = new Intent(this, LendOptionSubmit.class);
+			intent.putExtra("user", thisUser);
 			Bundle bundle = new Bundle();
 			bundle.putString("TITLE", title);
 			bundle.putString("CATEGORY", category);
@@ -117,6 +120,27 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 	
 	private String getStringValue(EditText text){
 		return text.getText().toString();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.lend_option, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
 	}
 
 }

@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +87,7 @@ public class SellOptionSubmit extends Activity {
 		Intent intent = new Intent(this, MenuActivity.class);
 
 		intent.putExtra("user", thisUser);
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database.php", 
+		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database-image.php", 
 				title, category,price, quality, description, thisUser, String.valueOf(auction), date);
 		startActivity(intent);
 	}
@@ -126,7 +127,7 @@ public class SellOptionSubmit extends Activity {
 			params.add(new BasicNameValuePair("price", price.toString()));
 			params.add(new BasicNameValuePair("quality", quality.toString()));
 			params.add(new BasicNameValuePair("description", desc.toString()));
-			params.add(new BasicNameValuePair("user", thisUser));
+			params.add(new BasicNameValuePair("user", user));
 			params.add(new BasicNameValuePair("isAuction", isAuction));
 			params.add(new BasicNameValuePair("edate", eTime));
 			
@@ -163,4 +164,25 @@ public class SellOptionSubmit extends Activity {
 		return result;
 
 	}  
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.sell_option_submit, menu);
+	    return true;
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMyProfile(MenuItem item){
+		Intent intent = new Intent(this, MyProfile.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the Action Bar - Menu button */
+	public void goToMenu(MenuItem item){
+		Intent intent = new Intent(this, MenuActivity.class);
+		intent.putExtra("user", thisUser);
+		startActivity(intent);
+	}
 }
