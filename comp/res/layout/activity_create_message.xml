@@ -3,9 +3,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/message"
     tools:context="com.example.comp.CreateMessageActivity"
-    android:textColor="#FF0000"
     tools:ignore="MergeRootFrame" >
 
     <LinearLayout
@@ -37,7 +36,7 @@
 
         <EditText
             android:id="@+id/newMessage"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
