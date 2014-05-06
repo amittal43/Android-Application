@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#990000"
-            android:text="@string/LOGINUSINGUSERNAME"
+            android:text="Login Using User Name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#0000FF"
-            android:text="@string/UserName"
+            android:text="Username"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#0000FF"
-            android:text="@string/Password"
+            android:text="Password"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <EditText
@@ -58,13 +58,13 @@
             android:layout_height="44dp"
             android:background="@drawable/blue"
             android:onClick="onClick"
-            android:text="@string/Login" />
+            android:text="Login" />
 
         <TextView
             android:id="@+id/lStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/Status"
+            android:text="Status"
             android:textColor="#0000FF"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
