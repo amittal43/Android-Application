@@ -67,7 +67,7 @@
 
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
             android:background="@drawable/blue"
             android:layout_height="55dp"

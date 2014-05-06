@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.LoggingBehavior;
 import com.facebook.Request;
@@ -55,7 +56,7 @@ public class MainActivity extends Activity {
 				break;
 			
 
-			case R.id.button4:
+			case R.id.createAccountButton:
 				Intent intent2 = new Intent(this, CreateUserActivity.class);
 				startActivity(intent2);
 				break;
