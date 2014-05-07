@@ -186,16 +186,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/radioVeryPoor"
                     android:textColor="#0000FF" />
-<<<<<<< .mine
-
-                <RadioButton
-                    android:id="@+id/radioElectronics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#0000FF"
-                    android:text="@string/radioElectronics" />
-=======
->>>>>>> .r231
             </RadioGroup>
         </LinearLayout>
 
@@ -265,6 +255,7 @@
             android:layout_height="wrap_content" >
 
             <Button
+                android:id="@+id/pickDateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="0.13"

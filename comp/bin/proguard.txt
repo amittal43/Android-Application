@@ -1,0 +1,217 @@
+# view res/layout/abc_action_menu_item_layout.xml #generated:17
+-keep class android.support.v7.internal.view.menu.ActionMenuItemView { <init>(...); }
+
+# view res/layout/abc_action_menu_layout.xml #generated:17
+-keep class android.support.v7.internal.view.menu.ActionMenuView { <init>(...); }
+
+# view res/layout/abc_expanded_menu_layout.xml #generated:17
+-keep class android.support.v7.internal.view.menu.ExpandedMenuView { <init>(...); }
+
+# view res/layout/abc_list_menu_item_layout.xml #generated:17
+# view res/layout/abc_popup_menu_item_layout.xml #generated:17
+-keep class android.support.v7.internal.view.menu.ListMenuItemView { <init>(...); }
+
+# view res/layout/abc_action_bar_decor_include.xml #generated:19
+# view res/layout/abc_action_bar_decor_include.xml #generated:47
+# view res/layout/abc_action_bar_decor_overlay.xml #generated:29
+# view res/layout/abc_action_bar_decor_overlay.xml #generated:52
+-keep class android.support.v7.internal.widget.ActionBarContainer { <init>(...); }
+
+# view res/layout/abc_action_bar_decor_include.xml #generated:31
+# view res/layout/abc_action_bar_decor_overlay.xml #generated:40
+# view res/layout/abc_action_mode_bar.xml #generated:19
+-keep class android.support.v7.internal.widget.ActionBarContextView { <init>(...); }
+
+# view res/layout/abc_action_bar_decor_overlay.xml #generated:17
+-keep class android.support.v7.internal.widget.ActionBarOverlayLayout { <init>(...); }
+
+# view res/layout/abc_action_bar_decor_include.xml #generated:25
+# view res/layout/abc_action_bar_decor_overlay.xml #generated:35
+-keep class android.support.v7.internal.widget.ActionBarView { <init>(...); }
+
+# view res/layout/abc_action_bar_home.xml #generated:17
+-keep class android.support.v7.internal.widget.ActionBarView$HomeView { <init>(...); }
+
+# view res/layout/abc_action_bar_tabbar.xml #generated:17
+# view res/layout/abc_activity_chooser_view.xml #generated:19
+-keep class android.support.v7.internal.widget.LinearLayoutICS { <init>(...); }
+
+# view v11\res/layout-v11/abc_action_bar_decor.xml #generated:17
+-keep class android.support.v7.internal.widget.NativeActionModeAwareLayout { <init>(...); }
+
+# view res/layout/abc_action_bar_tab.xml #generated:17
+-keep class android.support.v7.internal.widget.ScrollingTabContainerView$TabView { <init>(...); }
+
+# view res/layout/abc_search_view.xml #generated:85
+-keep class android.support.v7.widget.SearchView$SearchAutoComplete { <init>(...); }
+
+# view AndroidManifest.xml #generated:108
+-keep class com.example.comp.CreateMessageActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:86
+-keep class com.example.comp.CreateUserActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:142
+-keep class com.example.comp.EditInfo { <init>(...); }
+
+# view AndroidManifest.xml #generated:133
+-keep class com.example.comp.FBLogin { <init>(...); }
+
+# view AndroidManifest.xml #generated:113
+-keep class com.example.comp.LendOption { <init>(...); }
+
+# view AndroidManifest.xml #generated:118
+-keep class com.example.comp.LendOptionSubmit { <init>(...); }
+
+# view AndroidManifest.xml #generated:92
+-keep class com.example.comp.LoginActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:29
+-keep class com.example.comp.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:98
+-keep class com.example.comp.MenuActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:103
+-keep class com.example.comp.MessageActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:138
+-keep class com.example.comp.MyProfile { <init>(...); }
+
+# view AndroidManifest.xml #generated:61
+-keep class com.example.comp.SearchActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:76
+-keep class com.example.comp.SearchElectronics { <init>(...); }
+
+# view AndroidManifest.xml #generated:71
+-keep class com.example.comp.SearchFashion { <init>(...); }
+
+# view AndroidManifest.xml #generated:66
+-keep class com.example.comp.SearchItem { <init>(...); }
+
+# view AndroidManifest.xml #generated:123
+-keep class com.example.comp.SearchItemExchange { <init>(...); }
+
+# view AndroidManifest.xml #generated:46
+-keep class com.example.comp.SearchResultsActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:51
+-keep class com.example.comp.SellOption { <init>(...); }
+
+# view AndroidManifest.xml #generated:56
+-keep class com.example.comp.SellOptionSubmit { <init>(...); }
+
+# view AndroidManifest.xml #generated:81
+-keep class com.example.comp.ShowProduct { <init>(...); }
+
+# view AndroidManifest.xml #generated:128
+-keep class com.example.comp.ShowProductExchange { <init>(...); }
+
+# view AndroidManifest.xml #generated:19
+-keep class com.example.comp.SplashActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:41
+-keep class com.facebook.LoginActivity { <init>(...); }
+
+# view res/layout/activity_main.xml #generated:45
+# view res/layout/com_facebook_usersettingsfragment.xml #generated:48
+-keep class com.facebook.widget.LoginButton { <init>(...); }
+
+# onClick res/layout/activity_lend_option_submit.xml #generated:192
+# onClick res/layout/activity_sell_option_submit.xml #generated:170
+-keepclassmembers class * { *** backToHome(...); }
+
+# onClick res/layout/activity_show_product_exchange.xml #generated:100
+-keepclassmembers class * { *** borrow(...); }
+
+# onClick res/layout/activity_show_product.xml #generated:134
+-keepclassmembers class * { *** buy(...); }
+
+# onClick res/layout/activity_message.xml #generated:38
+-keepclassmembers class * { *** createNewMessage(...); }
+
+# onClick res/menu/create_message.xml #generated:14
+# onClick res/menu/edit_info.xml #generated:14
+# onClick res/menu/lend_option.xml #generated:15
+# onClick res/menu/lend_option_submit.xml #generated:14
+# onClick res/menu/menu.xml #generated:14
+# onClick res/menu/message.xml #generated:14
+# onClick res/menu/my_profile.xml #generated:13
+# onClick res/menu/search.xml #generated:14
+# onClick res/menu/search_item.xml #generated:14
+# onClick res/menu/search_item_exchange.xml #generated:14
+# onClick res/menu/search_page.xml #generated:15
+# onClick res/menu/sell_option.xml #generated:15
+# onClick res/menu/sell_option_submit.xml #generated:14
+# onClick res/menu/show_product.xml #generated:14
+# onClick res/menu/show_product_exchange.xml #generated:14
+-keepclassmembers class * { *** goToMenu(...); }
+
+# onClick res/menu/create_message.xml #generated:6
+# onClick res/menu/edit_info.xml #generated:6
+# onClick res/menu/lend_option.xml #generated:7
+# onClick res/menu/lend_option_submit.xml #generated:6
+# onClick res/menu/menu.xml #generated:6
+# onClick res/menu/message.xml #generated:6
+# onClick res/menu/my_profile.xml #generated:5
+# onClick res/menu/search.xml #generated:6
+# onClick res/menu/search_item.xml #generated:6
+# onClick res/menu/search_item_exchange.xml #generated:6
+# onClick res/menu/search_page.xml #generated:7
+# onClick res/menu/sell_option.xml #generated:7
+# onClick res/menu/sell_option_submit.xml #generated:6
+# onClick res/menu/show_product.xml #generated:6
+# onClick res/menu/show_product_exchange.xml #generated:6
+-keepclassmembers class * { *** goToMyProfile(...); }
+
+# onClick res/layout/activity_menu.xml #generated:59
+-keepclassmembers class * { *** lendOption(...); }
+
+# onClick res/layout/activity_lend_option.xml #generated:279
+-keepclassmembers class * { *** lendOptionSubmit(...); }
+
+# onClick res/layout/activity_create_user.xml #generated:72
+# onClick res/layout/activity_edit_info.xml #generated:68
+# onClick res/layout/activity_login.xml #generated:69
+# onClick res/layout/activity_main.xml #generated:33
+# onClick res/layout/activity_main.xml #generated:69
+# onClick res/layout/activity_my_profile.xml #generated:147
+# onClick res/layout/activity_my_profile.xml #generated:181
+# onClick res/layout/activity_my_profile.xml #generated:95
+# onClick res/layout/activity_search.xml #generated:21
+# onClick res/layout/activity_search.xml #generated:35
+# onClick res/layout/activity_search.xml #generated:48
+# onClick res/layout/activity_search.xml #generated:61
+# onClick res/layout/activity_search.xml #generated:74
+# onClick res/layout/activity_search.xml #generated:87
+-keepclassmembers class * { *** onClick(...); }
+
+# onClick res/layout/activity_menu.xml #generated:20
+# onClick res/layout/activity_menu.xml #generated:46
+-keepclassmembers class * { *** openSearchResult(...); }
+
+# onClick res/layout/activity_message.xml #generated:29
+-keepclassmembers class * { *** search(...); }
+
+# onClick res/layout/activity_menu.xml #generated:33
+-keepclassmembers class * { *** sellOption(...); }
+
+# onClick res/layout/activity_sell_option.xml #generated:314
+-keepclassmembers class * { *** sellOptionSubmit(...); }
+
+# onClick res/layout/activity_create_message.xml #generated:45
+-keepclassmembers class * { *** sendMessage(...); }
+
+# onClick res/layout/activity_sell_option.xml #generated:247
+-keepclassmembers class * { *** setAuctionDate(...); }
+
+# onClick res/layout/activity_lend_option.xml #generated:257
+-keepclassmembers class * { *** showDatePickerDialog(...); }
+
+# onClick res/layout/activity_menu.xml #generated:72
+-keepclassmembers class * { *** showMessages(...); }
+
+# onClick res/layout/activity_search_item.xml #generated:36
+-keepclassmembers class * { *** sort(...); }
+

@@ -72,7 +72,7 @@ public class MenuActivity extends Activity {
 		
 		//TODO: when back is pressed, directly close the app
 		
-		@Override
+		/*@Override
 	    public void onBackPressed() {
 	        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
 	                .setMessage("Are you sure you want to exit?")
@@ -82,7 +82,7 @@ public class MenuActivity extends Activity {
 	                        finish();
 	                    }
 	                }).setNegativeButton("No", null).show();
-	    }
+	    }*/
 		
 		/** Handle Action Bar Menu */
 		@Override
