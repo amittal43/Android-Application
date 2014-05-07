@@ -94,6 +94,7 @@
             android:gravity="center_horizontal"
            	android:textColor="#0000FF"
             android:text="Your Bid&#10;"
+            android:textColor="#0000FF"
             android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
