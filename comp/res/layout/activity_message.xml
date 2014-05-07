@@ -28,7 +28,7 @@
 
             <Button
                 android:id="@+id/button1"
-                android:layout_width="wrap_content"
+                android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:background="@drawable/blue"
                 android:paddingRight="10dp"
@@ -37,11 +37,20 @@
 
             <Button
                 android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_width="70dp"
+               	android:layout_height="30dp"
                 android:background="@drawable/blue"
                 android:onClick="createNewMessage"
                 android:text="+" />
+            
+            <Button
+                android:id="@+id/refresh"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:background="@drawable/blue"
+                android:onClick="refresh"
+                android:text="Refresh"/>
+            
         </LinearLayout>
 
         <ListView
