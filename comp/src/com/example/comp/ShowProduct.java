@@ -75,8 +75,8 @@ public class ShowProduct extends Activity {
 		TextView textPrice = (TextView) findViewById(R.id.showproductPrice);
 		textPrice.append(price);
 
-		/*TextView textSeller = (TextView) findViewById(R.id.showSeller);
-		textSeller.append(seller);*/
+		TextView textSeller = (TextView) findViewById(R.id.showSeller);
+		textSeller.append(seller);
 
 		if (!pathname.equals("null") &&  !pathname.equals("")){
 			new DownloadImageTask((ImageView) findViewById(R.id.image)).execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/image/" + pathname);
