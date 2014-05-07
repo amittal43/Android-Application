@@ -107,6 +107,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:textColor="#0000FF"
             android:visibility="gone"
             android:inputType="numberDecimal" >
 			<requestFocus />
