@@ -14,32 +14,24 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class ShowProductExchange extends Activity {
-	String title, price, quality, descr, duedate, thisUser, id;
+	String title, price, quality, descr, duedate, thisUser, id, pathname;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +50,7 @@ public class ShowProductExchange extends Activity {
 		quality = bundle.getString("QUALITY");
 		descr = bundle.getString("DESCR");
 		duedate = bundle.getString("DUEDATE");
+		pathname = bundle.getString("PATHNAME");
 		
 	    TextView textTitle = (TextView) findViewById(R.id.showproductTitle);
 	    textTitle.append(title);
@@ -73,6 +66,10 @@ public class ShowProductExchange extends Activity {
 	    
 	    TextView textDueDate = (TextView) findViewById(R.id.showproductDueDate);
 	    textDueDate.append(duedate);
+	    
+	    if (!pathname.equals("null") &&  !pathname.equals("")){
+			new DownloadImageTask((ImageView) findViewById(R.id.imageExchange)).execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/image/" + pathname);
+		}
 		
 	}
 	
@@ -89,6 +86,7 @@ public class ShowProductExchange extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+			intent.putExtra("user", thisUser);
 			startActivity(intent);
 			Toast.makeText(getBaseContext(), "Data Sent!" + " " +  result, Toast.LENGTH_LONG).show();
 		}
@@ -141,6 +139,31 @@ public class ShowProductExchange extends Activity {
 		return result;
 
 	}  
+	
+	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		ImageView bmImage;
+
+		public DownloadImageTask(ImageView bmImage) {
+			this.bmImage = bmImage;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			String urldisplay = urls[0];
+			Bitmap mIcon11 = null;
+			try {
+				InputStream in = new java.net.URL(urldisplay).openStream();
+				mIcon11 = BitmapFactory.decodeStream(in);
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+			return mIcon11;
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			bmImage.setImageBitmap(result);
+		}
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

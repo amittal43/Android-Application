@@ -180,7 +180,7 @@ public class SellOption extends Activity {
 
 		//TODO: create an exception if user's input is not valid
 
-		if (title.matches("") || description.matches("") || price.matches(""))
+		if (title.matches("") || description.matches("") || price.matches("") || imagePath.equals("noImage"))
 		{
 			Toast.makeText(this, "Input data is not complete!", Toast.LENGTH_LONG).show();
 		}

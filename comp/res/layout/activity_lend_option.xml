@@ -4,269 +4,286 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.example.comp.SellOption"
+    tools:context="com.example.comp.LendOption"
     tools:ignore="MergeRootFrame" >
 
-    <!-- <ScrollView
+    <!--
+         <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="534dp" > -->
+        android:layout_height="534dp" >
+    -->
+
+    <LinearLayout
+        android:layout_width="306dp"
+        android:layout_height="440dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/categorytitle"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:text="Item Details"
+            android:textColor="#990000"
+            android:textSize="25dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/textTitle"
+            android:textColor="#990000" />
+
+        <EditText
+            android:id="@+id/itemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@android:color/black" >
+
+            <requestFocus />
+        </EditText>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" >
+        </View>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/chooseCategory"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#990000" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <RadioButton
+                android:id="@+id/radioBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/radioBook"
+                android:textColor="#0000FF" />
+
+            <RadioButton
+                android:id="@+id/radioBedding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioBedding"
+                android:textColor="#0000FF" />
+
+            <RadioButton
+                android:id="@+id/radioSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioSport"
+                android:textColor="#0000FF" />
+
+            <RadioButton
+                android:id="@+id/radioFashion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioFashion"
+                android:textColor="#0000FF" />
+
+            <RadioButton
+                android:id="@+id/radioCooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioCooking"
+                android:textColor="#0000FF" />
+
+            <RadioButton
+                android:id="@+id/radioElectronics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radioElectronics" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/textPrice"
+            android:textColor="#990000" />
+
+        <EditText
+            android:id="@+id/itemPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="in HKD"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/black" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/textQuality"
+            android:textColor="#990000" />
 
         <LinearLayout
-            android:layout_width="306dp"
-            android:layout_height="440dp"
-            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/categorytitle"
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
-                android:text="Item Details"
-                android:textColor="#990000"
-                android:textSize="25dp" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#990000"
-                android:text="@+string/textTitle" />
-
-            <EditText
-                android:id="@+id/itemTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:ems="10" >
-
-                <requestFocus />
-            </EditText>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" >
-            </View>
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/chooseCategory"
-                android:textColor="#990000"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
             <RadioGroup
-                android:id="@+id/radioGroup1"
+                android:id="@+id/radioGroup2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
                 <RadioButton
-                    android:id="@+id/radioBook"
+                    android:id="@+id/radioVeryGood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="@string/radioBook"
+                    android:text="@string/radioVeryGood"
                     android:textColor="#0000FF" />
 
                 <RadioButton
-                    android:id="@+id/radioBedding"
+                    android:id="@+id/radioGood"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioBedding"
+                    android:text="@string/radioGood"
                     android:textColor="#0000FF" />
 
                 <RadioButton
-                    android:id="@+id/radioSport"
+                    android:id="@+id/radioFair"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioSport"
+                    android:text="@string/radioFair"
                     android:textColor="#0000FF" />
 
                 <RadioButton
-                    android:id="@+id/radioFashion"
+                    android:id="@+id/radioPoor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioFashion"
+                    android:text="@string/radioPoor"
                     android:textColor="#0000FF" />
 
                 <RadioButton
-                    android:id="@+id/radioCooking"
+                    android:id="@+id/radioVeryPoor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/radioCooking"
+                    android:text="@string/radioVeryPoor"
                     android:textColor="#0000FF" />
-
-                <RadioButton
-                    android:id="@+id/radioElectronics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/radioElectronics" />
             </RadioGroup>
+        </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
 
-            <TextView
-                android:id="@+id/textView5"
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/textDescription"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#990000" />
+
+        <EditText
+            android:id="@+id/itemDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:textColor="@android:color/black" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageThumbnailExchange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#990000"
-                android:text="@+string/textPrice" />
-
-            <EditText
-                android:id="@+id/itemPrice"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:textColor="@android:color/black"
-                android:hint="in HKD"
-                android:inputType="numberDecimal" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#990000"
-                android:text="@+string/textQuality" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <RadioGroup
-                    android:id="@+id/radioGroup2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <RadioButton
-                        android:id="@+id/radioVeryGood"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="@string/radioVeryGood"
-                        android:textColor="#0000FF" />
-
-                    <RadioButton
-                        android:id="@+id/radioGood"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/radioGood"
-                        android:textColor="#0000FF" />
-
-                    <RadioButton
-                        android:id="@+id/radioFair"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/radioFair"
-                        android:textColor="#0000FF" />
-
-                    <RadioButton
-                        android:id="@+id/radioPoor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/radioPoor"
-                        android:textColor="#0000FF" />
-
-                    <RadioButton
-                        android:id="@+id/radioVeryPoor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/radioVeryPoor"
-                        android:textColor="#0000FF" />
-                </RadioGroup>
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/textDescription"
-                android:textColor="#990000"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <EditText
-                android:id="@+id/itemDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:ems="10"
-                android:inputType="textMultiLine" />
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
-
-            <!--
-                 <ImageView
-		        android:id="@+id/imgView"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"></ImageView>
-	   	 	 <Button
-		        android:id="@+id/buttonLoadPicture"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0"
-		        android:text="Load Picture"
-		        android:layout_gravity="center"></Button> -->
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#990000"
-                android:text="@+string/textPeriod"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="0.13"
-                    android:background="@drawable/blue"
-                    android:onClick="showDatePickerDialog"
-                    android:text="Pick a date" />
-
-                <EditText
-                    android:id="@+id/showDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:layout_weight="0.02"
-                    android:ems="10" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="30dp" />
+                android:maxHeight="200dp"
+                android:maxWidth="200dp"
+                android:scaleType="fitCenter"
+                android:src="@+drawable/no_image" />
 
             <Button
-                android:id="@+id/lendOptionSubmit"
-                android:layout_width="122dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="0.12"
+                android:id="@+id/buttonLoadPictureExchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.59"
                 android:background="@drawable/blue"
-                android:onClick="lendOptionSubmit"
-                android:text="Submit" />
+                android:text="@string/loadPicture" >
+            </Button>
         </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@+string/textPeriod"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#990000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="0.13"
+                android:background="@drawable/blue"
+                android:onClick="showDatePickerDialog"
+                android:text="Pick a date" />
+
+            <EditText
+                android:id="@+id/showDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.02"
+                android:ems="10"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp" />
+
+        <Button
+            android:id="@+id/lendOptionSubmit"
+            android:layout_width="122dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.12"
+            android:background="@drawable/blue"
+            android:onClick="lendOptionSubmit"
+            android:text="Submit" />
+    </LinearLayout>
 
 </ScrollView>

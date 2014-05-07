@@ -119,39 +119,14 @@ public class SellOptionSubmit extends Activity {
 
 			// 2. make POST request to the given URL
 			HttpPost httpPost = new HttpPost(url);
-			HttpPost httpPostBis = new HttpPost("http://ihome.ust.hk/~sraghuraman/cgi-bin/add-item-to-database-image.php");
-			//HttpPost httpPostBis = new HttpPost("http://ihome.ust.hk/~sraghuraman/cgi-bin/testAlexis.php");
-
+			
 			String json = "";
-
-			// Request parameters and other properties.
-			List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-			params.add(new BasicNameValuePair("title", title));
-			params.add(new BasicNameValuePair("category", category));
-			params.add(new BasicNameValuePair("price", price.toString()));
-			params.add(new BasicNameValuePair("quality", quality.toString()));
-			params.add(new BasicNameValuePair("description", desc.toString()));
-			params.add(new BasicNameValuePair("user", user));
-			params.add(new BasicNameValuePair("isAuction", isAuction));
-			params.add(new BasicNameValuePair("edate", eTime));
-
 
 			// Request parameters and other properties. using a MultipartEntity
 			MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 			builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 			FileBody fileBody = new FileBody(new File(imagePath));
-			
-//			// If the image is too big, we want to compress it
-//			File file = File.createTempFile("prefix", "suffix");
-//			
-//			FileOutputStream fOut = new FileOutputStream(file);
-//			Bitmap bitmapImage = BitmapFactory.decodeFile(imagePath);
-//			Bitmap.createScaledBitmap(bitmapImage, bitmapImage.getWidth()/4, bitmapImage.getHeight()/4, false);
-//			bitmapImage.compress(CompressFormat.JPEG, 100, fOut);
-//			fOut.close();
 			builder.addPart("image", fileBody);
-			
-			// Attempt to add a string to see if it is working
 			builder.addTextBody("title", title);
 			builder.addTextBody("category", category);
 			builder.addTextBody("price", price.toString());
@@ -161,18 +136,13 @@ public class SellOptionSubmit extends Activity {
 			builder.addTextBody("isAuction", isAuction);
 			builder.addTextBody("edate", eTime);
 
-			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-			// The other httpPost
-			httpPostBis.setEntity(builder.build());
+			httpPost.setEntity(builder.build());
 
 			// 8. Execute POST request to the given URL
-			//HttpResponse httpResponse = httpclient.execute(httpPost);
-			HttpResponse httpResponseBis = httpclient.execute(httpPostBis);
+			HttpResponse httpResponse = httpclient.execute(httpPost);
 
 			// 9. receive response as inputStream
-			//inputStream = httpResponse.getEntity().getContent();
-			inputStream = httpResponseBis.getEntity().getContent();
+			inputStream = httpResponse.getEntity().getContent();
 
 			// 10. convert inputstream to string
 			if(inputStream != null)

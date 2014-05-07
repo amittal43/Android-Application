@@ -12,6 +12,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,11 +24,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.os.Build;
+import android.provider.MediaStore;
 
 public class LendOption extends FragmentActivity implements OnDataPass {
 
@@ -34,12 +42,23 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 	private EditText doublePrice, stringTitle, stringDescription, showDate;
 	private Calendar calendar;
 	private String duedate = "", title = "", category = "", quality = "", description = "", price = "", thisUser;
+	private String imagePath = "noImage";
+	private static final int SELECT_PICTURE = 1;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lend_option);
         thisUser = getIntent().getExtras().getString("user");
+        
+        ((Button) findViewById(R.id.buttonLoadPictureExchange)).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+				startActivityForResult(i, SELECT_PICTURE);				
+			}
+		});
         //Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
     }
     
@@ -61,7 +80,42 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 	    showDate.setText(duedate); 
   	}
   	
+  	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (resultCode == RESULT_OK) {
+			if (requestCode == SELECT_PICTURE) {
+				Uri selectedImageUri = data.getData();
+				imagePath = getPath(selectedImageUri);            
+				Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(imagePath), 200, 200);
+				//Toast.makeText(getApplicationContext(), imagePath, Toast.LENGTH_SHORT).show();
+				ImageView image = (ImageView) findViewById(R.id.imageThumbnailExchange);
+				image.setImageBitmap(ThumbImage);
+			}
+		}
+	}
   	
+  	/**
+	 * helper to retrieve the path of an image URI
+	 */	
+	public String getPath(Uri uri) {
+		// just some safety built in 
+		if( uri == null ) {
+			// TODO perform some logging or show user feedback
+			return null;
+		}
+		// try to retrieve the image from the media store first
+		// this will only work for images selected from gallery
+		String[] projection = { MediaStore.Images.Media.DATA };
+		Cursor cursor = managedQuery(uri, projection, null, null, null);
+		if( cursor != null ){
+			int column_index = cursor
+					.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			cursor.moveToFirst();
+			return cursor.getString(column_index);
+		}
+		// this is our fallback here
+		return uri.getPath();
+	}
 
 	/** Called when the user clicks the Submit button */
 	public void lendOptionSubmit (View view){
@@ -88,7 +142,7 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 		description = getStringValue(stringDescription);
 		
 		//ensure all inputs are valid
-		if (title.matches("") || description.matches("") || price.matches("") || duedate.matches("")){
+		if (title.matches("") || description.matches("") || price.matches("") || duedate.matches("") || imagePath.equals("noImage")){
 			Toast.makeText(this, "Input data is not complete!", Toast.LENGTH_LONG).show();
 		}
 		else
@@ -103,6 +157,7 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 			bundle.putString("DESCRIPTION", description);
 			bundle.putDouble("PRICE", priceDouble);
 			bundle.putString("DUEDATE", duedate);
+			bundle.putString("IMAGE", imagePath);
 			intent.putExtras(bundle);
 			startActivity(intent);
 

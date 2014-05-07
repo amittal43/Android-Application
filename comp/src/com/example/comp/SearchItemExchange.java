@@ -89,6 +89,7 @@ public class SearchItemExchange extends Activity {
 					    final String id = obj.optString("id");
 					    //final String id = obj.optString("id");
 					    final String duedate = obj.optString("duedate");
+					    final String pathname = obj.optString("path");
 						
 					    //Toast.makeText(getBaseContext(), title + " " + price + " " + id + " " + duedate, Toast.LENGTH_LONG).show();
 					    
@@ -108,6 +109,7 @@ public class SearchItemExchange extends Activity {
 					        	bundle.putString("QUALITY", quality);
 					        	bundle.putString("DESCR", descr);
 					        	bundle.putString("DUEDATE", duedate);
+					        	bundle.putString("PATHNAME", pathname);
 					            Intent intent = new Intent(SearchItemExchange.this, ShowProductExchange.class);
 								intent.putExtras(bundle);
 								startActivity(intent);
