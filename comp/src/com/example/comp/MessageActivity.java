@@ -81,6 +81,11 @@ public class MessageActivity extends Activity {
 		hMap.put(key, name);
 		return hMap;
 	}
+	
+	public void addSearchTestConditions()
+	{
+		getIntent().putExtra("search-keyword", "kath");
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -39,8 +39,20 @@ public class CreateUserActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_user);
 
-		}
+	}
 
+	
+	public void processServerOutput(String result)
+	{
+		if (result.equals("0"))
+		{
+			Toast.makeText(getBaseContext(), "The username has already been used!", Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+			Intent intent = new Intent(getBaseContext(), LoginActivity.class);
+			startActivity(intent);
+		}
+	}
 
 	public void onClick(View view) 
 	{
@@ -59,8 +71,8 @@ public class CreateUserActivity extends ActionBarActivity {
 			break;
 		}
 	}
-	
-	private boolean validateFormInput()
+
+	public boolean validateFormInput()
 	{
 		EditText username = (EditText) findViewById(R.id.username);
 		EditText password = (EditText) findViewById(R.id.password);
@@ -71,7 +83,7 @@ public class CreateUserActivity extends ActionBarActivity {
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -83,13 +95,8 @@ public class CreateUserActivity extends ActionBarActivity {
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			if (result.equals("0")){
-				Toast.makeText(getBaseContext(), "The username has already been used!", Toast.LENGTH_LONG).show();
-			} else {
-				Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
-				Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-				startActivity(intent);
-			}
+
+			processServerOutput(result);
 		}
 	}
 
