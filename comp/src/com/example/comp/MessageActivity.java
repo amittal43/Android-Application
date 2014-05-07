@@ -285,6 +285,13 @@ public class MessageActivity extends Activity {
 
 	}
 	
+	public void refresh(View view)
+	{
+		Intent intent = getIntent();
+		finish();
+		startActivity(intent);
+	}
+	
 	public int getNumConvos()
 	{
 		return messages.size();
