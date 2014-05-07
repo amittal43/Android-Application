@@ -54,7 +54,8 @@ public class MessageActivity extends Activity {
 	ArrayList<ArrayList<JSONObject>> messages;
 	List<Map<String, String>> usersList = new ArrayList<Map<String,String>>();
 	String thisUser = null;
-
+	String url = null;
+	
 	private void initList()
 	{
 		for(int i=0; messages!=null && i < messages.size(); i++)
@@ -87,12 +88,19 @@ public class MessageActivity extends Activity {
 		setContentView(R.layout.activity_message);
 		messages = new ArrayList<ArrayList<JSONObject>>();
 		thisUser = getIntent().getExtras().getString("user");
-		new HttpAsyncTask().execute("http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-messages.php", getIntent().getExtras().getString("user"));
+		if(getIntent().hasExtra("testURL"))
+			url = getIntent().getExtras().getString(("testURL"));
+		else
+			url = "http://ihome.ust.hk/~sraghuraman/cgi-bin/fetch-messages.php";
+		new HttpAsyncTask().execute(url, getIntent().getExtras().getString("user"));
+
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 	}
+
+	
 
 	@Override
 	public void onBackPressed() 
@@ -123,7 +131,162 @@ public class MessageActivity extends Activity {
 		startActivity(intent);
 	}
 	
-	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+	public void processServerResponse(String result)
+	{
+		System.out.println(result);
+		try
+		{
+			int index = result.indexOf("bin/php");	
+			if(index >= 0)
+				result = result.substring(index+7).trim();
+			else
+				result = result.trim();
+			JSONObject jObj = new JSONObject(result);
+			JSONArray jArray = jObj.getJSONArray("list");
+			ArrayList<String> users = new ArrayList<String>();
+
+			for(int i=0; i < jArray.length(); i++)
+			{
+				JSONObject obj = jArray.getJSONObject(i);
+				if(!users.contains(obj.optString("from")))
+				{
+					users.add(obj.optString("from"));
+				}
+				if(!users.contains(obj.optString("to")))
+				{
+					users.add(obj.optString("to"));
+				}
+			}
+			// the above code would get you all the users who have communicated with this user
+
+			users.remove(getIntent().getExtras().getString("user"));
+
+			System.out.println("Printing users" + users);
+
+			String thisUser = getIntent().getExtras().getString("user");
+
+			for(int i=0; i < users.size(); i++)
+			{
+				messages.add(new ArrayList<JSONObject>());
+			}
+			for(int i=0; i < jArray.length(); i++)
+			{
+				JSONObject obj = jArray.getJSONObject(i);
+				String otherUser = null;
+				if(obj.optString("from").equals(thisUser))
+				{
+					otherUser = obj.optString("to");
+				}
+				else if(obj.optString("to").equals(thisUser))
+				{
+					otherUser = obj.optString("from");
+				}
+				System.out.println("for " + thisUser + " this is the user we are searching for " + otherUser);
+				int userIndex = users.indexOf(otherUser);
+				messages.get(userIndex).add(obj);
+			}
+			for(int i=0; i < messages.size(); i++)
+			{
+				messageComparator m = new messageComparator();
+				Collections.sort(messages.get(i), m);
+
+				for(int j=0; j < messages.get(i).size(); j++)
+				{
+					System.out.println(messages.get(i).get(j));
+				}
+			}
+
+			System.out.println("Hey there" + messages.size());	
+
+			// filtering by search-keyword
+			if(getIntent().hasExtra("search-keyword"))
+			{
+				String term = getIntent().getExtras().getString("search-keyword");
+				for(int i=0; i < messages.size(); i++)
+				{
+					boolean show = false; 
+
+					for(int j=0; j < messages.get(i).size(); j++)
+					{
+						String s1 = messages.get(i).get(0).optString("from");
+						String s2 = messages.get(i).get(0).optString("to");
+						if(!term.equals(thisUser))
+						{
+							if(s1.equals(term) || s2.equals(term))
+							{
+								show = true;
+								break;
+							}
+						}
+						String msgContent = messages.get(i).get(j).optString("message");
+						if(msgContent.contains(term))
+						{
+							show = true;
+							break;
+						}
+					}
+					if(show == false)
+					{
+						messages.remove(i);
+						i--;
+					}
+				}
+			}
+			ListView lv = (ListView) findViewById(R.id.listView);
+			initList();
+			SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), usersList, android.R.layout.simple_list_item_1, new String[] {"user"}, new int[] {android.R.id.text1});
+			/*LinearLayout ll = (LinearLayout) findViewById(R.id.msgList); 
+			for(int i=0; i < messages.size(); i++)
+			{
+				Button t1 = new Button(getApplicationContext());
+				t1.setHeight(50);
+				t1.setGravity(10);
+				t1.setText(messages.get(i).get(0).optString("to")+"\nFirst Message");
+				ll.addView(t1);
+			}*/
+			lv.setAdapter(simpleAdpt);
+			lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+				public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
+						long id) {
+
+					// We know the View is a TextView so we can cast it
+					Intent intent = new Intent(getApplicationContext(), CreateMessageActivity.class);
+					ArrayList<String> conversation = new ArrayList<String>();
+					for(int i=0; messages!=null && messages.get(position)!=null 
+							&& i < messages.get(position).size(); i++)
+					{
+						String temp = messages.get(position).get(i).optString("from") + "!!!@@@###" + messages.get(position).get(i).optString("to") + "$$$%%%^^^" + 
+								messages.get(position).get(i).optString("message") + "&&&***(((" + messages.get(position).get(i).optString("time");
+						conversation.add(temp);
+					}
+					intent.putStringArrayListExtra("conversation", conversation);
+					intent.putExtra("calling-activity", "MessageActivity");
+
+					intent.putExtra("user", getIntent().getExtras().getString("user"));
+					startActivity(intent);
+					/*TextView clickedView = (TextView) view;
+			         Toast.makeText(getApplicationContext(), "Item with id ["+id+"] - Position ["+position+"] - Planet ["+clickedView.getText()+"]", Toast.LENGTH_LONG).show();
+					 */
+				}
+			});
+
+		}
+		catch(JSONException e)
+		{
+			Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
+					Toast.LENGTH_LONG).show();
+		} 
+
+	}
+	
+	public int getNumConvos()
+	{
+		return messages.size();
+	}
+
+	public class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		
 		@Override
 		protected String doInBackground(String...urls) {
 			return POST(urls[0], urls[1]);
@@ -134,151 +297,7 @@ public class MessageActivity extends Activity {
 		protected void onPostExecute(String result) 
 		{
 			//Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
-			System.out.println(result);
-			try
-			{
-				int index = result.indexOf("bin/php");	
-				if(index >= 0)
-					result = result.substring(index+7).trim();
-				else
-					result = result.trim();
-				JSONObject jObj = new JSONObject(result);
-				JSONArray jArray = jObj.getJSONArray("list");
-				ArrayList<String> users = new ArrayList<String>();
-
-				for(int i=0; i < jArray.length(); i++)
-				{
-					JSONObject obj = jArray.getJSONObject(i);
-					if(!users.contains(obj.optString("from")))
-					{
-						users.add(obj.optString("from"));
-					}
-					if(!users.contains(obj.optString("to")))
-					{
-						users.add(obj.optString("to"));
-					}
-				}
-				// the above code would get you all the users who have communicated with this user
-			
-				users.remove(getIntent().getExtras().getString("user"));
-
-				System.out.println("Printing users" + users);
-				
-				String thisUser = getIntent().getExtras().getString("user");
-				
-				for(int i=0; i < users.size(); i++)
-				{
-					messages.add(new ArrayList<JSONObject>());
-				}
-
-				for(int i=0; i < jArray.length(); i++)
-				{
-					JSONObject obj = jArray.getJSONObject(i);
-					String otherUser = null;
-					if(obj.optString("from").equals(thisUser))
-					{
-						otherUser = obj.optString("to");
-					}
-					else if(obj.optString("to").equals(thisUser))
-					{
-						otherUser = obj.optString("from");
-					}
-					System.out.println("for " + thisUser + " this is the user we are searching for " + otherUser);
-					int userIndex = users.indexOf(otherUser);
-					messages.get(userIndex).add(obj);
-				}
-
-				for(int i=0; i < messages.size(); i++)
-				{
-					messageComparator m = new messageComparator();
-					Collections.sort(messages.get(i), m);
-
-					for(int j=0; j < messages.get(i).size(); j++)
-					{
-						System.out.println(messages.get(i).get(j));
-					}
-				}
-
-
-				// filtering by search-keyword
-				if(getIntent().hasExtra("search-keyword"))
-				{
-					String term = getIntent().getExtras().getString("search-keyword");
-					for(int i=0; i < messages.size(); i++)
-					{
-						boolean show = false; 
-
-						for(int j=0; j < messages.get(i).size(); j++)
-						{
-							String s1 = messages.get(i).get(0).optString("from");
-							String s2 = messages.get(i).get(0).optString("to");
-							if(!term.equals(thisUser))
-							{
-								if(s1.equals(term) || s2.equals(term))
-								{
-									show = true;
-									break;
-								}
-							}
-							String msgContent = messages.get(i).get(j).optString("message");
-							if(msgContent.contains(term))
-							{
-								show = true;
-								break;
-							}
-						}
-						if(show == false)
-						{
-							messages.remove(i);
-							i--;
-						}
-					}
-				}
-				ListView lv = (ListView) findViewById(R.id.listView);
-				initList();
-				SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), usersList, android.R.layout.simple_list_item_1, new String[] {"user"}, new int[] {android.R.id.text1});
-				/*LinearLayout ll = (LinearLayout) findViewById(R.id.msgList); 
-				for(int i=0; i < messages.size(); i++)
-				{
-					Button t1 = new Button(getApplicationContext());
-					t1.setHeight(50);
-					t1.setGravity(10);
-					t1.setText(messages.get(i).get(0).optString("to")+"\nFirst Message");
-					ll.addView(t1);
-				}*/
-				lv.setAdapter(simpleAdpt);
-				lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-					public void onItemClick(AdapterView<?> parentAdapter, View view, int position,
-							long id) {
-
-						// We know the View is a TextView so we can cast it
-						Intent intent = new Intent(getApplicationContext(), CreateMessageActivity.class);
-						ArrayList<String> conversation = new ArrayList<String>();
-						for(int i=0; messages!=null && messages.get(position)!=null 
-								&& i < messages.get(position).size(); i++)
-						{
-							String temp = messages.get(position).get(i).optString("from") + "!!!@@@###" + messages.get(position).get(i).optString("to") + "$$$%%%^^^" + 
-									messages.get(position).get(i).optString("message") + "&&&***(((" + messages.get(position).get(i).optString("time");
-							conversation.add(temp);
-						}
-						intent.putStringArrayListExtra("conversation", conversation);
-						intent.putExtra("calling-activity", "MessageActivity");
-
-						intent.putExtra("user", getIntent().getExtras().getString("user"));
-						startActivity(intent);
-						/*TextView clickedView = (TextView) view;
-				         Toast.makeText(getApplicationContext(), "Item with id ["+id+"] - Position ["+position+"] - Planet ["+clickedView.getText()+"]", Toast.LENGTH_LONG).show();
-						 */
-					}
-				});
-
-			}
-			catch(JSONException e)
-			{
-				Toast.makeText(getApplicationContext(), result + "Error" + e.toString(),
-						Toast.LENGTH_LONG).show();
-			} 
+			processServerResponse(result);
 		}
 	}
 
@@ -367,7 +386,12 @@ public class MessageActivity extends Activity {
 		inputStream.close();
 		return result;
 
-	}   
+	}
+	
+	public void addSearchKeyword()
+	{
+		getIntent().putExtra("search-keyword", "kath");
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
