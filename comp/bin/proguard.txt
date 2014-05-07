@@ -212,6 +212,6 @@
 # onClick res/layout/activity_menu.xml #generated:72
 -keepclassmembers class * { *** showMessages(...); }
 
-# onClick res/layout/activity_search_item.xml #generated:36
+# onClick res/layout/activity_search_item.xml #generated:38
 -keepclassmembers class * { *** sort(...); }
 

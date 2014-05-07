@@ -41,16 +41,6 @@ public class LoginActivity extends ActionBarActivity {
 
 	}
 	
-	public ActionBarActivity getActionBarActivity()
-	{
-		return this;
-	}
-
-	public Activity getActivity()
-	{
-		return (Activity) getApplicationContext();
-	}
-	
 
 	public void onClick(View view) 
 	{
@@ -69,7 +59,7 @@ public class LoginActivity extends ActionBarActivity {
 		}
 	}
 
-	private boolean validateFormInput()
+	public boolean validateFormInput()
 	{
 		EditText username = (EditText) findViewById(R.id.username2);
 		EditText password = (EditText) findViewById(R.id.password2);
