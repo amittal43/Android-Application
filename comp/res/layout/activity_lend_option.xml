@@ -107,7 +107,8 @@
                 android:id="@+id/radioElectronics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/radioElectronics" />
+                android:text="@string/radioElectronics"
+                android:textColor="#0000FF" />
         </RadioGroup>
 
         <View
