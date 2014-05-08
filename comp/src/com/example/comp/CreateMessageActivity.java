@@ -47,7 +47,12 @@ public class CreateMessageActivity extends Activity {
 	List<Map<String, String>> messageThread = new ArrayList<Map<String,String>>();
 	ArrayList<String> allUsers;
 	String thisUser;
-
+	
+	/* test Variables */
+	int testNumUsers, testNumMsgs;
+	String testRecepient;
+	boolean testMessageSuccess;
+	
 	private void initList()
 	{
 		for(int i=0; conversation!=null && i < conversation.size(); i++)
@@ -76,12 +81,28 @@ public class CreateMessageActivity extends Activity {
 		return hMap;
 	}
 
+	public void testConversationLoading()
+	{
+		ArrayList<String> aList = new ArrayList<String>();
+		String str1 = "kath" + "!!!@@@###" + "user" + "$$$%%%^^^" + "hello" + "&&&***(((" + "2014-05-08 03:13:11";
+		String str2 = "kath" + "!!!@@@###" + "user" + "$$$%%%^^^" + "how r u?" + "&&&***(((" + "2014-05-08 03:13:14";
+		String str3 = "user" + "!!!@@@###" + "kath" + "$$$%%%^^^" + "i am fine thank you" + "&&&***(((" + "2014-05-08 03:13:17";
+		aList.add(str1);
+		aList.add(str2);
+		aList.add(str3);
+		getIntent().putStringArrayListExtra("conversation", aList);
+	}
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_message);
 		thisUser = getIntent().getExtras().getString("user");
+		if(getIntent().hasExtra("create-message-test") && !getIntent().hasExtra("conversation"))
+		{
+			testConversationLoading();
+		}
 		if(getIntent().hasExtra("conversation") )
 			conversation = new ArrayList<String>(getIntent().getStringArrayListExtra("conversation"));
 		else
@@ -111,14 +132,19 @@ public class CreateMessageActivity extends Activity {
 			SimpleAdapter simpleAdpt = new SimpleAdapter(getApplicationContext(), messageThread, android.R.layout.simple_list_item_1, new String[] {"message"}, new int[] {android.R.id.text1});
 			lv.setAdapter(simpleAdpt);
 		}
-		
+
 		/*if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}*/
 	}
 
-
+	public boolean returnMessageSuccess()
+	{
+		return testMessageSuccess;
+	}
+	
+	
 	public void sendMessage(View view)
 	{
 		if(validateFormInput())
@@ -142,6 +168,114 @@ public class CreateMessageActivity extends Activity {
 			return false;
 	}
 
+	
+	public void processServerResponse(String result)
+	{
+		boolean useToMessage = false;
+		boolean success = false;
+		try
+		{
+			int index = result.indexOf("bin/php");	
+			if(index >= 0)
+				result = result.substring(index+7).trim();
+			else
+				result = result.trim();
+			JSONObject jObj = new JSONObject(result);
+			if(jObj.has("result") && jObj.optString("result").equals("1"))
+			{
+				Toast.makeText(getApplicationContext(), "Sent message", Toast.LENGTH_SHORT);
+				success = true;
+				useToMessage = true;
+				testMessageSuccess = true;
+				return;
+			}
+			else if(jObj.has("list"))
+			{
+				JSONArray jArray = jObj.getJSONArray("list");
+				allUsers = new ArrayList<String>();
+				for(int i=0; i < jArray.length(); i++)
+				{
+					String obj = jArray.get(i).toString();
+					allUsers.add(obj);
+				}
+				allUsers.remove(getIntent().getExtras().getString("user"));
+				//Toast.makeText(getApplicationContext(), "Downloaded all users info", Toast.LENGTH_SHORT).show();;
+				//success = true;
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), "Message not sent!" , Toast.LENGTH_LONG).show();
+				useToMessage = true;
+				testMessageSuccess = false;
+				return;
+			}
+		}
+		catch(JSONException e)
+		{
+			Toast.makeText(getApplicationContext(), "Error" + e.toString(),
+					Toast.LENGTH_SHORT).show();
+		}
+		if(useToMessage)
+		{
+			finish();
+			getIntent().putExtra("calling-activity", "CreateMessageActivity");
+			if(success)
+			{	
+				EditText et1 = (EditText) findViewById (R.id.newMessage);
+				Spinner spin = (Spinner) findViewById (R.id.recepList);
+				String toUser = String.valueOf(spin.getSelectedItem());
+				Date d = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+
+				String newMessage = getIntent().getExtras().getString("user") + "!!!@@@###" +
+						toUser + "$$$%%%^^^" +
+						et1.getText().toString() + "&&&***(((" +
+						sdf.format(d);
+				conversation.add(newMessage);
+				getIntent().removeExtra("conversation");
+				getIntent().putStringArrayListExtra("conversation", conversation);
+				
+			}
+			startActivity(getIntent());
+		}
+		else
+		{
+			ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(),
+					android.R.layout.simple_spinner_item, allUsers);
+			dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			Spinner spin = (Spinner) findViewById(R.id.recepList);
+			spin.setAdapter(dataAdapter);
+			if(getIntent().hasExtra("conversation"))
+			{
+				int index1 = conversation.get(0).indexOf("!!!@@@###");
+				int index2 = conversation.get(0).indexOf("$$$%%%^^^");
+				String sender = conversation.get(0).substring(0, index1);
+				String recepient = conversation.get(0).substring(index1+9, index2);
+				String reqName = null;
+				if(getIntent().getExtras().getString("user").equals(sender))
+					reqName = recepient;
+				else
+					reqName = sender;
+				testRecepient = reqName;
+				System.out.println("the recippp is " + reqName);
+				ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+				int spinnerPosition = myAdap.getPosition(reqName);
+				spin.setSelection(spinnerPosition);
+				spin.setEnabled(false);
+			}
+			if(getIntent().hasExtra("toUser"))
+			{
+				ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
+				System.out.println(getIntent().getExtras().getString("toUser"));
+				int spinnerPosition = myAdap.getPosition(getIntent().getExtras().getString("toUser"));
+				spin.setSelection(spinnerPosition);
+				spin.setEnabled(false); 
+			}
+
+		}
+
+	}
+	
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
 		@Override
 		protected String doInBackground(String...urls) 
@@ -154,102 +288,9 @@ public class CreateMessageActivity extends Activity {
 		protected void onPostExecute(String result) 
 		{
 			//Toast.makeText(getBaseContext(), "Data Sent!" + " " + result , Toast.LENGTH_LONG).show();
-			boolean useToMessage = false;
-			boolean success = false;
-			try
-			{
-				int index = result.indexOf("bin/php");	
-				if(index >= 0)
-					result = result.substring(index+7).trim();
-				else
-					result = result.trim();
-				JSONObject jObj = new JSONObject(result);
-				if(jObj.has("result") && jObj.optString("result").equals("1"))
-				{
-					Toast.makeText(getApplicationContext(), "Sent message", Toast.LENGTH_SHORT);
-					success = true;
-					useToMessage = true;
-				}
-				else if(jObj.has("list"))
-				{
-					JSONArray jArray = jObj.getJSONArray("list");
-					allUsers = new ArrayList<String>();
-					for(int i=0; i < jArray.length(); i++)
-					{
-						String obj = jArray.get(i).toString();
-						allUsers.add(obj);
-					}
-					allUsers.remove(getIntent().getExtras().getString("user"));
-					//Toast.makeText(getApplicationContext(), "Downloaded all users info", Toast.LENGTH_SHORT).show();;
-					//success = true;
-				}
-				else
-				{
-					Toast.makeText(getApplicationContext(), "Message not sent!" , Toast.LENGTH_LONG).show();
-					useToMessage = true;
-				}
-			}
-			catch(JSONException e)
-			{
-				Toast.makeText(getApplicationContext(), "Error" + e.toString(),
-						Toast.LENGTH_SHORT).show();
-			}
-			if(useToMessage)
-			{
-				finish();
-				getIntent().putExtra("calling-activity", "CreateMessageActivity");
-				if(success)
-				{	
-					EditText et1 = (EditText) findViewById (R.id.newMessage);
-					Spinner spin = (Spinner) findViewById (R.id.recepList);
-					String toUser = String.valueOf(spin.getSelectedItem());
-					Date d = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+			processServerResponse(result);
 
-					String newMessage = getIntent().getExtras().getString("user") + "!!!@@@###" +
-							toUser + "$$$%%%^^^" +
-							et1.getText().toString() + "&&&***(((" +
-							sdf.format(d);
-					conversation.add(newMessage);
-					getIntent().removeExtra("conversation");
-					getIntent().putStringArrayListExtra("conversation", conversation);
-				}
-				startActivity(getIntent());
-			}
-			else
-			{
-				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getApplicationContext(),
-						android.R.layout.simple_spinner_item, allUsers);
-				dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				Spinner spin = (Spinner) findViewById(R.id.recepList);
-				spin.setAdapter(dataAdapter);
-				if(getIntent().hasExtra("conversation"))
-				{
-					int index1 = conversation.get(0).indexOf("!!!@@@###");
-					int index2 = conversation.get(0).indexOf("$$$%%%^^^");
-					String sender = conversation.get(0).substring(0, index1);
-					String recepient = conversation.get(0).substring(index1+9, index2);
-					String reqName = null;
-					if(getIntent().getExtras().getString("user").equals(sender))
-						reqName = recepient;
-					else
-						reqName = sender;
-					System.out.println("the recip is " + recepient);
-					ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
-					int spinnerPosition = myAdap.getPosition(reqName);
-					spin.setSelection(spinnerPosition);
-					spin.setEnabled(false);
-				}
-				if(getIntent().hasExtra("toUser"))
-				{
-					ArrayAdapter myAdap = (ArrayAdapter) spin.getAdapter(); 
-					System.out.println(getIntent().getExtras().getString("toUser"));
-					int spinnerPosition = myAdap.getPosition(getIntent().getExtras().getString("toUser"));
-					spin.setSelection(spinnerPosition);
-					spin.setEnabled(false); 
-				}
 
-			}
 		}
 	}
 
@@ -335,24 +376,24 @@ public class CreateMessageActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.create_message, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.create_message, menu);
+		return true;
 	}
-	
+
 	/** Called when the user clicks the Action Bar - Menu button */
 	public void goToMyProfile(MenuItem item){
 		Intent intent = new Intent(this, MyProfile.class);
 		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
-	
+
 	/** Called when the user clicks the Action Bar - Menu button */
 	public void goToMenu(MenuItem item){
 		Intent intent = new Intent(this, MenuActivity.class);
 		intent.putExtra("user", thisUser);
 		startActivity(intent);
 	}
-	
+
 
 }
