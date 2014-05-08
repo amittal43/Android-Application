@@ -50,15 +50,17 @@ public class LendOptionSubmit extends Activity {
 		thisUser = getIntent().getExtras().getString("user");
 		//Toast.makeText(this, thisUser, Toast.LENGTH_LONG).show();
 
-		Bundle bundle = getIntent().getExtras();
+		//Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
-		title = bundle.getString("TITLE");
-		category = bundle.getString("CATEGORY");
-		quality = bundle.getString("QUALITY");
-		description = bundle.getString("DESCRIPTION");
-		price = Double.toString(bundle.getDouble("PRICE"));
-		duedate = bundle.getString("DUEDATE");
-		imagePath = bundle.getString("IMAGE");
+		
+		
+		title = getIntent().getExtras().getString("TITLE");
+		category = getIntent().getExtras().getString("CATEGORY");
+		quality = getIntent().getExtras().getString("QUALITY");
+		description = getIntent().getExtras().getString("DESCRIPTION");
+		price = Double.toString(getIntent().getExtras().getDouble("PRICE"));
+		duedate = getIntent().getExtras().getString("DUEDATE");
+		imagePath = getIntent().getExtras().getString("IMAGE");
 
 		//Toast.makeText(this, thisUser + " " + title + " " + category + " " + quality + " " + description + " " + price + " " +duedate, Toast.LENGTH_LONG).show();
 		/*cal = Calendar.getInstance();

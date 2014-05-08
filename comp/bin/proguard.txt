@@ -125,7 +125,7 @@
 # onClick res/layout/activity_show_product_exchange.xml #generated:100
 -keepclassmembers class * { *** borrow(...); }
 
-# onClick res/layout/activity_show_product.xml #generated:134
+# onClick res/layout/activity_show_product.xml #generated:135
 -keepclassmembers class * { *** buy(...); }
 
 # onClick res/layout/activity_message.xml #generated:38
@@ -135,7 +135,7 @@
 # onClick res/menu/edit_info.xml #generated:14
 # onClick res/menu/lend_option.xml #generated:15
 # onClick res/menu/lend_option_submit.xml #generated:14
-# onClick res/menu/menu.xml #generated:14
+# onClick res/menu/menu.xml #generated:15
 # onClick res/menu/message.xml #generated:14
 # onClick res/menu/my_profile.xml #generated:13
 # onClick res/menu/search.xml #generated:14
@@ -152,7 +152,7 @@
 # onClick res/menu/edit_info.xml #generated:6
 # onClick res/menu/lend_option.xml #generated:7
 # onClick res/menu/lend_option_submit.xml #generated:6
-# onClick res/menu/menu.xml #generated:6
+# onClick res/menu/menu.xml #generated:7
 # onClick res/menu/message.xml #generated:6
 # onClick res/menu/my_profile.xml #generated:5
 # onClick res/menu/search.xml #generated:6
@@ -168,7 +168,7 @@
 # onClick res/layout/activity_menu.xml #generated:59
 -keepclassmembers class * { *** lendOption(...); }
 
-# onClick res/layout/activity_lend_option.xml #generated:279
+# onClick res/layout/activity_lend_option.xml #generated:280
 -keepclassmembers class * { *** lendOptionSubmit(...); }
 
 # onClick res/layout/activity_create_user.xml #generated:72
@@ -191,6 +191,9 @@
 # onClick res/layout/activity_menu.xml #generated:46
 -keepclassmembers class * { *** openSearchResult(...); }
 
+# onClick res/layout/activity_message.xml #generated:46
+-keepclassmembers class * { *** refresh(...); }
+
 # onClick res/layout/activity_message.xml #generated:29
 -keepclassmembers class * { *** search(...); }
 
@@ -206,7 +209,7 @@
 # onClick res/layout/activity_sell_option.xml #generated:247
 -keepclassmembers class * { *** setAuctionDate(...); }
 
-# onClick res/layout/activity_lend_option.xml #generated:257
+# onClick res/layout/activity_lend_option.xml #generated:258
 -keepclassmembers class * { *** showDatePickerDialog(...); }
 
 # onClick res/layout/activity_menu.xml #generated:72

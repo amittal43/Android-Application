@@ -219,19 +219,29 @@ public class SellOption extends Activity {
 				String end = sdf.format(d);
 				System.out.println("Auction end date is " + end);
 				Intent intent = new Intent(this, SellOptionSubmit.class);
-				Bundle bundle = new Bundle();
+				//Bundle bundle = new Bundle();
 				if(cb.isChecked())
-					bundle.putBoolean("auction", true);
+					intent.putExtra("auction", true);
+					//bundle.putBoolean("auction", true);
 				else
-					bundle.putBoolean("auction", false);
-				bundle.putString("DATE", end);
-				bundle.putString("TITLE", title);
-				bundle.putString("CATEGORY", category);
-				bundle.putString("QUALITY", quality);
-				bundle.putString("DESCRIPTION", description);
-				bundle.putDouble("PRICE", priceDouble);
-				bundle.putString("IMAGE", imagePath);
-				intent.putExtras(bundle);
+					intent.putExtra("auction", false);
+					//bundle.putBoolean("auction", false);
+				
+				//bundle.putString("DATE", end);
+				intent.putExtra("DATE", end);
+				//bundle.putString("TITLE", title);
+				intent.putExtra("TITLE", title);
+				//bundle.putString("CATEGORY", category);
+				intent.putExtra("CATEGORY", category);
+				//bundle.putString("QUALITY", quality);
+				intent.putExtra("QUALITY", quality);
+				//bundle.putString("DESCRIPTION", description);
+				intent.putExtra("DESCRIPTION", description);
+				//bundle.putDouble("PRICE", priceDouble);
+				intent.putExtra("PRICE", priceDouble);
+				//bundle.putString("IMAGE", imagePath);
+				intent.putExtra("IMAGE", imagePath);
+				//intent.putExtras(bundle);
 				if(thisUser == null)
 					System.out.println("this user is null");
 				intent.putExtra("user", thisUser);

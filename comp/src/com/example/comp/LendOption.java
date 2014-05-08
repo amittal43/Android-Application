@@ -150,7 +150,7 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 			double priceDouble = Double.parseDouble(price);
 			Intent intent = new Intent(this, LendOptionSubmit.class);
 			intent.putExtra("user", thisUser);
-			Bundle bundle = new Bundle();
+			/*Bundle bundle = new Bundle();
 			bundle.putString("TITLE", title);
 			bundle.putString("CATEGORY", category);
 			bundle.putString("QUALITY", quality);
@@ -158,7 +158,15 @@ public class LendOption extends FragmentActivity implements OnDataPass {
 			bundle.putDouble("PRICE", priceDouble);
 			bundle.putString("DUEDATE", duedate);
 			bundle.putString("IMAGE", imagePath);
-			intent.putExtras(bundle);
+			intent.putExtras(bundle);*/
+			intent.putExtra("TITLE", title);
+			intent.putExtra("CATEGORY", category);
+			intent.putExtra("QUALITY", quality);
+			intent.putExtra("DESCRIPTION", description);
+			intent.putExtra("PRICE", priceDouble);
+			intent.putExtra("DUEDATE", duedate);
+			intent.putExtra("IMAGE", imagePath);
+			
 			startActivity(intent);
 
 		//Toast.makeText(this, "Successful",Toast.LENGTH_LONG).show();

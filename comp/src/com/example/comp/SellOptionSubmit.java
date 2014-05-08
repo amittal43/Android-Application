@@ -46,17 +46,17 @@ public class SellOptionSubmit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sell_option_submit);
 		auction = false;
-		Bundle bundle = getIntent().getExtras();
+		//Bundle bundle = getIntent().getExtras();
 		//Extract each value from the bundle for usage
-		title = bundle.getString("TITLE");
+		title = getIntent().getExtras().getString("TITLE");
 		if(getIntent().hasExtra("auction"))
-			auction = bundle.getBoolean("auction");
-		category = bundle.getString("CATEGORY");
-		date = bundle.getString("DATE");
-		quality = bundle.getString("QUALITY");
-		description = bundle.getString("DESCRIPTION");
-		price = Double.toString(bundle.getDouble("PRICE"));
-		imagePath = bundle.getString("IMAGE");
+			auction = getIntent().getExtras().getBoolean("auction");
+		category = getIntent().getExtras().getString("CATEGORY");
+		date = getIntent().getExtras().getString("DATE");
+		quality = getIntent().getExtras().getString("QUALITY");
+		description = getIntent().getExtras().getString("DESCRIPTION");
+		price = Double.toString(getIntent().getExtras().getDouble("PRICE"));
+		imagePath = getIntent().getExtras().getString("IMAGE");
 		thisUser = getIntent().getExtras().getString("user");
 
 		System.out.println("this user value is " + thisUser);
